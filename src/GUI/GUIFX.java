@@ -20,7 +20,7 @@ public class GUIFX extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
     public static void main(String[] args) {
