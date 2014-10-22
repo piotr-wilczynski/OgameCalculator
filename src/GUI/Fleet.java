@@ -13,13 +13,13 @@ public class Fleet extends JPanel{
         
         GridLayout gl = new GridLayout(0,1,0,0);
         setLayout(gl);     
-        BufferedImage[] fleet = IO.getImageMatrix(IO.getImage("fleet.jpg"));        
+        //BufferedImage[] fleet = IO.getImageMatrix(IO.getImage("fleet.jpg"));        
         int size = 40;
-        for(int i=0;i<fleet.length;i++){
-            UnitPanel u = new UnitPanel("Text", fleet[i].getScaledInstance(size, size, Image.SCALE_SMOOTH));
-            add(u);
+        //for(int i=0;i<fleet.length;i++){
+            //UnitPanel u = new UnitPanel("Text", fleet[i].getScaledInstance(size, size, Image.SCALE_SMOOTH));
+            //add(u);
             //add(l);
-        }
+        //}
         setMaximumSize(getPreferredSize());
         setMinimumSize(getPreferredSize());
     }

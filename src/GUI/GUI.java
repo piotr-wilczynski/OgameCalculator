@@ -1,7 +1,7 @@
 
 package GUI;
 
-import java.awt.Image;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
@@ -9,31 +9,44 @@ import javax.swing.JPanel;
 import utilities.IO;
 
 public class GUI extends JFrame{
-    private Image background;
-    
+    Shipyard attacker_shipyard,defender_shipyard;
     Fleet fleet = new Fleet();
     public GUI() {
-        BufferedImage[] def = IO.getImageMatrix(IO.getImage("def.jpg"));
-        JPanel p = new JPanel();
-        //GridLayout gl = new GridLayout(0,1);
-        //p.setLayout(gl);
-        GroupLayout l = new GroupLayout(getContentPane());
-        getContentPane().setLayout(l);
-        l.setHorizontalGroup(l.createParallelGroup()
-            .addComponent(fleet));
-        l.setVerticalGroup(l.createSequentialGroup()
-            .addComponent(fleet));
-        
-        /*
-        int size = 40;
-        for(int i=0;i<def.length-2;i++){
-            JLabel l = new JLabel(new ImageIcon(def[i].getScaledInstance(size, size, Image.SCALE_SMOOTH)));
-            p.add(l);
-        }
-                */
+        //BufferedImage[] def = IO.getImageMatrix(IO.getImage("def.jpg"));
+        //pack();
+        initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pack();
         setVisible(true);
     }
+    private void initComponents(){
+        JPanel p = new ImagePanel(IO.getImage("background.png"));
+        getContentPane().add(p);
+        this.setSize(p.getMaximumSize());
+        
+        attacker_shipyard = new Shipyard();
+        defender_shipyard = new Shipyard();
+        
+        GroupLayout l = new GroupLayout(p);
+        p.setLayout(l);
+        l.setAutoCreateContainerGaps(true);
+        l.setAutoCreateGaps(true);
+        l.setHorizontalGroup(l.createParallelGroup()
+                .addGroup(l.createSequentialGroup()
+                    .addComponent(attacker_shipyard)             
+                    .addGap(50)
+                    .addComponent(defender_shipyard))
+                    );
+        l.setVerticalGroup(l.createSequentialGroup()
+                .addGap(50)
+                .addGroup(l.createParallelGroup()
+                    .addComponent(attacker_shipyard)
+                    .addComponent(defender_shipyard))
+                .addGroup(l.createParallelGroup())
+                    );
+        
+    }
+
+    
+    
         
 }

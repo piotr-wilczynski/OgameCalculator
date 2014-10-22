@@ -12,7 +12,11 @@ public class IO {
         try {
             bi = ImageIO.read(new File("images/"+file));
         } catch (IOException ex) {
-            return null;
+            try {
+                bi = ImageIO.read(IO.class.getResource("/images/"+file));
+            } catch (IOException ex1) {
+                return null;
+            }
         }
         return bi;
     }
@@ -41,10 +45,14 @@ public class IO {
         p.save(out, "");
         out.close();        
     }
-    public static BufferedImage[] getImageMatrix(BufferedImage image){        
-        BufferedImage[] matrix = new BufferedImage[image.getWidth()/image.getHeight()];
-        for(int i=0;i<matrix.length;i++){
-            matrix[i] = image.getSubimage(i*image.getHeight(), 0, image.getHeight(), image.getHeight());
+    public static BufferedImage[][] getImageMatrix(BufferedImage image,int rows,int columns){   
+        if(columns==0||rows==0)
+            return new BufferedImage[0][0];
+        BufferedImage[][] matrix = new BufferedImage[columns][rows];
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                matrix[j][i] = image.getSubimage(j*image.getWidth()/columns,i*image.getHeight()/rows, image.getWidth()/columns, image.getHeight()/rows);
+            }
         }
         return matrix;
     }
