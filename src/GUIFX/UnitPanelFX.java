@@ -1,5 +1,5 @@
 
-package GUI;
+package GUIFX;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +24,7 @@ public class UnitPanelFX extends AnchorPane{
     private Tooltip label_tooltip,textfield_tooltip;
 
     public UnitPanelFX(Unit_Enum unit,Image image) {
+                
         this.image = new ImageView(image);
         this.image.setFitHeight(70);
         this.image.setFitWidth(70);
@@ -67,7 +68,7 @@ public class UnitPanelFX extends AnchorPane{
         textfield.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                setLabel(getText());
+                setLabel(textfield.getText());
             }
         });
         
@@ -76,9 +77,20 @@ public class UnitPanelFX extends AnchorPane{
     public void setText(String text){
         textfield.setText(text);
     }
-    public String getText(){
-        return textfield.getText();
+    
+    public int getNumber(){
+        int number = 0;
+        String text = textfield.getText();
+        System.out.println(text.length());
+        try{
+            if(text.length()>0)
+                number = Integer.parseInt(text);
+            else
+                throw new Exception();
+        }catch(Exception ex){textfield.setText("0");}
+        return 0;
     }
+    
     public void setLabel(String text){
         label_tooltip = new Tooltip(text);
         label_tooltip.setFont(new Font(20));
@@ -86,6 +98,12 @@ public class UnitPanelFX extends AnchorPane{
         label.setText(text);
         label.setVisible(true);
     }
+
+    public Unit_Enum getUnit() {
+        return unit;
+    }
+    
+    
     
     
     

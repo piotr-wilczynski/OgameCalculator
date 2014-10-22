@@ -6,6 +6,7 @@ import simulation.*;
 
 public class main {
     public static void main(String[] args) {
+        /*
         //List<BattleUnit> attacker = new ArrayList<>();
         //List<BattleUnit> defender = new ArrayList<>();
         HashMap<Unit_Enum,Integer> attacker = new HashMap<>();
@@ -42,13 +43,9 @@ public class main {
         Statistics.getStats(defender_stat);
         long end = System.nanoTime();
         System.out.printf("Simulation took %.2g seconds\n", (double)(end-start)/1e9);
+                */
+        new GUI.GUI();
     }
-        
-        
-        
-        
-        
-//new GUI.GUI();
     
 
     

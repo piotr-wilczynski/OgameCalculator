@@ -1,6 +1,7 @@
 
 package GUI;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
@@ -8,7 +9,8 @@ import javax.swing.JPanel;
 import utilities.IO;
 
 public class GUI extends JFrame{
-
+    private Image background;
+    
     Fleet fleet = new Fleet();
     public GUI() {
         BufferedImage[] def = IO.getImageMatrix(IO.getImage("def.jpg"));
