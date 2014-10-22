@@ -1,12 +1,18 @@
 
 package GUI;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import simulation.Unit_Enum;
 import utilities.IO;
 
@@ -18,9 +24,32 @@ public class UnitPanel extends JPanel{
     private JTextField textfield;
     public UnitPanel(Unit_Enum unit) {  
         images = getImage(unit);
-        background = images[0];
-        background2 = IO.getImage("labels.gif");
+        background2 = IO.getImage("labels.gif");  
+        initComonents();
+    }
+    
+    private void initComonents(){
+        background = images[0];     
+        label = new JLabel("0");
+        label.setHorizontalAlignment(JLabel.TRAILING);
+        label.setForeground(Color.RED);
+        Font f = label.getFont();
+        label.setFont(new java.awt.Font(f.getName(), Font.BOLD, 11));
+        label.setBorder(new EmptyBorder(0, 5, 0, 5));
+        setLayout(new BorderLayout());
+        add(label,BorderLayout.PAGE_END);
+        
+        textfield = new JTextField("0",10);
+        textfield.setOpaque(false);
+        f = textfield.getFont();
+        textfield.setFont(new java.awt.Font(f.getName(), Font.BOLD, 11));
+        textfield.setBorder(new EmptyBorder(0, 5, 0, 5));
+        textfield.setHorizontalAlignment(textfield.TRAILING);
+        textfield.setForeground(new Color(255,193,7));
+        add(textfield,BorderLayout.PAGE_START);
+        
         setMaximumSize(new Dimension(background.getWidth(), background.getHeight()));
+        
     }
     
     private  BufferedImage[] getImage(Unit_Enum unit){
@@ -65,13 +94,12 @@ public class UnitPanel extends JPanel{
     
 
     public String getText() {
-        return text.getText();
+        return textfield.getText();
     }
 
     public void setText(String text) {
-        this.text.setText(text);
+        this.textfield.setText(text);
     }
     
-    private JTextField text;
     
 }
