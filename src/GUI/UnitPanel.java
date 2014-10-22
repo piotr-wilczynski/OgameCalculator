@@ -6,13 +6,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import javax.swing.GroupLayout;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import simulation.Unit_Enum;
 import utilities.IO;
 
@@ -21,8 +22,10 @@ public class UnitPanel extends JPanel{
     private final BufferedImage background2;
     private final BufferedImage images[];
     private JLabel label;
-    private JTextField textfield;
+    private JFormattedTextField textfield;
+    private Unit_Enum unit;
     public UnitPanel(Unit_Enum unit) {  
+        this.unit = unit;
         images = getImage(unit);
         background2 = IO.getImage("labels.gif");  
         initComonents();
@@ -39,7 +42,7 @@ public class UnitPanel extends JPanel{
         setLayout(new BorderLayout());
         add(label,BorderLayout.PAGE_END);
         
-        textfield = new JTextField("0",10);
+        textfield = new JFormattedTextField("0");
         textfield.setOpaque(false);
         f = textfield.getFont();
         textfield.setFont(new java.awt.Font(f.getName(), Font.BOLD, 11));
@@ -50,6 +53,18 @@ public class UnitPanel extends JPanel{
         
         setMaximumSize(new Dimension(background.getWidth(), background.getHeight()));
         
+        addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(isEnabled()){
+                    textfield.requestFocus();
+                    textfield.setSelectionStart(0);
+                    textfield.setSelectionEnd(textfield.getText().length());
+                }
+            }
+            
+        });
     }
     
     private  BufferedImage[] getImage(Unit_Enum unit){
@@ -90,11 +105,31 @@ public class UnitPanel extends JPanel{
         g.drawImage(background, 0, 0, null);
         g.drawImage(background2, 0, 0, null);
     }
-    
-    
 
-    public String getText() {
-        return textfield.getText();
+    @Override
+    public void setEnabled(boolean enabled) {
+        if(enabled){
+            background = images[0];
+            textfield.setEditable(enabled);
+        }else{
+            background = images[2];
+            textfield.setEditable(enabled);
+        }
+        super.setEnabled(enabled);
+    }    
+
+    public Unit_Enum getUnit() {
+        return unit;
+    }
+
+    public int getNumber() {
+        int i = 0;
+        try{
+            Integer.parseInt(textfield.getText());
+        }catch(NumberFormatException ex){
+            return 0;
+        }
+        return i;
     }
 
     public void setText(String text) {
