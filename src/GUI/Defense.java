@@ -1,22 +1,34 @@
 
 package GUI;
 
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import simulation.Unit_Enum;
 import utilities.IO;
 
 public class Defense extends ImagePanel{
     private UnitPanel[] defense;
-    public Defense() {
-        super(IO.getImage("Defense.jpg"));        
+    private JLabel label;
+    public Defense(String text) {
+        super(IO.getImage("Defense.jpg")); 
+        label = new JLabel(text);       
         initComponents();
     }
     private void initComponents(){
-        JPanel defense_pane = new JPanel();
+        JPanel defense_pane = new JPanel();        
         defense_pane.setOpaque(false);
-                
+        
+        label.setForeground(Color.WHITE);
+        Font f = label.getFont();
+        label.setBorder(new EmptyBorder(-1, -1,-1, -1));
+        label.setFont(new Font(f.getName(), Font.BOLD, 26));               
+        
         defense = new UnitPanel[14];
         defense[0] = new UnitPanel(Unit_Enum.Rocket_Launcher);
         defense[1] = new UnitPanel(Unit_Enum.Light_Laser);
@@ -36,15 +48,23 @@ public class Defense extends ImagePanel{
         l.setHorizontalGroup(l.createParallelGroup()
             .addGroup(l.createSequentialGroup()
                 .addComponent(defense[0])
+                    .addGap(5,10,20)
                 .addComponent(defense[1])
+                    .addGap(5,10,20)
                 .addComponent(defense[2])
+                    .addGap(5,10,20)
                 .addComponent(defense[3])
+                    .addGap(5,10,20)
                 .addComponent(defense[4])
+                    .addGap(5,10,20)
                 .addComponent(defense[5]))
             .addGroup(l.createSequentialGroup()
                 .addComponent(defense[6])
+                    .addGap(5,10,20)
                 .addComponent(defense[7])
+                    .addGap(5,10,20)
                 .addComponent(defense[8])
+                    .addGap(5,10,20)
                 .addComponent(defense[9])));
         l.setVerticalGroup(l.createSequentialGroup()
             .addGroup(l.createParallelGroup()
@@ -60,15 +80,14 @@ public class Defense extends ImagePanel{
                 .addComponent(defense[8])
                 .addComponent(defense[9])));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-         
         l = new GroupLayout(this);
         l.setAutoCreateGaps(true);
-        l.setAutoCreateContainerGaps(true);
         setLayout(l);
-        l.setHorizontalGroup(l.createSequentialGroup()
+        l.setHorizontalGroup(l.createParallelGroup(GroupLayout.Alignment.CENTER)
+            .addComponent(label)
             .addComponent(defense_pane));
         l.setVerticalGroup(l.createSequentialGroup()
-                .addGap(30)
+                .addComponent(label)
                 .addComponent(defense_pane)                 
          );
                  

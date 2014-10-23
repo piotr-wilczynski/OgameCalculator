@@ -1,7 +1,6 @@
 
 package GUI;
 
-import javafx.embed.swing.JFXPanel;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,16 +21,17 @@ public class GUI extends JFrame{
         this.setSize(p.getMaximumSize());
         JPanel options = new JPanel();
         options.setOpaque(false);
-        attacker_shipyard = new Shipyard();
-        defender_shipyard = new Shipyard();
-        defense = new Defense();
+        attacker_shipyard = new Shipyard("Stocznia agresora");
+        defender_shipyard = new Shipyard("Stocznia obrońcy");
+        defense = new Defense("Obrona obrońcy");
         attacker_shipyard.get(Unit_Enum.Solar_Satellite).setEnabled(false);
+        defense.get(Unit_Enum.Interplanetary_Missiles).setEnabled(false);
         
         GroupLayout l = new GroupLayout(p);
         p.setLayout(l);
         l.setAutoCreateContainerGaps(true);
         l.setAutoCreateGaps(true);
-        l.setHorizontalGroup(l.createParallelGroup()
+        l.setHorizontalGroup(l.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addGroup(l.createSequentialGroup()
                     .addComponent(attacker_shipyard)             
                     .addGap(50)

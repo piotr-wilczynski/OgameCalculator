@@ -6,10 +6,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -22,7 +23,7 @@ public class UnitPanel extends JPanel{
     private final BufferedImage background2;
     private final BufferedImage images[];
     private JLabel label;
-    private JFormattedTextField textfield;
+    private JTextField textfield;
     private Unit_Enum unit;
     public UnitPanel(Unit_Enum unit) {  
         this.unit = unit;
@@ -33,7 +34,7 @@ public class UnitPanel extends JPanel{
     
     private void initComonents(){
         background = images[0];     
-        label = new JLabel("0");
+        label = new JLabel();
         label.setHorizontalAlignment(JLabel.TRAILING);
         label.setForeground(Color.RED);
         Font f = label.getFont();
@@ -42,7 +43,7 @@ public class UnitPanel extends JPanel{
         setLayout(new BorderLayout());
         add(label,BorderLayout.PAGE_END);
         
-        textfield = new JFormattedTextField("0");
+        textfield = new JTextField("0");
         textfield.setOpaque(false);
         f = textfield.getFont();
         textfield.setFont(new java.awt.Font(f.getName(), Font.BOLD, 11));
@@ -50,6 +51,25 @@ public class UnitPanel extends JPanel{
         textfield.setHorizontalAlignment(textfield.TRAILING);
         textfield.setForeground(new Color(255,193,7));
         add(textfield,BorderLayout.PAGE_START);
+        
+        textfield.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if("0123456789".indexOf(e.getKeyChar())==-1){
+                    e.consume();
+                    String text = textfield.getText().replaceAll("[^0-9]", "");
+                    if(text.length()>0){
+                        textfield.setText(""+Integer.parseInt(text));
+                    }else
+                        textfield.setText(text);
+                }
+            }
+            
+            
+            
+        });
+        
         
         setMaximumSize(new Dimension(background.getWidth(), background.getHeight()));
         
@@ -103,17 +123,23 @@ public class UnitPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, null);
-        g.drawImage(background2, 0, 0, null);
+        if(isEnabled()){
+            if(label.getText().length()==0)
+                g.drawImage(background2.getSubimage(0, 0, background2.getWidth(), background2.getHeight()/2), 0, 0, null);
+                else
+            g.drawImage(background2, 0, 0, null);
+            
+        }
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         if(enabled){
             background = images[0];
-            textfield.setEditable(enabled);
+            textfield.setVisible(enabled);
         }else{
             background = images[2];
-            textfield.setEditable(enabled);
+            textfield.setVisible(enabled);
         }
         super.setEnabled(enabled);
     }    
@@ -134,6 +160,10 @@ public class UnitPanel extends JPanel{
 
     public void setText(String text) {
         this.textfield.setText(text);
+    }
+    
+    public void setLabel(String text){
+        label.setText(text);
     }
     
     

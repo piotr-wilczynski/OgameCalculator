@@ -1,18 +1,23 @@
 
 package GUI;
 
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import simulation.Unit_Enum;
 import utilities.IO;
 
 public class Shipyard extends ImagePanel{
     
     private UnitPanel[] ships;
-    
-    public Shipyard() {
+    private JLabel label;
+    public Shipyard(String text) {
         super(IO.getImage("Shipyard.jpg"));
+        label = new JLabel(text);
         initComponents();
     }
     
@@ -22,6 +27,11 @@ public class Shipyard extends ImagePanel{
         Combat_ships.setOpaque(false);
         Civil_ships.setOpaque(false);
                 
+        label.setForeground(Color.WHITE);
+        Font f = label.getFont();
+        label.setBorder(new EmptyBorder(-1, -1,-1, -1));
+        label.setFont(new Font(f.getName(), Font.BOLD, 26));
+        
         ships = new UnitPanel[14];
         ships[0] = new UnitPanel(Unit_Enum.Light_Fighter);
         ships[1] = new UnitPanel(Unit_Enum.Heavy_Fighter);
@@ -92,13 +102,14 @@ public class Shipyard extends ImagePanel{
          
         l = new GroupLayout(this);
         l.setAutoCreateGaps(true);
-        l.setAutoCreateContainerGaps(true);
         setLayout(l);
-        l.setHorizontalGroup(l.createSequentialGroup()
-            .addComponent(Combat_ships)
-            .addComponent(Civil_ships));
+        l.setHorizontalGroup(l.createParallelGroup(GroupLayout.Alignment.CENTER)
+                .addComponent(label)
+                .addGroup(l.createSequentialGroup()
+                    .addComponent(Combat_ships)
+                    .addComponent(Civil_ships)));
         l.setVerticalGroup(l.createSequentialGroup()
-                .addGap(30)
+                .addComponent(label)
                 .addGroup(
                     l.createParallelGroup()
                         .addComponent(Combat_ships)
