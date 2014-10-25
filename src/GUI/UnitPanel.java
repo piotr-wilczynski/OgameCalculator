@@ -34,7 +34,7 @@ public class UnitPanel extends JPanel{
     
     private void initComonents(){
         background = images[0];     
-        label = new JLabel();
+        label = new JLabel("0");
         label.setHorizontalAlignment(JLabel.TRAILING);
         label.setForeground(Color.RED);
         Font f = label.getFont();
@@ -137,9 +137,11 @@ public class UnitPanel extends JPanel{
         if(enabled){
             background = images[0];
             textfield.setVisible(enabled);
+            label.setEnabled(enabled);
         }else{
             background = images[2];
             textfield.setVisible(enabled);
+            label.setVisible(enabled);
         }
         super.setEnabled(enabled);
     }    

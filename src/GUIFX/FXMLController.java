@@ -146,8 +146,8 @@ public class FXMLController implements Initializable {
                     defender.put(defense2panel[i].getUnit(),defense2panel[i].getNumber());
                 }
                 */
-                //attacker.put(Unit_Enum.Cruiser, 1000);
-                //defender.put(Unit_Enum.Light_Laser, 10000);
+                attacker.put(Unit_Enum.Cruiser, 1000);
+                defender.put(Unit_Enum.Light_Laser, 10000);
                 //defender.put(Unit_Enum.Light_Laser, 8);
 
                 ThreadGroup threads = new ThreadGroup("Simulations");
