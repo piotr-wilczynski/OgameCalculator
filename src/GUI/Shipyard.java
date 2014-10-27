@@ -120,7 +120,7 @@ public class Shipyard extends ImagePanel{
     
     public UnitPanel get(Unit_Enum unit){
         for(UnitPanel u:ships){
-            if(u.getUnit().equals(unit))
+            if(((Unit_Enum)u.getObject()).equals(unit))
                 return u;
         }
         return null;

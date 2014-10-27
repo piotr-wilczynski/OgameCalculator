@@ -18,6 +18,7 @@ public class GUI extends JFrame{
     }
     private void initComponents(){
         JPanel p = new ImagePanel(IO.getImage("background.png"));
+        p.setOpaque(true);
         getContentPane().add(p);
         this.setSize(p.getMaximumSize());
         JPanel options = new JPanel();
@@ -27,7 +28,7 @@ public class GUI extends JFrame{
         defense = new Defense("Obrona obrońcy");
         attacker_shipyard.get(Unit_Enum.Solar_Satellite).setEnabled(false);
         defense.get(Unit_Enum.Interplanetary_Missiles).setEnabled(false);
-        technology = new Technology();
+        technology = new Technology("Badania");
         
         GroupLayout l = new GroupLayout(p);
         p.setLayout(l);

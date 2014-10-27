@@ -8,7 +8,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import simulation.Unit_Enum;
 import utilities.IO;
 
@@ -95,7 +94,7 @@ public class Defense extends ImagePanel{
     
     public UnitPanel get(Unit_Enum unit){
         for(UnitPanel u:defense){
-            if(u.getUnit().equals(unit))
+            if(((Unit_Enum)u.getObject()).equals(unit))
                 return u;
         }
         return null;

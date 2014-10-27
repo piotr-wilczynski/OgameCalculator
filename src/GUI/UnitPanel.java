@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import simulation.Research_Enum;
 import simulation.Unit_Enum;
 import utilities.IO;
 
@@ -24,17 +25,27 @@ public class UnitPanel extends JPanel{
     private final BufferedImage images[];
     private JLabel label;
     private JTextField textfield;
-    private Unit_Enum unit;
+    private Object object;
+    
     public UnitPanel(Unit_Enum unit) {  
-        this.unit = unit;
+        this.object = unit;
         images = getImage(unit);
         background2 = IO.getImage("labels.gif");  
         initComonents();
     }
+
+    public UnitPanel(Research_Enum research) {
+        this.object = research;
+        images = getImage(research);
+        background2 = IO.getImage("labels.gif");  
+        initComonents();
+    }
+    
+    
     
     private void initComonents(){
         background = images[0];     
-        label = new JLabel("0");
+        label = new JLabel();
         label.setHorizontalAlignment(JLabel.TRAILING);
         label.setForeground(Color.RED);
         Font f = label.getFont();
@@ -117,9 +128,33 @@ public class UnitPanel extends JPanel{
             case Anti_Ballistic_Missiles: return defense[9];
             case Interplanetary_Missiles: return defense[10];
         }
-        return ships[0];
+        return null;
     }
-
+    
+    private BufferedImage[] getImage(Research_Enum research){
+        BufferedImage[][]researches = IO.getImageMatrix(IO.getImage("technologies.png"), 3, Research_Enum.values().length);
+        switch(research){
+            case Espionage_Technology: return researches[0];
+            case Computer_Technology: return researches[1];
+            case Weapons_Technology: return researches[2];
+            case Shielding_Technology: return researches[3];
+            case Armour_Technology: return researches[4];
+            case Energy_Technology: return researches[5];
+            case Hyperspace_Technology: return researches[6];
+            case Combustion_Drive: return researches[7];
+            case Impulse_Drive: return researches[8];
+            case Hyperspace_Drive: return researches[9];
+            case Laser_Technology: return researches[10];
+            case Ion_Technology: return researches[11];
+            case Plasma_Technology: return researches[12];
+            case Intergalactic_Research_Network: return researches[13];
+            case Graviton_Technology: return researches[14];
+            case Astrophysics: return researches[15];
+        }       
+        
+        return null;
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, null);
@@ -146,8 +181,8 @@ public class UnitPanel extends JPanel{
         super.setEnabled(enabled);
     }    
 
-    public Unit_Enum getUnit() {
-        return unit;
+    public Object getObject() {
+        return object;
     }
 
     public int getNumber() {
