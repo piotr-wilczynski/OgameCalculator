@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -41,6 +42,9 @@ public class UnitPanel extends JPanel{
         initComonents();
     }
     
+    public void addActionListener(ActionListener action){
+        textfield.addActionListener(action);
+    }
     
     
     private void initComonents(){
@@ -79,8 +83,7 @@ public class UnitPanel extends JPanel{
             
             
             
-        });
-        
+        });        
         
         setMaximumSize(new Dimension(background.getWidth(), background.getHeight()));
         
@@ -188,8 +191,9 @@ public class UnitPanel extends JPanel{
     public int getNumber() {
         int i = 0;
         try{
-            Integer.parseInt(textfield.getText());
+            i = Integer.parseInt(textfield.getText());
         }catch(NumberFormatException ex){
+            textfield.setText(""+0);
             return 0;
         }
         return i;
@@ -201,6 +205,15 @@ public class UnitPanel extends JPanel{
     
     public void setLabel(String text){
         label.setText(text);
+        try{
+            int field = Integer.parseInt(this.textfield.getText());
+            double lab = Double.parseDouble(label.getText());
+            if( field==lab  && field ==0){
+                label.setText("");
+            }
+        }catch(NumberFormatException ex){
+            
+        }
     }
     
     

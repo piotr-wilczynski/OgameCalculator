@@ -19,6 +19,20 @@ public class Technologies {
         this.Hyperspace_Drive = Hyperspace_Drive;
     }
 
+    public Technologies() {    
+        reset();
+    }
+    
+    public void reset(){
+        this.Weapons_Technology = 0;
+        this.Shielding_Technology = 0;
+        this.Armour_Technology = 0;
+        this.Combustion_Drive = 0;
+        this.Impulse_Drive = 0;
+        this.Hyperspace_Drive = 0;        
+    }
+    
+
     public int getWeapons_Technology() {
         return Weapons_Technology;
     }

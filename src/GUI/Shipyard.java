@@ -3,6 +3,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
@@ -124,6 +125,12 @@ public class Shipyard extends ImagePanel{
                 return u;
         }
         return null;
+    }
+    
+    public void addActionListener(ActionListener action){
+        for(UnitPanel u:ships){
+            u.addActionListener(action);
+        }
     }
     
 }

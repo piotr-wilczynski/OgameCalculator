@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -129,4 +130,13 @@ public class Technology extends ImagePanel{
                 .addComponent(panel));                 
     }
     
+    public void addActionListener(ActionListener action){
+        for(UnitPanel u:attacker){
+            u.addActionListener(action);
+        }
+        for(UnitPanel u:defender){
+            u.addActionListener(action);
+        }
+        
+    }
 }

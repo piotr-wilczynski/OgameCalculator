@@ -2,6 +2,7 @@
 package simulation;
 
 import Statistics.Statistics;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -20,10 +21,9 @@ public class Simulation extends Thread{
         this.defender = defender;
         this.attacker_tech = attacket_tech;
         this.defender_tech = defender_tech;
-        attacker_statistics = new Statistics();
-        defender_statistics = new Statistics();
         random = new Random();
-    }    
+    }   
+    
     @Override
     public void run(){
         BattleUnit[] a,d;
@@ -46,8 +46,10 @@ public class Simulation extends Thread{
                 sum_d++;
             }
         }
-        Single_Simulation2(a, d);         
+        Single_Simulation(a, d);                
     }
+    
+    
     
     public Statistics getAttacker_Statistics(){
         return attacker_statistics;
@@ -57,22 +59,23 @@ public class Simulation extends Thread{
         return defender_statistics;
     }
     
-    private void Single_Simulation2(BattleUnit[] attacker,BattleUnit[] defender){  
+    private void Single_Simulation(BattleUnit[] attacker,BattleUnit[] defender){  
         for(int i=0;i<6;i++){
-            Attack_All2(attacker, defender, defender_tech);
-            Attack_All2(defender, attacker, attacker_tech);   
-            attacker = Clear_After_Round2(attacker,attacker_tech);
-            defender = Clear_After_Round2(defender,defender_tech);
             if(attacker.length==0||defender.length==0)
                 break;
+            Attack_All(attacker, defender, defender_tech);
+            Attack_All(defender, attacker, attacker_tech);   
+            attacker = Clear_After_Round(attacker,attacker_tech);
+            defender = Clear_After_Round(defender,defender_tech);
+            
         } 
-        attacker_statistics.add(attacker);
-        defender_statistics.add(defender);
+        attacker_statistics = new Statistics(attacker);
+        defender_statistics = new Statistics(defender);
         attacker = null;
         defender = null;
     }
     
-    private void Attack_All2(BattleUnit[] attacker, BattleUnit[] defender,Technologies defender_tech){ 
+    private void Attack_All(BattleUnit[] attacker, BattleUnit[] defender,Technologies defender_tech){ 
         for(int i=0;i<attacker.length;i++){
             int r = random.nextInt(defender.length);
             while(attacker[i].Fight(defender[r], defender_tech)){
@@ -80,7 +83,7 @@ public class Simulation extends Thread{
             }
         }        
     }   
-    private BattleUnit[] Clear_After_Round2(BattleUnit[] units,Technologies tech){
+    private BattleUnit[] Clear_After_Round(BattleUnit[] units,Technologies tech){
         int counter = 0;
         for(int i=0;i<units.length;i++){
             if(!units[i].isDestroyed()){

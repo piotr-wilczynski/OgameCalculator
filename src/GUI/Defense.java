@@ -3,6 +3,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
@@ -28,7 +29,7 @@ public class Defense extends ImagePanel{
         label.setBorder(new EmptyBorder(-1, -1,-1, -1));
         label.setFont(new Font(f.getName(), Font.BOLD, 26));               
         
-        defense = new UnitPanel[14];
+        defense = new UnitPanel[10];
         defense[0] = new UnitPanel(Unit_Enum.Rocket_Launcher);
         defense[1] = new UnitPanel(Unit_Enum.Light_Laser);
         defense[2] = new UnitPanel(Unit_Enum.Heavy_Laser);
@@ -90,6 +91,12 @@ public class Defense extends ImagePanel{
                 .addComponent(defense_pane)                 
          );
                  
+    }
+    
+    public void addActionListener(ActionListener action){
+        for(UnitPanel u:defense){
+            u.addActionListener(action);
+        }
     }
     
     public UnitPanel get(Unit_Enum unit){
