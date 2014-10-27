@@ -4,6 +4,7 @@ package GUI;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import lang.GUI_Lang;
 import simulation.Unit_Enum;
 import utilities.IO;
 
@@ -23,12 +24,12 @@ public class GUI extends JFrame{
         this.setSize(p.getMaximumSize());
         JPanel options = new JPanel();
         options.setOpaque(false);
-        attacker_shipyard = new Shipyard("Stocznia agresora");
-        defender_shipyard = new Shipyard("Stocznia obrońcy");
-        defense = new Defense("Obrona obrońcy");
+        attacker_shipyard = new Shipyard(GUI_Lang.getGUI().shipyard_of_argessor);
+        defender_shipyard = new Shipyard(GUI_Lang.getGUI().shipyard_of_defender);
+        defense = new Defense(GUI_Lang.getGUI().defense_of_defender);
         attacker_shipyard.get(Unit_Enum.Solar_Satellite).setEnabled(false);
         defense.get(Unit_Enum.Interplanetary_Missiles).setEnabled(false);
-        technology = new Technology("Badania");
+        technology = new Technology(GUI_Lang.getGUI().research);
         
         GroupLayout l = new GroupLayout(p);
         p.setLayout(l);
