@@ -98,6 +98,7 @@ public class GUI extends JFrame{
     }
     
     private void Action(){
+        //new Clipboard();
         new Worker(1000).execute();
     }
     
