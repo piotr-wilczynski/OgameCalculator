@@ -10,13 +10,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import simulation.Unit_Enum;
-import utilities.IO;
+import utilities.IO_Utilities;
 
 public class Defense extends ImagePanel{
     private UnitPanel[] defense;
     private JLabel label;
     public Defense(String text) {
-        super(IO.getImage("Defense.jpg")); 
+        super(IO_Utilities.getImage("Defense.jpg")); 
         label = new JLabel(text);       
         initComponents();
     }

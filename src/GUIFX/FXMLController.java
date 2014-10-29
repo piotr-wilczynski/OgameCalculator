@@ -125,7 +125,7 @@ public class FXMLController implements Initializable {
     private void Simulate(){
         progress.progressProperty().unbind();
         progress.setProgress(0);
-        Task task = new Task() {
+        Task<Object> task = new Task<Object>() {
             @Override
             protected Object call() throws Exception {                
                 HashMap<Unit_Enum,Integer> attacker = new HashMap<>();

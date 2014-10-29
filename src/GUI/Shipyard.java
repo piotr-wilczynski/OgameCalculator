@@ -10,14 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import simulation.Unit_Enum;
-import utilities.IO;
+import utilities.IO_Utilities;
 
 public class Shipyard extends ImagePanel{
     
     private UnitPanel[] ships;
     private JLabel label;
     public Shipyard(String text) {
-        super(IO.getImage("Shipyard.jpg"));
+        super(IO_Utilities.getImage("Shipyard.jpg"));
         label = new JLabel(text);
         initComponents();
     }

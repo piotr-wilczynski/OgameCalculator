@@ -4,6 +4,8 @@ package GUI;
 import Statistics.Statistics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,13 +19,14 @@ import simulation.Research_Enum;
 import simulation.Simulation;
 import simulation.Technologies;
 import simulation.Unit_Enum;
-import utilities.IO;
+import utilities.IO_Utilities;
 import utilities.Strings;
 
 public class GUI extends JFrame{
     private Shipyard attacker_shipyard,defender_shipyard;
     private Defense defense;
     private Technology technology;
+    private Clipboard clipboard;
     //private JPanel options = new JPanel();
     public GUI() {
         initComponents();
@@ -32,7 +35,7 @@ public class GUI extends JFrame{
         pack();
     }
     private void initComponents(){
-        JPanel p = new ImagePanel(IO.getImage("background.png"));
+        JPanel p = new ImagePanel(IO_Utilities.getImage("background.png"));
         p.setOpaque(true);
         getContentPane().add(p);
         this.setSize(p.getMaximumSize());
@@ -94,11 +97,34 @@ public class GUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Action();
             }
-        });
+        });        
+        clipboard = new Clipboard();
+        clipboard.addPropertyChangeListener(new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                for(Unit_Enum unit:Unit_Enum.values()){
+                    UnitPanel s = defender_shipyard.get(unit);
+                    UnitPanel d = defense.get(unit);
+                    if(s!=null){                    
+                        s.setNumber(""+clipboard.getUnits().getOrDefault(unit, 0));
+                    }
+                    if(d!=null){                    
+                        d.setNumber(""+clipboard.getUnits().getOrDefault(unit, 0));
+                    }
+                }
+                for(Research_Enum reserches:Research_Enum.values()){
+                    UnitPanel t = technology.get(reserches,Technology.Defender_Side);
+                    if(t!=null)
+                        t.setNumber(""+clipboard.getResearches().getOrDefault(reserches, 0));
+                    
+                }
+            }
+        });        
+        new Thread(clipboard).start();
     }
     
     private void Action(){
-        //new Clipboard();
         new Worker(1000).execute();
     }
     

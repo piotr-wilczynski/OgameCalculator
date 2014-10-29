@@ -6,17 +6,13 @@ import java.io.*;
 import java.util.Properties;
 import javax.imageio.ImageIO;
 
-public class IO {
+public class IO_Utilities {
     public static BufferedImage getImage(String file){
         BufferedImage bi = null;
         try {
-            bi = ImageIO.read(new File("images/"+file));
+            bi = ImageIO.read(IO_Utilities.class.getResource("/images/"+file));
         } catch (IOException ex) {
-            try {
-                bi = ImageIO.read(IO.class.getResource("/images/"+file));
-            } catch (IOException ex1) {
-                return null;
-            }
+            
         }
         return bi;
     }
@@ -42,7 +38,7 @@ public class IO {
         File file = new File("units/"+name+".ini");
         file.createNewFile();
         FileOutputStream out = new FileOutputStream(file);
-        p.save(out, "");
+        p.store(out, "");
         out.close();        
     }
     public static BufferedImage[][] getImageMatrix(BufferedImage image,int rows,int columns){   

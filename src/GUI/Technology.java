@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import lang.GUI_Lang;
 import simulation.Research_Enum;
-import utilities.IO;
+import utilities.IO_Utilities;
 
 /**
  *
@@ -23,7 +23,7 @@ public class Technology extends ImagePanel{
     public static int Defender_Side = 1;
     UnitPanel[] attacker,defender;
     public Technology(String text) {
-        super(IO.getImage("Research.jpg"));        
+        super(IO_Utilities.getImage("Research.jpg"));        
         title = new JLabel(text);       
         initComponents();
     }

@@ -15,10 +15,11 @@ import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import simulation.Research_Enum;
 import simulation.Unit_Enum;
-import utilities.IO;
+import utilities.IO_Utilities;
 
 public class UnitPanel extends JPanel{
     private BufferedImage background;
@@ -31,14 +32,15 @@ public class UnitPanel extends JPanel{
     public UnitPanel(Unit_Enum unit) {  
         this.object = unit;
         images = getImage(unit);
-        background2 = IO.getImage("labels.gif");  
+        background2 = IO_Utilities.getImage("labels.gif");  
+        setToolTipText(lang.GUI_Lang.get(unit.name()));
         initComonents();
     }
 
     public UnitPanel(Research_Enum research) {
         this.object = research;
         images = getImage(research);
-        background2 = IO.getImage("labels.gif");  
+        background2 = IO_Utilities.getImage("labels.gif");  
         initComonents();
     }
     
@@ -48,7 +50,8 @@ public class UnitPanel extends JPanel{
     
     
     private void initComonents(){
-        background = images[0];     
+        background = images[0];             
+        
         label = new JLabel();
         label.setHorizontalAlignment(JLabel.TRAILING);
         label.setForeground(Color.RED);
@@ -63,7 +66,7 @@ public class UnitPanel extends JPanel{
         f = textfield.getFont();
         textfield.setFont(new java.awt.Font(f.getName(), Font.BOLD, 11));
         textfield.setBorder(new EmptyBorder(0, 5, 0, 5));
-        textfield.setHorizontalAlignment(textfield.TRAILING);
+        textfield.setHorizontalAlignment(SwingConstants.TRAILING);
         textfield.setForeground(new Color(255,193,7));
         add(textfield,BorderLayout.PAGE_START);
         
@@ -102,8 +105,8 @@ public class UnitPanel extends JPanel{
     }
     
     private  BufferedImage[] getImage(Unit_Enum unit){
-        BufferedImage[][]ships = IO.getImageMatrix(IO.getImage("ships.png"), 3, 14);
-        BufferedImage[][]defense = IO.getImageMatrix(IO.getImage("defensive_structures.png"), 3, 11);
+        BufferedImage[][]ships = IO_Utilities.getImageMatrix(IO_Utilities.getImage("ships.png"), 3, 14);
+        BufferedImage[][]defense = IO_Utilities.getImageMatrix(IO_Utilities.getImage("defensive_structures.png"), 3, 11);
         switch(unit){
             case Small_Cargo: return ships[0];
             case Large_Cargo: return ships[1];
@@ -135,7 +138,7 @@ public class UnitPanel extends JPanel{
     }
     
     private BufferedImage[] getImage(Research_Enum research){
-        BufferedImage[][]researches = IO.getImageMatrix(IO.getImage("technologies.png"), 3, Research_Enum.values().length);
+        BufferedImage[][]researches = IO_Utilities.getImageMatrix(IO_Utilities.getImage("technologies.png"), 3, Research_Enum.values().length);
         switch(research){
             case Espionage_Technology: return researches[0];
             case Computer_Technology: return researches[1];
@@ -199,7 +202,7 @@ public class UnitPanel extends JPanel{
         return i;
     }
 
-    public void setText(String text) {
+    public void setNumber(String text) {
         this.textfield.setText(text);
     }
     

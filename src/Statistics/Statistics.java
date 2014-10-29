@@ -67,7 +67,6 @@ public class Statistics {
                     }
                 }
                 in++;
-                System.out.println(size+" "+in);
             }
         }
         HashMap<Unit_Enum, Double> result = new HashMap<>();
