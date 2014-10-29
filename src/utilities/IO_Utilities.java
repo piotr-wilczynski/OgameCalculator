@@ -3,6 +3,7 @@ package utilities;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Hashtable;
 import java.util.Properties;
 import javax.imageio.ImageIO;
 
@@ -39,6 +40,16 @@ public class IO_Utilities {
         file.createNewFile();
         FileOutputStream out = new FileOutputStream(file);
         p.store(out, "");
+        out.close();        
+    }
+    public static void save_ini(String name,Hashtable<String,String> lang) throws IOException{   
+        Properties p = new Properties(); 
+        
+        File file = new File(name+".ini");
+        file.createNewFile();
+        FileOutputStream out = new FileOutputStream(file);
+        p.putAll(lang);
+        p.store(out, "Language");
         out.close();        
     }
     public static BufferedImage[][] getImageMatrix(BufferedImage image,int rows,int columns){   

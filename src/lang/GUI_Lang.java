@@ -1,8 +1,12 @@
 package lang;
 
+import java.io.IOException;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import simulation.Research_Enum;
 import simulation.Unit_Enum;
+import utilities.IO_Utilities;
 
 public class GUI_Lang {
     private static final GUI_Lang gui = new GUI_Lang();
@@ -66,8 +70,11 @@ public class GUI_Lang {
         texts.put("Metal", "Metal");
         texts.put("Crystal", "Kryształ");
         texts.put("Deuterium", "Deuter");
-        
-                
+        try {
+            IO_Utilities.save_ini("polish", texts);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     public static GUI_Lang getGUI(){
         return gui;
