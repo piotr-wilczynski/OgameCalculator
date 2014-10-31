@@ -1,6 +1,7 @@
 
 package simulation;
 
+import Enums.Unit_Enum;
 import java.util.Random;
 
 public class BattleUnit {
@@ -10,7 +11,7 @@ public class BattleUnit {
     private float Attack_Strength;
     private Random random;
 
-    public BattleUnit(Unit_Enum unit,Technologies tech) {
+    public BattleUnit(Unit_Enum unit,Battle_Technologies tech) {
         this.unit = unit;
         Hull_Plating = unit.getHull_Plating(tech);
         Shield_Strength = unit.getShield_Strength(tech);
@@ -28,7 +29,7 @@ public class BattleUnit {
     
     
     
-    public boolean Fight(BattleUnit unit,Technologies tech){
+    public boolean Fight(BattleUnit unit,Battle_Technologies tech){
         //If the Weaponry of the shooting unit is less than 1% of the Shielding of the target unit, the shot is bounced, and the target unit does not lose anything (i.e. shot is wasted).
         if(Attack_Strength<unit.getShield_Strength()/100){
         }else if(Attack_Strength<unit.getShield_Strength()){
@@ -91,7 +92,7 @@ public class BattleUnit {
         else
             return false;
     }
-    public void renewShield(Technologies tech){
+    public void renewShield(Battle_Technologies tech){
         Shield_Strength = unit.getShield_Strength(tech);
     }
 

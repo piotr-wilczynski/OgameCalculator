@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import lang.GUI_Lang;
-import simulation.Research_Enum;
+import Enums.Research_Enum;
 import utilities.IO_Utilities;
 
 /**
@@ -80,7 +80,7 @@ public class Technology extends ImagePanel{
         defender[0] = new UnitPanel(Research_Enum.Weapons_Technology);
         defender[1] = new UnitPanel(Research_Enum.Shielding_Technology);
         defender[2] = new UnitPanel(Research_Enum.Armour_Technology);
-        int labelsize = 110;
+        int labelsize = 120;
         GroupLayout l = new GroupLayout(panel);
         panel.setLayout(l);
         l.setAutoCreateGaps(true);

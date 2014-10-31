@@ -1,6 +1,7 @@
 
 package simulation;
 
+import Enums.Unit_Enum;
 import Statistics.Statistics;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -9,13 +10,13 @@ import java.util.Random;
 public class Simulation extends Thread{
     //private List<BattleUnit> attacker,defender;
     private final  HashMap<Unit_Enum,Integer> attacker,defender;
-    private final Technologies attacker_tech,defender_tech;
+    private final Battle_Technologies attacker_tech,defender_tech;
     private Statistics attacker_statistics;
     private Statistics defender_statistics;
     private Random random;
     
 
-    public Simulation(HashMap<Unit_Enum,Integer> attacker, HashMap<Unit_Enum,Integer> defender,Technologies attacket_tech,Technologies defender_tech,ThreadGroup group,int number) {
+    public Simulation(HashMap<Unit_Enum,Integer> attacker, HashMap<Unit_Enum,Integer> defender,Battle_Technologies attacket_tech,Battle_Technologies defender_tech,ThreadGroup group,int number) {
         super(group, "Simulation nr="+number);
         this.attacker = attacker;
         this.defender = defender;
@@ -75,7 +76,7 @@ public class Simulation extends Thread{
         defender = null;
     }
     
-    private void Attack_All(BattleUnit[] attacker, BattleUnit[] defender,Technologies defender_tech){ 
+    private void Attack_All(BattleUnit[] attacker, BattleUnit[] defender,Battle_Technologies defender_tech){ 
         for(int i=0;i<attacker.length;i++){
             int r = random.nextInt(defender.length);
             while(attacker[i].Fight(defender[r], defender_tech)){
@@ -83,7 +84,7 @@ public class Simulation extends Thread{
             }
         }        
     }   
-    private BattleUnit[] Clear_After_Round(BattleUnit[] units,Technologies tech){
+    private BattleUnit[] Clear_After_Round(BattleUnit[] units,Battle_Technologies tech){
         int counter = 0;
         for(int i=0;i<units.length;i++){
             if(!units[i].isDestroyed()){

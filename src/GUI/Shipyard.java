@@ -9,7 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import simulation.Unit_Enum;
+import Enums.Unit_Enum;
 import utilities.IO_Utilities;
 
 public class Shipyard extends ImagePanel{

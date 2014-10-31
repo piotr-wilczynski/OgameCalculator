@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import simulation.Unit_Enum;
+import Enums.Unit_Enum;
 
 public class UnitPanelFX extends AnchorPane{
     private ImageView image ;

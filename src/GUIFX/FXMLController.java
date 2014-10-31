@@ -23,8 +23,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import simulation.Simulation;
-import simulation.Technologies;
-import simulation.Unit_Enum;
+import simulation.Battle_Technologies;
+import Enums.Unit_Enum;
 import utilities.FXIO;
 
 /**
@@ -130,8 +130,8 @@ public class FXMLController implements Initializable {
             protected Object call() throws Exception {                
                 HashMap<Unit_Enum,Integer> attacker = new HashMap<>();
                 HashMap<Unit_Enum,Integer> defender = new HashMap<>();
-                Technologies attacker_tech = new Technologies(1, 1, 1, 1, 1, 1);       
-                Technologies defender_tech = new Technologies(1, 1, 1, 1, 1, 1);
+                Battle_Technologies attacker_tech = new Battle_Technologies(1, 1, 1, 1, 1, 1);       
+                Battle_Technologies defender_tech = new Battle_Technologies(1, 1, 1, 1, 1, 1);
                 //attacker.put(Unit_Enum.Small_Cargo, 8);
                 /*
                 for(int i=0;i<fleet1panel.length;i++){

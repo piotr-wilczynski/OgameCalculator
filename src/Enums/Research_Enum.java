@@ -1,5 +1,5 @@
 
-package simulation;
+package Enums;
 public enum Research_Enum {
     Energy_Technology(),
     Laser_Technology(),

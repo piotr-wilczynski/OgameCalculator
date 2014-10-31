@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-import simulation.Research_Enum;
-import simulation.Resources_Enum;
-import simulation.Unit_Enum;
+import Enums.Research_Enum;
+import Enums.Resources_Enum;
+import Enums.Unit_Enum;
 
 public class Clipboard extends Thread implements ClipboardOwner{
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
@@ -141,9 +141,9 @@ public class Clipboard extends Thread implements ClipboardOwner{
         try {
             function((String) t.getTransferData(DataFlavor.stringFlavor));
         } catch (UnsupportedFlavorException ex) {
-            ex.printStackTrace();
+            return;
         } catch (IOException ex) {
-            ex.printStackTrace();
+            return;
         }
     }  
     

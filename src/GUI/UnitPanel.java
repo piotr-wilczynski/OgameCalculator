@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import simulation.Research_Enum;
-import simulation.Unit_Enum;
+import Enums.Research_Enum;
+import Enums.Unit_Enum;
 import utilities.IO_Utilities;
 
 public class UnitPanel extends JPanel{

@@ -9,16 +9,20 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import lang.GUI_Lang;
-import simulation.Research_Enum;
+import Enums.Research_Enum;
 import simulation.Simulation;
-import simulation.Technologies;
-import simulation.Unit_Enum;
+import simulation.Battle_Technologies;
+import Enums.Unit_Enum;
 import utilities.IO_Utilities;
 import utilities.Strings;
 
@@ -27,6 +31,8 @@ public class GUI extends JFrame{
     private Defense defense;
     private Technology technology;
     private Clipboard clipboard;
+    private Options options;
+    private Result result;
     //private JPanel options = new JPanel();
     public GUI() {
         initComponents();
@@ -35,20 +41,28 @@ public class GUI extends JFrame{
         pack();
     }
     private void initComponents(){
+        try {
+        UIManager.setLookAndFeel(
+            UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         JPanel p = new ImagePanel(IO_Utilities.getImage("background.png"));
         p.setOpaque(true);
         getContentPane().add(p);
         this.setSize(p.getMaximumSize());
-        JPanel options = new JPanel();
+        options = new Options();
+        result = new Result();
+        //JPanel options = new JPanel();
         JButton b = new JButton("przycisk");
-        options.add(b);
-        b.addActionListener(new ActionListener() {
+        //options.add(b);
+        options.getSimulationStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Action();
             }
         });
-        options.setOpaque(false);
+        //options.setOpaque(false);
         attacker_shipyard = new Shipyard(GUI_Lang.getGUI().shipyard_of_argessor);
         defender_shipyard = new Shipyard(GUI_Lang.getGUI().shipyard_of_defender);
         defense = new Defense(GUI_Lang.getGUI().defense_of_defender);
@@ -60,24 +74,25 @@ public class GUI extends JFrame{
         p.setLayout(l);
         l.setAutoCreateContainerGaps(true);
         l.setAutoCreateGaps(true);
-        l.setHorizontalGroup(l.createParallelGroup(GroupLayout.Alignment.CENTER)
-                .addGroup(l.createSequentialGroup()
-                    .addComponent(attacker_shipyard)             
-                    .addGap(20)
-                    .addComponent(defender_shipyard))
-                .addGroup(l.createSequentialGroup()
-                    .addComponent(technology)         
-                    .addGap(20)
-                    .addComponent(defense))
-                .addComponent(options));
-        l.setVerticalGroup(l.createSequentialGroup()
+        l.setHorizontalGroup(l.createSequentialGroup()             
             .addGroup(l.createParallelGroup()
                 .addComponent(attacker_shipyard)
-                .addComponent(defender_shipyard))
-            .addGroup(l.createParallelGroup()
                 .addComponent(technology)
-                .addComponent(defense))
-            .addComponent(options));        
+                .addComponent(result))
+            .addGap(20)
+            .addGroup(l.createParallelGroup()
+                .addComponent(defender_shipyard)
+                .addComponent(defense)
+                .addComponent(options,GroupLayout.Alignment.CENTER)));    
+        l.setVerticalGroup(l.createParallelGroup()             
+            .addGroup(l.createSequentialGroup()
+                .addComponent(attacker_shipyard)
+                .addComponent(technology)
+                .addComponent(result))
+            .addGroup(l.createSequentialGroup()
+                .addComponent(defender_shipyard)
+                .addComponent(defense)
+                .addComponent(options)));        
         
         
         attacker_shipyard.addActionListener(new ActionListener() {
@@ -125,7 +140,7 @@ public class GUI extends JFrame{
     }
     
     private void Action(){
-        new Worker(1000).execute();
+        new Worker(options.getNumberOfSimulations()).execute();
     }
     
     
@@ -138,26 +153,29 @@ public class GUI extends JFrame{
         private int precision = 2;
         public Worker(int repeat) {
             this.repeat = repeat;
+            options.getProgressBar().setMaximum(repeat);
+            options.getProgressBar().setValue(0);
         }
         
         
         @Override
         protected Integer doInBackground(){
-            simulation.Technologies tech_agressor = new Technologies();
-            simulation.Technologies tech_defender = new Technologies();;
+            simulation.Battle_Technologies tech_agressor;
+            simulation.Battle_Technologies tech_defender;
             attacker_stat = new HashMap<>();
             defender_stat =  new HashMap<>();
-            tech_agressor.setWeapons_Technology(technology.get(Research_Enum.Weapons_Technology, Technology.Attacker_Side).getNumber());
-            tech_agressor.setShielding_Technology(technology.get(Research_Enum.Shielding_Technology, Technology.Attacker_Side).getNumber());
-            tech_agressor.setArmour_Technology(technology.get(Research_Enum.Armour_Technology, Technology.Attacker_Side).getNumber());
-            tech_agressor.setCombustion_Drive(technology.get(Research_Enum.Combustion_Drive, Technology.Attacker_Side).getNumber());
-            tech_agressor.setImpulse_Drive(technology.get(Research_Enum.Impulse_Drive, Technology.Attacker_Side).getNumber());
-            tech_agressor.setHyperspace_Drive(technology.get(Research_Enum.Hyperspace_Drive, Technology.Attacker_Side).getNumber());
+            int wt = technology.get(Research_Enum.Weapons_Technology, Technology.Attacker_Side).getNumber();
+            int st =  technology.get(Research_Enum.Shielding_Technology, Technology.Attacker_Side).getNumber();
+            int at = technology.get(Research_Enum.Armour_Technology, Technology.Attacker_Side).getNumber();
+            int cd = technology.get(Research_Enum.Combustion_Drive, Technology.Attacker_Side).getNumber();
+            int id = technology.get(Research_Enum.Impulse_Drive, Technology.Attacker_Side).getNumber();
+            int hd = technology.get(Research_Enum.Hyperspace_Drive, Technology.Attacker_Side).getNumber();
+            tech_agressor = new Battle_Technologies(wt, st, at, cd, id, hd);
 
-            tech_defender.setWeapons_Technology(technology.get(Research_Enum.Weapons_Technology, Technology.Defender_Side).getNumber());
-            tech_defender.setShielding_Technology(technology.get(Research_Enum.Shielding_Technology, Technology.Defender_Side).getNumber());
-            tech_defender.setArmour_Technology(technology.get(Research_Enum.Armour_Technology, Technology.Defender_Side).getNumber());
-
+            wt = technology.get(Research_Enum.Weapons_Technology, Technology.Defender_Side).getNumber();
+            st = technology.get(Research_Enum.Shielding_Technology, Technology.Defender_Side).getNumber();
+            at = technology.get(Research_Enum.Armour_Technology, Technology.Defender_Side).getNumber();
+            tech_defender = new Battle_Technologies(wt, st, at);
 
             HashMap<Unit_Enum,Integer> units_attacker = new HashMap<>();
             HashMap<Unit_Enum,Integer> units_defender = new HashMap<>();
@@ -220,6 +238,8 @@ public class GUI extends JFrame{
         private void publish_results(){
             HashMap<Unit_Enum,Double> result_agressor = Statistics.getStats(attacker_stat);
             HashMap<Unit_Enum,Double> result_defender = Statistics.getStats(defender_stat);
+            
+            options.getProgressBar().setValue(done);
 
             for(Unit_Enum u:Unit_Enum.values()){
                 UnitPanel a = attacker_shipyard.get(u);
@@ -240,6 +260,7 @@ public class GUI extends JFrame{
 
         @Override
         protected void done() { 
+            done = repeat;
             for(int i=0;i<sims.size();i++){                
                 attacker_stat.put(i, sims.get(i).getAttacker_Statistics());
                 defender_stat.put(i, sims.get(i).getDefender_Statistics());

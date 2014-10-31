@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import simulation.Research_Enum;
-import simulation.Unit_Enum;
+import Enums.Research_Enum;
+import Enums.Unit_Enum;
 import utilities.IO_Utilities;
 
 public class GUI_Lang {
@@ -70,11 +70,37 @@ public class GUI_Lang {
         texts.put("Metal", "Metal");
         texts.put("Crystal", "Kryształ");
         texts.put("Deuterium", "Deuter");
-        try {
+        
+        texts.put("simulation_start", "Rozpocznij Symulację");
+        texts.put("own_location", "Własna pozycja:");
+        texts.put("fleet_speed", "Prędkość:");
+        texts.put("simulation_number", "Ilość symulacji:");
+        
+        
+        texts.put("label_battle_place", "Bitwa...");
+        texts.put("label_winner", "Zwycięży");
+        texts.put("label_derbis", "Odpadki");
+        texts.put("label_chance_for_moon", "Szansa na księżyc");
+        texts.put("label_attacker_losses", "Straty agresora");
+        texts.put("label_defender_losses", "Straty obrońcy");
+        texts.put("label_teoretical_plunder", "Teoretyczny Rabunek");
+        texts.put("label_real_plunder", "Rzeczywisty Rabunek");
+        texts.put("label_fuel", "Potrzebne Paliwo");
+        texts.put("label_time", "Czas Lotu");
+                
+        texts.put("battle_place", "Bitwa na %s %s");
+        texts.put("winner", "%s po %d rundach");
+        texts.put("chance_for_moon", "Szansa na księżyc wynosi %d%%");
+        texts.put("teoretical_plunder", "%s (%d%% Łupu)");
+        texts.put("real_plunder", "%s (%d%% Łupu)");
+        
+        
+        /*try {
             IO_Utilities.save_ini("polish", texts);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+                */
     }
     public static GUI_Lang getGUI(){
         return gui;

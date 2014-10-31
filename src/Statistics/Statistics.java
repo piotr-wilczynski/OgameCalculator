@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import simulation.BattleUnit;
-import simulation.Unit_Enum;
+import Enums.Unit_Enum;
 
 public class Statistics {
     private HashMap<Unit_Enum,Integer> map;
