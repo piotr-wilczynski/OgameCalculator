@@ -1,6 +1,7 @@
 
 package Statistics;
 
+import Enums.Resources_Enum;
 import Enums.Side_Enum;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -102,5 +103,86 @@ public class Statistics {
         return result;
     }
     
+    public HashMap<Resources_Enum, Long> getDerbis(HashMap<Unit_Enum,Integer> attacker,HashMap<Unit_Enum,Integer> defender,double percent){
+        HashMap<Resources_Enum, Long> derbis = new HashMap<>();
+        for(Unit_Enum unit:Unit_Enum.values()){
+            double a = attacker.getOrDefault(unit, 0)-map_agressor.getOrDefault(unit, 0.0);
+            double d = defender.getOrDefault(unit, 0)-map_defender.getOrDefault(unit, 0.0);
+            long rounda = Math.round(a);
+            long roundd = Math.round(d);
+            if(rounda>0){                
+                derbis.put(Resources_Enum.Metal, derbis.getOrDefault(Resources_Enum.Metal, (long)0)+Math.round(unit.getMetal()*rounda*percent));
+                derbis.put(Resources_Enum.Crystal, derbis.getOrDefault(Resources_Enum.Crystal, (long)0)+Math.round(unit.getCrystal()*rounda*percent));
+            }
+            if(roundd>0){                
+                derbis.put(Resources_Enum.Metal, derbis.getOrDefault(Resources_Enum.Metal, (long)0)+Math.round(unit.getMetal()*roundd*percent));
+                derbis.put(Resources_Enum.Crystal, derbis.getOrDefault(Resources_Enum.Crystal, (long)0)+Math.round(unit.getCrystal()*roundd*percent));
+            }
+            
+        }
+        return derbis;
+    }
+    
+    public HashMap<Resources_Enum, Long> getAgressorLoss(HashMap<Unit_Enum,Integer> attacker){
+        HashMap<Resources_Enum, Long> loss = new HashMap<>();
+        for(Unit_Enum unit:Unit_Enum.values()){
+            double a = attacker.getOrDefault(unit, 0)-map_agressor.getOrDefault(unit, 0.0);
+            long round = Math.round(a);
+            if(round>0){                
+                loss.put(Resources_Enum.Metal, loss.getOrDefault(Resources_Enum.Metal, (long)0)+Math.round(unit.getMetal()*round));
+                loss.put(Resources_Enum.Crystal, loss.getOrDefault(Resources_Enum.Crystal, (long)0)+Math.round(unit.getCrystal()*round));
+                loss.put(Resources_Enum.Deuterium, loss.getOrDefault(Resources_Enum.Deuterium, (long)0)+Math.round(unit.getDeuterium()*round));
+            }
+            
+        }        
+        return loss;
+    }
+    public HashMap<Resources_Enum, Long> getDefenderLoss(HashMap<Unit_Enum,Integer> defender){
+        HashMap<Resources_Enum, Long> loss = new HashMap<>();
+        for(Unit_Enum unit:Unit_Enum.values()){
+            double d = defender.getOrDefault(unit, 0)-map_defender.getOrDefault(unit, 0.0);
+            long round = Math.round(d);
+            if(round>0){                
+                loss.put(Resources_Enum.Metal,      loss.getOrDefault(Resources_Enum.Metal,     (long)0)+Math.round(unit.getMetal()*round));
+                loss.put(Resources_Enum.Crystal,    loss.getOrDefault(Resources_Enum.Crystal,   (long)0)+Math.round(unit.getCrystal()*round));
+                loss.put(Resources_Enum.Deuterium,  loss.getOrDefault(Resources_Enum.Deuterium, (long)0)+Math.round(unit.getDeuterium()*round));
+            }
+            
+        }        
+        return loss;
+    }
+    public HashMap<Side_Enum, Double> getTactitalRetreat(HashMap<Unit_Enum,Integer> attacker,HashMap<Unit_Enum,Integer> defender){
+        HashMap<Side_Enum, Double> retreat = new HashMap<Side_Enum, Double>();
+        for(Unit_Enum unit:Unit_Enum.values()){
+            long numbera = attacker.getOrDefault(unit, 0);
+            long numberd = defender.getOrDefault(unit, 0);
+            switch(unit){
+                case Light_Fighter:
+                case Heavy_Fighter:
+                case Cruiser:
+                case Battleship:
+                case Battlecruiser:
+                case Bomber:
+                case Deathstar:
+                case Destroyer:{
+                    long cost = unit.getMetal()+unit.getCrystal()+unit.getDeuterium();
+                    retreat.put(Side_Enum.Agressor, retreat.getOrDefault(Side_Enum.Agressor, 0.0)+(numbera*cost));
+                    retreat.put(Side_Enum.Defender, retreat.getOrDefault(Side_Enum.Defender, 0.0)+(numberd*cost));
+                }break;
+                case Small_Cargo:
+                case Large_Cargo:
+                case Colony_Ship:
+                case Recycler:
+                case Espionage_Probe:{                    
+                    long cost = unit.getMetal()+unit.getCrystal()+unit.getDeuterium();
+                    retreat.put(Side_Enum.Agressor, retreat.getOrDefault(Side_Enum.Agressor, 0.0)+(numbera*cost/4));
+                    retreat.put(Side_Enum.Defender, retreat.getOrDefault(Side_Enum.Defender, 0.0)+(numberd*cost/4));
+                }break;
+               
+            }
+        }
+        
+        return retreat;
+    }
     
 }

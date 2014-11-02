@@ -16,10 +16,13 @@ import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import lang.GUI_Lang;
 import Enums.Research_Enum;
+import Enums.Resources_Enum;
 import Enums.Side_Enum;
 import simulation.Simulation;
 import simulation.Battle_Technologies;
 import Enums.Unit_Enum;
+import com.sun.org.apache.xml.internal.security.utils.Constants;
+import java.sql.ResultSet;
 import utilities.IO_Utilities;
 import utilities.Strings;
 
@@ -144,6 +147,8 @@ public class GUI extends JFrame{
         private final int repeat;
         private HashMap<Integer ,Statistics> stats;
         private int precision = 2;
+        HashMap<Unit_Enum,Integer> units_attacker;
+        HashMap<Unit_Enum,Integer> units_defender;
         public Worker(int repeat) {
             stats = new HashMap<>();
             this.repeat = repeat;
@@ -169,8 +174,8 @@ public class GUI extends JFrame{
             at = technology.get(Research_Enum.Armour_Technology, Technology.Defender_Side).getNumber();
             tech_defender = new Battle_Technologies(wt, st, at);
 
-            HashMap<Unit_Enum,Integer> units_attacker = new HashMap<>();
-            HashMap<Unit_Enum,Integer> units_defender = new HashMap<>();
+            units_attacker = new HashMap<>();
+            units_defender = new HashMap<>();
 
             for(Unit_Enum u:Unit_Enum.values()){
                 UnitPanel a = attacker_shipyard.get(u);
@@ -229,21 +234,43 @@ public class GUI extends JFrame{
             Statistics statistics = new Statistics(stats);           
             
             options.getProgressBar().setValue(done);
+            
+            //set winner
             HashMap<Side_Enum,Double> res = statistics.getResult();
             result.setWinner((int)Math.round(100*res.get(Side_Enum.Agressor)),(int)Math.round(100*res.get(Side_Enum.Defender)),(int)Math.round(100*res.get(Side_Enum.Remis)), 1);
+            
+            //set tactical retreat
+            HashMap<Side_Enum,Double> tactical_retreat = statistics.getTactitalRetreat(units_attacker, units_defender);
+            result.setTacticalRetreat(tactical_retreat.getOrDefault(Side_Enum.Agressor, 0.0), tactical_retreat.getOrDefault(Side_Enum.Defender, 0.0));
+            
+            //set derbis            
+            HashMap<Resources_Enum,Long> derb = statistics.getDerbis(units_attacker, units_defender,0.5);
+            result.setDerbis(derb.getOrDefault(Resources_Enum.Metal, (long)0), derb.getOrDefault(Resources_Enum.Crystal, (long)0));
+            
+            //set chance for moon
+            long chance = (derb.getOrDefault(Resources_Enum.Metal, (long)0)+ derb.getOrDefault(Resources_Enum.Crystal, (long)0))/100000;
+            result.setChanceForMoon((int) chance);
+            
+            //set agressor loss
+            HashMap<Resources_Enum,Long> aloss = statistics.getAgressorLoss(units_attacker);
+            result.setAgressorLosses(aloss.getOrDefault(Resources_Enum.Metal, (long)0), aloss.getOrDefault(Resources_Enum.Crystal, (long)0), aloss.getOrDefault(Resources_Enum.Deuterium, (long)0));
+            
+            //set defender loss
+            HashMap<Resources_Enum,Long> dloss = statistics.getDefenderLoss(units_defender);
+            result.setDefenderLosses(dloss.getOrDefault(Resources_Enum.Metal, (long)0), dloss.getOrDefault(Resources_Enum.Crystal, (long)0), dloss.getOrDefault(Resources_Enum.Deuterium, (long)0));
             for(Unit_Enum u:Unit_Enum.values()){
                 UnitPanel a = attacker_shipyard.get(u);
                 UnitPanel d = defender_shipyard.get(u);
                 UnitPanel dd = defense.get(u);
 
                 if(a!=null){
-                    a.setLabel(Strings.format(statistics.getAgressorStats().get(u),precision));
+                    a.setLabel(Strings.precision(statistics.getAgressorStats().get(u),precision));
                 }
                 if(d!=null){
-                    d.setLabel(Strings.format(statistics.getDefenderStats().get(u),precision));
+                    d.setLabel(Strings.precision(statistics.getDefenderStats().get(u),precision));
                 }
                 if(dd!=null){
-                    dd.setLabel(Strings.format(statistics.getDefenderStats().get(u),precision));
+                    dd.setLabel(Strings.precision(statistics.getDefenderStats().get(u),precision));
                 }
             }            
         }

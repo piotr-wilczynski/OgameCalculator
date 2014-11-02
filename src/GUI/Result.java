@@ -13,6 +13,7 @@ import Enums.Resources_Enum;
 import Enums.Side_Enum;
 import Enums.Unit_Enum;
 import Statistics.Coordinates;
+import utilities.Strings;
 
 /**
  *
@@ -36,11 +37,11 @@ public class Result extends JPanel{
         initComponents();
         setBattlePlace("planeta",new Coordinates(1, 22, 3));
         setWinner(0,0,100, 1);
-        setTactical_retreat(29000, 8000);
+        setTacticalRetreat(29000.0, 8000.0);
         setDerbis(0, 0);
         setChanceForMoon(0);
-        setAttacker_losses(0, 0, 0);
-        setDefender_losses(0, 0, 0);
+        setAgressorLosses(0, 0, 0);
+        setDefenderLosses(0, 0, 0);
         setTeoreticalPlunder(0, 0, 0, 0);
         setRealPlunder(0, 0, 0, 0);
         setFuel(0);
@@ -89,8 +90,8 @@ public class Result extends JPanel{
         tactical_retreat.setForeground(font_color);
         derbis.setForeground(font_color);
         chance_for_moon.setForeground(font_color);
-        attacker_losses.setForeground(font_color);
-        defender_losses.setForeground(font_color);
+        attacker_losses.setForeground(Color.red);
+        defender_losses.setForeground(Color.red);
         teoretical_plunder.setForeground(font_color);
         real_plunder.setForeground(font_color);
         fuel.setForeground(font_color);
@@ -202,15 +203,15 @@ public class Result extends JPanel{
         winner.setText(String.format(lang.GUI_Lang.get("winner"), text,rounds));
     }    
 
-    public void setTactical_retreat(long Agressor,long Defender) {
+    public void setTacticalRetreat(Double Agressor,Double Defender) {
         
         String left = "",right="";
         if(Agressor>Defender){
-            left = ""+(1.0*Agressor/Defender);
+            left = ""+Strings.format(1.0*Agressor/Defender);
             right="1";
         }else if(Defender>Agressor){
             left="1";
-            right = ""+(1.0*Defender/Agressor);            
+            right = ""+Strings.format(1.0*Defender/Agressor);            
         }else{
             left="1";
             right="1";
@@ -226,8 +227,8 @@ public class Result extends JPanel{
     
     public void setDerbis(long Metal, long Crystal) {
         String text = 
-                Metal+" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Crystal+" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name());
+                Strings.format(Metal)+" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
+                Strings.format(Crystal)+" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name());
         double number = (1.0*(Metal+Crystal))/Unit_Enum.Recycler.getCargo_Capacity();
         derbis.setText(text + " (~"+(int)Math.ceil(number)+" "+lang.GUI_Lang.get(Unit_Enum.Recycler.name())+")");
     }
@@ -236,35 +237,35 @@ public class Result extends JPanel{
         chance_for_moon.setText(String.format(lang.GUI_Lang.get("chance_for_moon"), percent));
     }
     
-    public void setAttacker_losses(long Metal, long Crystal, long Deuterium) {
+    public void setAgressorLosses(long Metal, long Crystal, long Deuterium) {
         String text = 
-                Metal+" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Crystal+" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
-                Deuterium+" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
+                Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
+                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
+                Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
         attacker_losses.setText(text);
     }
     
-    public void setDefender_losses(long Metal, long Crystal, long Deuterium) {
+    public void setDefenderLosses(long Metal, long Crystal, long Deuterium) {
         String text = 
-                Metal+" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Crystal+" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
-                Deuterium+" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
+                Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
+                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
+                Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
         defender_losses.setText(text);
     }
     
     public void setTeoreticalPlunder(long Metal, long Crystal, long Deuterium,int percent) {
         String text = 
-                Metal+" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Crystal+" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
-                Deuterium+" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
+                Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
+                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
+                Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
         teoretical_plunder.setText(String.format(lang.GUI_Lang.get("teoretical_plunder"),text ,percent));
     }
         
     public void setRealPlunder(long Metal, long Crystal, long Deuterium,int percent) {
         String text = 
-                Metal+" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Crystal+" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
-                Deuterium+" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
+                Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
+                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
+                Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
         real_plunder.setText(String.format(lang.GUI_Lang.get("real_plunder"),text ,percent));
     }    
     
