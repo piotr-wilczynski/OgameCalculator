@@ -1,9 +1,9 @@
 
 package simulation;
 
+import Enums.Side_Enum;
 import Enums.Unit_Enum;
 import Statistics.Statistics;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -11,9 +11,9 @@ public class Simulation extends Thread{
     //private List<BattleUnit> attacker,defender;
     private final  HashMap<Unit_Enum,Integer> attacker,defender;
     private final Battle_Technologies attacker_tech,defender_tech;
-    private Statistics attacker_statistics;
-    private Statistics defender_statistics;
+    private Statistics statistics;
     private Random random;
+    private Side_Enum win;
     
 
     public Simulation(HashMap<Unit_Enum,Integer> attacker, HashMap<Unit_Enum,Integer> defender,Battle_Technologies attacket_tech,Battle_Technologies defender_tech,ThreadGroup group,int number) {
@@ -50,28 +50,32 @@ public class Simulation extends Thread{
         Single_Simulation(a, d);                
     }
     
-    
-    
-    public Statistics getAttacker_Statistics(){
-        return attacker_statistics;
+    public Side_Enum getResult(){
+        return win;
     }
     
-    public Statistics getDefender_Statistics(){
-        return defender_statistics;
+    public Statistics getStatistics(){
+        return statistics;
     }
     
     private void Single_Simulation(BattleUnit[] attacker,BattleUnit[] defender){  
         for(int i=0;i<6;i++){
-            if(attacker.length==0||defender.length==0)
+            if(attacker.length==0||defender.length==0){
+                win = Side_Enum.Remis;
                 break;
+            }
             Attack_All(attacker, defender, defender_tech);
             Attack_All(defender, attacker, attacker_tech);   
             attacker = Clear_After_Round(attacker,attacker_tech);
-            defender = Clear_After_Round(defender,defender_tech);
-            
-        } 
-        attacker_statistics = new Statistics(attacker);
-        defender_statistics = new Statistics(defender);
+            defender = Clear_After_Round(defender,defender_tech);            
+        }
+        if(defender.length==0&&attacker.length>0)
+            win = Side_Enum.Agressor;
+        else if(attacker.length==0&&defender.length>0)
+            win = Side_Enum.Defender;
+        else
+            win = Side_Enum.Remis;
+        statistics = new Statistics(attacker,defender,win);
         attacker = null;
         defender = null;
     }

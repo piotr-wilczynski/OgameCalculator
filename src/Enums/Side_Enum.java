@@ -9,7 +9,7 @@ package Enums;
  *
  * @author Piotr
  */
-public enum SideEnum {    
+public enum Side_Enum {    
     Agressor(),
     Defender(),
     Remis()

@@ -25,6 +25,16 @@ public class GUI_Lang {
         research = "Badania";
         agressor = "Agresor";
         defender = "Obrońca";        
+        
+        
+        texts.put("Metal", "Metal");
+        texts.put("Crystal", "Kryształ");
+        texts.put("Deuterium", "Deuter");
+        
+        texts.put("Agressor", "Atakujący");
+        texts.put("Defender", "Obrońca");
+        texts.put("Remis", "Resmis");
+        
         texts.put("Light_Fighter", "Lekki myśliwiec");
         texts.put("Heavy_Fighter", "Ciężki myśliwiec");
         texts.put("Cruiser", "Krążownik");
@@ -67,10 +77,7 @@ public class GUI_Lang {
         texts.put("Weapons_Technology", "Technologia bojowa");
         texts.put("Shielding_Technology", "Technologia ochronna");
         texts.put("Armour_Technology", "Opancerzenie");
-        texts.put("Metal", "Metal");
-        texts.put("Crystal", "Kryształ");
-        texts.put("Deuterium", "Deuter");
-        
+                
         texts.put("simulation_start", "Rozpocznij Symulację");
         texts.put("own_location", "Własna pozycja:");
         texts.put("fleet_speed", "Prędkość:");
@@ -79,6 +86,7 @@ public class GUI_Lang {
         
         texts.put("label_battle_place", "Bitwa...");
         texts.put("label_winner", "Zwycięży");
+        texts.put("label_tactical_retreat", "Taktyczny odwrót");
         texts.put("label_derbis", "Odpadki");
         texts.put("label_chance_for_moon", "Szansa na księżyc");
         texts.put("label_attacker_losses", "Straty agresora");

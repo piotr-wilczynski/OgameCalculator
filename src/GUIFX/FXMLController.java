@@ -170,11 +170,11 @@ public class FXMLController implements Initializable {
                 List<Statistics> attacker_stat = new ArrayList<>();
                 List<Statistics> defender_stat = new ArrayList<>();
                 for(i=0;i<sims.size();i++){
-                    attacker_stat.add(sims.get(i).getAttacker_Statistics());
-                    defender_stat.add(sims.get(i).getDefender_Statistics());
+                    //attacker_stat.add(sims.get(i).getAttacker_Statistics());
+                    //defender_stat.add(sims.get(i).getDefender_Statistics());
                 }
-                Statistics.getStats(attacker_stat);
-                Statistics.getStats(defender_stat);
+                //Statistics.getStats(attacker_stat);
+                //Statistics.getStats(defender_stat);
                 long end = System.nanoTime();
                 System.out.printf("Simulation took %.2g seconds\n", (double)(end-start)/1e9);
                 return true;

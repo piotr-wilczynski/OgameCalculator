@@ -10,8 +10,9 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Enums.Resources_Enum;
-import Enums.SideEnum;
+import Enums.Side_Enum;
 import Enums.Unit_Enum;
+import Statistics.Coordinates;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Result extends JPanel{
     private JLabel 
             label_battle_place,battle_place,
             label_winner,winner,
+            label_tactical_retreat,tactical_retreat,
             label_derbis,derbis,
             label_chance_for_moon,chance_for_moon,
             label_attacker_losses,attacker_losses,
@@ -32,8 +34,9 @@ public class Result extends JPanel{
 
     public Result() {
         initComponents();
-        setBattlePlace("planeta","[0:0:0]");
-        setWinner(SideEnum.Remis, 100, 1);
+        setBattlePlace("planeta",new Coordinates(1, 22, 3));
+        setWinner(0,0,100, 1);
+        setTactical_retreat(29000, 8000);
         setDerbis(0, 0);
         setChanceForMoon(0);
         setAttacker_losses(0, 0, 0);
@@ -46,6 +49,7 @@ public class Result extends JPanel{
     private void initComponents(){
         label_battle_place = new JLabel(lang.GUI_Lang.get("label_battle_place"));
         label_winner = new JLabel(lang.GUI_Lang.get("label_winner"));
+        label_tactical_retreat = new JLabel(lang.GUI_Lang.get("label_tactical_retreat"));
         label_derbis = new JLabel(lang.GUI_Lang.get("label_derbis"));
         label_chance_for_moon = new JLabel(lang.GUI_Lang.get("label_chance_for_moon"));
         label_attacker_losses = new JLabel(lang.GUI_Lang.get("label_attacker_losses"));
@@ -57,6 +61,7 @@ public class Result extends JPanel{
         
         battle_place = new JLabel();
         winner = new JLabel();
+        tactical_retreat = new JLabel();
         derbis = new JLabel();
         chance_for_moon = new JLabel();
         attacker_losses = new JLabel();
@@ -69,6 +74,7 @@ public class Result extends JPanel{
         Color font_color = Color.WHITE;
         label_battle_place.setForeground(font_color);
         label_winner.setForeground(font_color);
+        label_tactical_retreat.setForeground(font_color);
         label_derbis.setForeground(font_color);
         label_chance_for_moon.setForeground(font_color);
         label_attacker_losses.setForeground(font_color);
@@ -80,6 +86,7 @@ public class Result extends JPanel{
         
         battle_place.setForeground(font_color);
         winner.setForeground(font_color);
+        tactical_retreat.setForeground(font_color);
         derbis.setForeground(font_color);
         chance_for_moon.setForeground(font_color);
         attacker_losses.setForeground(font_color);
@@ -98,6 +105,7 @@ public class Result extends JPanel{
             .addGroup(l.createParallelGroup()
                 .addComponent(label_battle_place,label_size,label_size,label_size)
                 .addComponent(label_winner,label_size,label_size,label_size)
+                .addComponent(label_tactical_retreat,label_size,label_size,label_size)
                 .addComponent(label_derbis,label_size,label_size,label_size)
                 .addComponent(label_chance_for_moon,label_size,label_size,label_size)
                 .addComponent(label_attacker_losses,label_size,label_size,label_size)
@@ -109,6 +117,7 @@ public class Result extends JPanel{
             .addGroup(l.createParallelGroup()
                 .addComponent(battle_place)
                 .addComponent(winner)
+                .addComponent(tactical_retreat)
                 .addComponent(derbis)
                 .addComponent(chance_for_moon)
                 .addComponent(attacker_losses)
@@ -121,6 +130,7 @@ public class Result extends JPanel{
             .addGroup(l.createSequentialGroup()
                 .addComponent(label_battle_place)
                 .addComponent(label_winner)
+                .addComponent(label_tactical_retreat)
                 .addComponent(label_derbis)
                 .addComponent(label_chance_for_moon)
                 .addComponent(label_attacker_losses)
@@ -132,6 +142,7 @@ public class Result extends JPanel{
             .addGroup(l.createSequentialGroup()
                 .addComponent(battle_place)
                 .addComponent(winner)
+                .addComponent(tactical_retreat)
                 .addComponent(derbis)
                 .addComponent(chance_for_moon)
                 .addComponent(attacker_losses)
@@ -142,13 +153,76 @@ public class Result extends JPanel{
                 .addComponent(time)));        
     }
 
-    public void setBattlePlace(String planet_name,String coords) {
+    public void setBattlePlace(String planet_name,Coordinates coords) {
         battle_place.setText(String.format(lang.GUI_Lang.get("battle_place"), planet_name,coords));
     }
 
-    public void setWinner(SideEnum side,int percent,int rounds) {
-        winner.setText(String.format(lang.GUI_Lang.get("winner"), lang.GUI_Lang.get(side.name())+"("+percent+")",rounds));
+    public void setWinner(int agressor,int defender,int remis,int rounds) {
+        String text="";
+        String a = lang.GUI_Lang.get(Side_Enum.Agressor.name())+"("+agressor+"%) ";
+        String d = lang.GUI_Lang.get(Side_Enum.Defender.name())+"("+defender+"%) ";
+        String r = lang.GUI_Lang.get(Side_Enum.Remis.name())+"("+remis+"%) ";
+        if(agressor>=defender&&agressor>=remis){
+            text+=a;
+            if(defender>=remis&&defender>0){
+                text+=d;
+                if(remis>0)
+                    text+=r;
+            }else if(remis>defender&&remis>0){
+                text+=r;
+                if(defender>0){
+                    text+=d;
+                }
+            }
+        }else if(defender>=agressor&&defender>=remis){
+            text+=d;
+            if(agressor>=remis&&agressor>0){
+                text+=a;
+                if(remis>0)
+                    text+=r;
+            }else if(remis>agressor&&remis>0){
+                text+=r;
+                if(agressor>0)
+                    text+=a;
+            }
+        }else if(remis>=agressor&&remis>=defender){
+            text+=r;
+            if(agressor>=defender&&agressor>0){
+                text+=a;
+                if(defender>0)
+                    text+=d;
+            }else if(defender>agressor&&defender>0){
+                text+=d;
+                if(agressor>0)
+                    text+=a;
+            }
+            
+        }
+        
+        winner.setText(String.format(lang.GUI_Lang.get("winner"), text,rounds));
     }    
+
+    public void setTactical_retreat(long Agressor,long Defender) {
+        
+        String left = "",right="";
+        if(Agressor>Defender){
+            left = ""+(1.0*Agressor/Defender);
+            right="1";
+        }else if(Defender>Agressor){
+            left="1";
+            right = ""+(1.0*Defender/Agressor);            
+        }else{
+            left="1";
+            right="1";
+        }
+        
+        tactical_retreat.setText(String.format("<html>%s<span style=\"color:green;\"> %s:%s </span>%s</html>", 
+                lang.GUI_Lang.get(Side_Enum.Agressor.name()),
+                left,
+                right,
+                lang.GUI_Lang.get(Side_Enum.Defender.name())
+                ));
+    }
     
     public void setDerbis(long Metal, long Crystal) {
         String text = 

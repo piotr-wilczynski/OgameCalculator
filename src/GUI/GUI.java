@@ -9,17 +9,14 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.GroupLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import lang.GUI_Lang;
 import Enums.Research_Enum;
+import Enums.Side_Enum;
 import simulation.Simulation;
 import simulation.Battle_Technologies;
 import Enums.Unit_Enum;
@@ -53,9 +50,6 @@ public class GUI extends JFrame{
         this.setSize(p.getMaximumSize());
         options = new Options();
         result = new Result();
-        //JPanel options = new JPanel();
-        JButton b = new JButton("przycisk");
-        //options.add(b);
         options.getSimulationStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,10 +142,10 @@ public class GUI extends JFrame{
         private List<Simulation> sims = new ArrayList<>();
         private int done=0;
         private final int repeat;
-        private HashMap<Integer ,Statistics> attacker_stat;
-        private HashMap<Integer ,Statistics> defender_stat;
+        private HashMap<Integer ,Statistics> stats;
         private int precision = 2;
         public Worker(int repeat) {
+            stats = new HashMap<>();
             this.repeat = repeat;
             options.getProgressBar().setMaximum(repeat);
             options.getProgressBar().setValue(0);
@@ -162,8 +156,6 @@ public class GUI extends JFrame{
         protected Integer doInBackground(){
             simulation.Battle_Technologies tech_agressor;
             simulation.Battle_Technologies tech_defender;
-            attacker_stat = new HashMap<>();
-            defender_stat =  new HashMap<>();
             int wt = technology.get(Research_Enum.Weapons_Technology, Technology.Attacker_Side).getNumber();
             int st =  technology.get(Research_Enum.Shielding_Technology, Technology.Attacker_Side).getNumber();
             int at = technology.get(Research_Enum.Armour_Technology, Technology.Attacker_Side).getNumber();
@@ -210,8 +202,7 @@ public class GUI extends JFrame{
                     sims.get(i).start();
                     i++;       
                     if(!sims.get(done).isAlive()){
-                        attacker_stat.put(done, sims.get(done).getAttacker_Statistics());
-                        defender_stat.put(done, sims.get(done).getDefender_Statistics());
+                        stats.put(done, sims.get(done).getStatistics());
                         done++;
                         publish(done);
                     }
@@ -219,8 +210,7 @@ public class GUI extends JFrame{
             }
             while(threads.activeCount()>0){                                
                 if(!sims.get(done).isAlive()){
-                    attacker_stat.put(done, sims.get(done).getAttacker_Statistics());
-                    defender_stat.put(done, sims.get(done).getDefender_Statistics());
+                    stats.put(done, sims.get(done).getStatistics());
                     done++;
                     publish(done);
                 }
@@ -236,24 +226,24 @@ public class GUI extends JFrame{
             publish_results();            
         }
         private void publish_results(){
-            HashMap<Unit_Enum,Double> result_agressor = Statistics.getStats(attacker_stat);
-            HashMap<Unit_Enum,Double> result_defender = Statistics.getStats(defender_stat);
+            Statistics statistics = new Statistics(stats);           
             
             options.getProgressBar().setValue(done);
-
+            HashMap<Side_Enum,Double> res = statistics.getResult();
+            result.setWinner((int)Math.round(100*res.get(Side_Enum.Agressor)),(int)Math.round(100*res.get(Side_Enum.Defender)),(int)Math.round(100*res.get(Side_Enum.Remis)), 1);
             for(Unit_Enum u:Unit_Enum.values()){
                 UnitPanel a = attacker_shipyard.get(u);
                 UnitPanel d = defender_shipyard.get(u);
                 UnitPanel dd = defense.get(u);
 
                 if(a!=null){
-                    a.setLabel(Strings.format(result_agressor.get(u),precision));
+                    a.setLabel(Strings.format(statistics.getAgressorStats().get(u),precision));
                 }
                 if(d!=null){
-                    d.setLabel(Strings.format(result_defender.get(u),precision));
+                    d.setLabel(Strings.format(statistics.getDefenderStats().get(u),precision));
                 }
                 if(dd!=null){
-                    dd.setLabel(Strings.format(result_defender.get(u),precision));
+                    dd.setLabel(Strings.format(statistics.getDefenderStats().get(u),precision));
                 }
             }            
         }
@@ -261,9 +251,8 @@ public class GUI extends JFrame{
         @Override
         protected void done() { 
             done = repeat;
-            for(int i=0;i<sims.size();i++){                
-                attacker_stat.put(i, sims.get(i).getAttacker_Statistics());
-                defender_stat.put(i, sims.get(i).getDefender_Statistics());
+            for(int i=0;i<sims.size();i++){        
+                stats.put(i, sims.get(i).getStatistics());
             }    
             publish_results();
         }
