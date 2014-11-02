@@ -21,8 +21,6 @@ import Enums.Side_Enum;
 import simulation.Simulation;
 import simulation.Battle_Technologies;
 import Enums.Unit_Enum;
-import com.sun.org.apache.xml.internal.security.utils.Constants;
-import java.sql.ResultSet;
 import utilities.IO_Utilities;
 import utilities.Strings;
 
