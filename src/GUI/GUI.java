@@ -131,6 +131,7 @@ public class GUI extends JFrame{
                 }
             }
         });        
+        setIconImage(utilities.IO_Utilities.getImage("icon.png"));
         new Thread(clipboard).start();
     }
     
@@ -152,6 +153,7 @@ public class GUI extends JFrame{
             this.repeat = repeat;
             options.getProgressBar().setMaximum(repeat);
             options.getProgressBar().setValue(0);
+            options.getProgressBar().setString(""+done);
         }
         
         
@@ -232,6 +234,7 @@ public class GUI extends JFrame{
             Statistics statistics = new Statistics(stats);           
             
             options.getProgressBar().setValue(done);
+            options.getProgressBar().setString(""+done);
             
             //set winner
             HashMap<Side_Enum,Double> res = statistics.getResult();

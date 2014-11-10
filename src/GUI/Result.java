@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Enums.Player_Status_Enum;
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
@@ -13,6 +14,11 @@ import Enums.Resources_Enum;
 import Enums.Side_Enum;
 import Enums.Unit_Enum;
 import Statistics.Coordinates;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import utilities.Strings;
 
 /**
@@ -32,12 +38,15 @@ public class Result extends JPanel{
             label_real_plunder,real_plunder,
             label_fuel,fuel,
             label_time,time;
+    private JButton change_planet;
+    private JComboBox<String> player_status;
+    private Planet planet;
 
     public Result() {
         initComponents();
         setBattlePlace("planeta",new Coordinates(1, 22, 3));
         setWinner(0,0,100, 1);
-        setTacticalRetreat(29000.0, 8000.0);
+        setTacticalRetreat(0.0, 0.0);
         setDerbis(0, 0);
         setChanceForMoon(0);
         setAgressorLosses(0, 0, 0);
@@ -47,7 +56,13 @@ public class Result extends JPanel{
         setFuel(0);
         setTime(7200,200000);
     }
+    
+    
     private void initComponents(){
+        String[] values = new String[3];
+        values[0] = lang.GUI_Lang.get(Player_Status_Enum.Neutral.name());
+        values[1] = lang.GUI_Lang.get(Player_Status_Enum.Honorable.name());
+        values[2] = lang.GUI_Lang.get(Player_Status_Enum.Bandit.name());
         label_battle_place = new JLabel(lang.GUI_Lang.get("label_battle_place"));
         label_winner = new JLabel(lang.GUI_Lang.get("label_winner"));
         label_tactical_retreat = new JLabel(lang.GUI_Lang.get("label_tactical_retreat"));
@@ -59,6 +74,8 @@ public class Result extends JPanel{
         label_real_plunder = new JLabel(lang.GUI_Lang.get("label_real_plunder"));
         label_fuel = new JLabel(lang.GUI_Lang.get("label_fuel"));
         label_time = new JLabel(lang.GUI_Lang.get("label_time"));        
+        change_planet = new JButton(lang.GUI_Lang.get("change_planet"));
+        player_status = new JComboBox<String>(values);
         
         battle_place = new JLabel();
         winner = new JLabel();
@@ -71,7 +88,18 @@ public class Result extends JPanel{
         real_plunder = new JLabel();
         fuel = new JLabel();
         time = new JLabel();
+        planet = new Planet();
         
+        change_planet.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                planet.setVisible(true);
+            }
+        });
+        
+        
+        change_planet.setMargin(new Insets(0, 5, 0, 5));
         Color font_color = Color.WHITE;
         label_battle_place.setForeground(font_color);
         label_winner.setForeground(font_color);
@@ -90,11 +118,11 @@ public class Result extends JPanel{
         tactical_retreat.setForeground(font_color);
         derbis.setForeground(font_color);
         chance_for_moon.setForeground(font_color);
-        attacker_losses.setForeground(Color.red);
-        defender_losses.setForeground(Color.red);
+        attacker_losses.setForeground(Color.RED);
+        defender_losses.setForeground(Color.RED);
         teoretical_plunder.setForeground(font_color);
         real_plunder.setForeground(font_color);
-        fuel.setForeground(font_color);
+        fuel.setForeground(Color.CYAN);
         time.setForeground(font_color);
         
         setOpaque(false);
@@ -126,7 +154,10 @@ public class Result extends JPanel{
                 .addComponent(teoretical_plunder)
                 .addComponent(real_plunder)
                 .addComponent(fuel)
-                .addComponent(time)));
+                .addComponent(time))
+            .addComponent(player_status)
+            .addContainerGap(10, 10)
+            .addComponent(change_planet));
         l.setVerticalGroup(l.createParallelGroup()
             .addGroup(l.createSequentialGroup()
                 .addComponent(label_battle_place)
@@ -151,7 +182,9 @@ public class Result extends JPanel{
                 .addComponent(teoretical_plunder)
                 .addComponent(real_plunder)
                 .addComponent(fuel)
-                .addComponent(time)));        
+                .addComponent(time))
+            .addComponent(player_status,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+            .addComponent(change_planet,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE));        
     }
 
     public void setBattlePlace(String planet_name,Coordinates coords) {
@@ -204,7 +237,10 @@ public class Result extends JPanel{
     }    
 
     public void setTacticalRetreat(Double Agressor,Double Defender) {
-        
+        if(Agressor==0)
+            Agressor=1.0;
+        if(Defender==0)
+            Defender=1.0;
         String left = "",right="";
         if(Agressor>Defender){
             left = ""+Strings.format(1.0*Agressor/Defender);

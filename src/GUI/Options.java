@@ -44,6 +44,10 @@ public class Options extends JPanel{
         simulation_start.setMargin(new Insets(14, 14, 14, 14));
         clear_location.setMargin(new Insets(0, 0, 0, 0));
         simulation_number.setColumns(3);
+        
+        progress_bar.setStringPainted(true);
+        progress_bar.setString("");
+        
         JPanel panel = new JPanel();
         panel.setOpaque(false);
         GroupLayout l = new GroupLayout(panel);

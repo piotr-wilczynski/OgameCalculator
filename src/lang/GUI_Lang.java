@@ -1,12 +1,6 @@
 package lang;
 
-import java.io.IOException;
 import java.util.Hashtable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import Enums.Research_Enum;
-import Enums.Unit_Enum;
-import utilities.IO_Utilities;
 
 public class GUI_Lang {
     private static final GUI_Lang gui = new GUI_Lang();
@@ -102,6 +96,11 @@ public class GUI_Lang {
         texts.put("teoretical_plunder", "%s (%d%% Łupu)");
         texts.put("real_plunder", "%s (%d%% Łupu)");
         
+        texts.put("Resources", "Zasoby");
+        texts.put("Cancel", "Anuluj");
+        texts.put("Moon", "Księżyc");
+        texts.put("label_planet_locations", "Położenie");
+        texts.put("label_planet_name", "Nazwa planety");
         
         /*try {
             IO_Utilities.save_ini("polish", texts);

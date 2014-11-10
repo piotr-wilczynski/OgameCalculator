@@ -172,8 +172,7 @@ public class Statistics {
                 case Small_Cargo:
                 case Large_Cargo:
                 case Colony_Ship:
-                case Recycler:
-                case Espionage_Probe:{                    
+                case Recycler:{                    
                     long cost = unit.getMetal()+unit.getCrystal()+unit.getDeuterium();
                     retreat.put(Side_Enum.Agressor, retreat.getOrDefault(Side_Enum.Agressor, 0.0)+(numbera*cost/4));
                     retreat.put(Side_Enum.Defender, retreat.getOrDefault(Side_Enum.Defender, 0.0)+(numberd*cost/4));
