@@ -1,6 +1,7 @@
 
 package Statistics;
 
+import Enums.Player_Status_Enum;
 import Enums.Resources_Enum;
 import Enums.Side_Enum;
 import java.util.HashMap;
@@ -145,6 +146,7 @@ public class Statistics {
         }        
         return loss;
     }
+    
     public HashMap<Resources_Enum, Long> getDefenderLoss(HashMap<Unit_Enum,Integer> defender){
         HashMap<Resources_Enum, Long> loss = new HashMap<>();
         for(Unit_Enum unit:Unit_Enum.values()){
@@ -159,6 +161,7 @@ public class Statistics {
         }        
         return loss;
     }
+    
     public HashMap<Side_Enum, Double> getTactitalRetreat(HashMap<Unit_Enum,Integer> attacker,HashMap<Unit_Enum,Integer> defender){
         HashMap<Side_Enum, Double> retreat = new HashMap<Side_Enum, Double>();
         for(Unit_Enum unit:Unit_Enum.values()){
@@ -190,6 +193,20 @@ public class Statistics {
         }
         
         return retreat;
+    }
+    
+    public HashMap<Resources_Enum, Long> getTeoreticalPlunder(long Metal,long Crystal,long Deuterium,Player_Status_Enum player){
+        HashMap<Resources_Enum, Long> map = new HashMap<>();
+        double percent=0.5;
+        switch(player){
+            case Bandit:{percent = 1.0;}break;
+            case Honorable:{percent = 0.75;}break;
+            default:{percent = 0.5;}break;
+        }
+        map.put(Resources_Enum.Metal, (long)Math.floor(Metal*percent));
+        map.put(Resources_Enum.Crystal, (long)Math.floor(Crystal*percent));
+        map.put(Resources_Enum.Deuterium, (long)Math.floor(Deuterium*percent));
+        return map;
     }
     
 }

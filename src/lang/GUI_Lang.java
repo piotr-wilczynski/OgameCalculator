@@ -93,7 +93,6 @@ public class GUI_Lang {
         texts.put("battle_place", "Bitwa na %s %s");
         texts.put("winner", "%s po %d rundach");
         texts.put("chance_for_moon", "Szansa na księżyc wynosi %d%%");
-        texts.put("teoretical_plunder", "%s (%d%% Łupu)");
         texts.put("real_plunder", "%s (%d%% Łupu)");
         
         texts.put("Resources", "Zasoby");

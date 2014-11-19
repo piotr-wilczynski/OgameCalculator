@@ -51,7 +51,7 @@ public class Result extends JPanel{
         setChanceForMoon(0);
         setAgressorLosses(0, 0, 0);
         setDefenderLosses(0, 0, 0);
-        setTeoreticalPlunder(0, 0, 0, 0);
+        setTeoreticalPlunder(0, 0, 0);
         setRealPlunder(0, 0, 0, 0);
         setFuel(0);
         setTime(7200,200000);
@@ -276,7 +276,7 @@ public class Result extends JPanel{
     public void setAgressorLosses(long Metal, long Crystal, long Deuterium) {
         String text = 
                 Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
+                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
                 Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
         attacker_losses.setText(text);
     }
@@ -284,23 +284,23 @@ public class Result extends JPanel{
     public void setDefenderLosses(long Metal, long Crystal, long Deuterium) {
         String text = 
                 Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
+                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
                 Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
         defender_losses.setText(text);
     }
     
-    public void setTeoreticalPlunder(long Metal, long Crystal, long Deuterium,int percent) {
+    public void setTeoreticalPlunder(long Metal, long Crystal, long Deuterium) {
         String text = 
                 Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
+                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
                 Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
-        teoretical_plunder.setText(String.format(lang.GUI_Lang.get("teoretical_plunder"),text ,percent));
+        teoretical_plunder.setText(text);
     }
         
     public void setRealPlunder(long Metal, long Crystal, long Deuterium,int percent) {
         String text = 
                 Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+" i "+
+                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
                 Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
         real_plunder.setText(String.format(lang.GUI_Lang.get("real_plunder"),text ,percent));
     }    
@@ -331,6 +331,12 @@ public class Result extends JPanel{
     public Planet getPlanet() {
         return planet;
     }
+
+    public JComboBox<String> getPlayer_status() {
+        return player_status;
+    }
+    
+    
     
     
     

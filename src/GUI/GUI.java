@@ -1,6 +1,7 @@
 
 package GUI;
 
+import Enums.Player_Status_Enum;
 import Statistics.Statistics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -260,6 +261,11 @@ public class GUI extends JFrame{
             //set defender loss
             HashMap<Resources_Enum,Long> dloss = statistics.getDefenderLoss(units_defender);
             result.setDefenderLosses(dloss.getOrDefault(Resources_Enum.Metal, (long)0), dloss.getOrDefault(Resources_Enum.Crystal, (long)0), dloss.getOrDefault(Resources_Enum.Deuterium, (long)0));
+            
+            HashMap<Resources_Enum,Long> teorplund = statistics.getTeoreticalPlunder(result.getPlanet().getMetal(), result.getPlanet().getCrystal(), result.getPlanet().getDeuterium(), Player_Status_Enum.Neutral);
+            result.setTeoreticalPlunder(teorplund.getOrDefault(Resources_Enum.Metal, (long)0), teorplund.getOrDefault(Resources_Enum.Crystal, (long)0), teorplund.getOrDefault(Resources_Enum.Deuterium, (long)0));
+            
+            
             for(Unit_Enum u:Unit_Enum.values()){
                 UnitPanel a = attacker_shipyard.get(u);
                 UnitPanel d = defender_shipyard.get(u);
