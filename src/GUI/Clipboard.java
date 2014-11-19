@@ -11,7 +11,6 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import Enums.Research_Enum;
 import Enums.Resources_Enum;
 import Enums.Unit_Enum;
@@ -25,10 +24,14 @@ public class Clipboard extends Thread implements ClipboardOwner{
     private long time;
     public Clipboard() {
         clip = Toolkit.getDefaultToolkit().getSystemClipboard();
-        time = System.currentTimeMillis();
+        time = 0;
         this.researches = new Hashtable<>();
         this.resources = new Hashtable<>();
         this.units = new Hashtable<>();
+        try {
+            function((String)clip.getContents(this).getTransferData(DataFlavor.stringFlavor));
+        } catch (Exception e) {            
+        }
     }
     
     @Override
@@ -66,7 +69,6 @@ public class Clipboard extends Thread implements ClipboardOwner{
             String[] tab2 = tab[i].split("\t");
             for(int j=0;j<tab2.length;j++){
                 list.add(tab2[j]);
-                //System.out.println(tab2[j]);
             }
         }
         int level=0;
@@ -154,6 +156,7 @@ public class Clipboard extends Thread implements ClipboardOwner{
     
     public synchronized void addPropertyChangeListener(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
+        l.propertyChange(null);
     }
 
     public synchronized void removePropertyChangeListener(PropertyChangeListener l) {

@@ -312,6 +312,7 @@ public class Result extends JPanel{
     public void setTime(int time,int time_recycler) {
         this.time.setText(String.format("%s(%s: %s)",getTime(time),lang.GUI_Lang.get(Unit_Enum.Recycler.name()),getTime(time_recycler)));
     }
+    
     private String getTime(int time){
         int seconds = time%60;
         int minutes = ((time-seconds)%3600)/60;
@@ -326,6 +327,11 @@ public class Result extends JPanel{
         return shours+hours+":"+sminutes+minutes+":"+sseconds+seconds+" h";
         
     }
+
+    public Planet getPlanet() {
+        return planet;
+    }
+    
     
     
 }

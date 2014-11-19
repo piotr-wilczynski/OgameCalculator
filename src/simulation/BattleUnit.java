@@ -108,8 +108,8 @@ public class BattleUnit {
     
     
     public boolean probability(float chance){
-        int r = random.nextInt(1000);
-        if(r<(1000*chance))//<=
+        int r = random.nextInt(10000);
+        if(r<(10000*chance))//<=
             return true;
         else
             return false;

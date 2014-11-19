@@ -103,20 +103,28 @@ public class Statistics {
         return result;
     }
     
-    public HashMap<Resources_Enum, Long> getDerbis(HashMap<Unit_Enum,Integer> attacker,HashMap<Unit_Enum,Integer> defender,double percent){
+    public HashMap<Resources_Enum, Long> getDerbis(HashMap<Unit_Enum,Integer> attacker,HashMap<Unit_Enum,Integer> defender,double percentfleet,double percentdefense){
         HashMap<Resources_Enum, Long> derbis = new HashMap<>();
         for(Unit_Enum unit:Unit_Enum.values()){
             double a = attacker.getOrDefault(unit, 0)-map_agressor.getOrDefault(unit, 0.0);
             double d = defender.getOrDefault(unit, 0)-map_defender.getOrDefault(unit, 0.0);
             long rounda = Math.round(a);
             long roundd = Math.round(d);
-            if(rounda>0){                
-                derbis.put(Resources_Enum.Metal, derbis.getOrDefault(Resources_Enum.Metal, (long)0)+Math.round(unit.getMetal()*rounda*percent));
-                derbis.put(Resources_Enum.Crystal, derbis.getOrDefault(Resources_Enum.Crystal, (long)0)+Math.round(unit.getCrystal()*rounda*percent));
+            if(rounda>0){      
+                if(unit.isFleet()){
+                    derbis.put(Resources_Enum.Metal, derbis.getOrDefault(Resources_Enum.Metal, (long)0)+Math.round(unit.getMetal()*rounda*percentfleet));
+                    derbis.put(Resources_Enum.Crystal, derbis.getOrDefault(Resources_Enum.Crystal, (long)0)+Math.round(unit.getCrystal()*rounda*percentfleet));
+                }
             }
             if(roundd>0){                
-                derbis.put(Resources_Enum.Metal, derbis.getOrDefault(Resources_Enum.Metal, (long)0)+Math.round(unit.getMetal()*roundd*percent));
-                derbis.put(Resources_Enum.Crystal, derbis.getOrDefault(Resources_Enum.Crystal, (long)0)+Math.round(unit.getCrystal()*roundd*percent));
+                if(unit.isFleet()){
+                    derbis.put(Resources_Enum.Metal, derbis.getOrDefault(Resources_Enum.Metal, (long)0)+Math.round(unit.getMetal()*roundd*percentfleet));
+                    derbis.put(Resources_Enum.Crystal, derbis.getOrDefault(Resources_Enum.Crystal, (long)0)+Math.round(unit.getCrystal()*roundd*percentfleet));
+                }
+                if(unit.isDefense()){
+                    derbis.put(Resources_Enum.Metal, derbis.getOrDefault(Resources_Enum.Metal, (long)0)+Math.round(unit.getMetal()*roundd*percentdefense));
+                    derbis.put(Resources_Enum.Crystal, derbis.getOrDefault(Resources_Enum.Crystal, (long)0)+Math.round(unit.getCrystal()*roundd*percentdefense));
+                }
             }
             
         }

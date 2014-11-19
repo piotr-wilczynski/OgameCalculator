@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import Enums.Resources_Enum;
@@ -137,6 +132,40 @@ public class Planet extends JDialog{
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         pack();
+    }
+    
+    public void setMetal(long Metal){
+        metal.setText(""+Metal);
+    }
+    public void setCrystal(long Crystal){
+        crystal.setText(""+Crystal);
+    }
+    public void setDeuterium(long Deuterium){
+        deuterium.setText(""+Deuterium);
+    }
+
+    public long getMetal() {
+        try{
+            return Long.parseLong(metal.getText());
+        }catch(Exception e){
+            return 0;
+        }
+    }
+
+    public long getCrystal() {
+        try{
+            return Long.parseLong(crystal.getText());
+        }catch(Exception e){
+            return 0;
+        }
+    }
+
+    public long getDeuterium() {
+        try{
+            return Long.parseLong(deuterium.getText());
+        }catch(Exception e){
+            return 0;
+        }
     }
     
     private void Action(){

@@ -71,6 +71,45 @@ public enum Unit_Enum{
             Rapidfire.put(rapidfire[i].unit, rapidfire[i].rapidfire);
         }
     }
+    
+    public boolean isFleet(){
+        switch(this){
+            case Light_Fighter:
+            case Heavy_Fighter:
+            case Cruiser:
+            case Battleship:
+            case Battlecruiser:
+            case Bomber:
+            case Destroyer:
+            case Deathstar:
+            case Small_Cargo:
+            case Large_Cargo:
+            case Colony_Ship:
+            case Recycler:
+            case Espionage_Probe:
+            case Solar_Satellite:{
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isDefense(){
+        switch(this){
+            case Rocket_Launcher:
+            case Light_Laser:
+            case Heavy_Laser:
+            case Gauss_Cannon:
+            case Ion_Cannon:
+            case Plasma_Turret:
+            case Small_Shield_Dome:
+            case Large_Shield_Dome:
+            case Anti_Ballistic_Missiles:
+            case Interplanetary_Missiles:{
+                return true;
+            }
+        }
+        return false;
+    }
 
     public int getStructural_Integrity() {
         return Structural_Integrity;

@@ -110,7 +110,6 @@ public class GUI extends JFrame{
         });        
         clipboard = new Clipboard();
         clipboard.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 for(Unit_Enum unit:Unit_Enum.values()){
@@ -126,11 +125,13 @@ public class GUI extends JFrame{
                 for(Research_Enum reserches:Research_Enum.values()){
                     UnitPanel t = technology.get(reserches,Technology.Defender_Side);
                     if(t!=null)
-                        t.setNumber(""+clipboard.getResearches().getOrDefault(reserches, 0));
-                    
+                        t.setNumber(""+clipboard.getResearches().getOrDefault(reserches, 0));                    
                 }
+                result.getPlanet().setMetal(clipboard.getResources().getOrDefault(Resources_Enum.Metal, 0));
+                result.getPlanet().setCrystal(clipboard.getResources().getOrDefault(Resources_Enum.Crystal, 0));
+                result.getPlanet().setDeuterium(clipboard.getResources().getOrDefault(Resources_Enum.Deuterium, 0));
             }
-        });        
+        });
         setIconImage(utilities.IO_Utilities.getImage("icon.png"));
         new Thread(clipboard).start();
     }
@@ -245,7 +246,7 @@ public class GUI extends JFrame{
             result.setTacticalRetreat(tactical_retreat.getOrDefault(Side_Enum.Agressor, 0.0), tactical_retreat.getOrDefault(Side_Enum.Defender, 0.0));
             
             //set derbis            
-            HashMap<Resources_Enum,Long> derb = statistics.getDerbis(units_attacker, units_defender,0.5);
+            HashMap<Resources_Enum,Long> derb = statistics.getDerbis(units_attacker, units_defender,0.5,0);
             result.setDerbis(derb.getOrDefault(Resources_Enum.Metal, (long)0), derb.getOrDefault(Resources_Enum.Crystal, (long)0));
             
             //set chance for moon
