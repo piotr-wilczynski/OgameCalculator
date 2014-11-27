@@ -63,6 +63,7 @@ public class GUI extends JFrame{
         defender_shipyard = new Shipyard(GUI_Lang.getGUI().shipyard_of_defender);
         defense = new Defense(GUI_Lang.getGUI().defense_of_defender);
         attacker_shipyard.get(Unit_Enum.Solar_Satellite).setEnabled(false);
+        defense.get(Unit_Enum.Anti_Ballistic_Missiles).setEnabled(false);
         defense.get(Unit_Enum.Interplanetary_Missiles).setEnabled(false);
         technology = new Technology(GUI_Lang.getGUI().research);
         
@@ -191,6 +192,7 @@ public class GUI extends JFrame{
                     units_defender.put(u, d.getNumber());
                 }
                 if(dd!=null){
+                    if(u!=u.Anti_Ballistic_Missiles&&u!=u.Interplanetary_Missiles)
                     units_defender.put(u, dd.getNumber());
                 }
             }
@@ -263,7 +265,10 @@ public class GUI extends JFrame{
             result.setDefenderLosses(dloss.getOrDefault(Resources_Enum.Metal, (long)0), dloss.getOrDefault(Resources_Enum.Crystal, (long)0), dloss.getOrDefault(Resources_Enum.Deuterium, (long)0));
             
             HashMap<Resources_Enum,Long> teorplund = statistics.getTeoreticalPlunder(result.getPlanet().getMetal(), result.getPlanet().getCrystal(), result.getPlanet().getDeuterium(), Player_Status_Enum.Neutral);
-            result.setTeoreticalPlunder(teorplund.getOrDefault(Resources_Enum.Metal, (long)0), teorplund.getOrDefault(Resources_Enum.Crystal, (long)0), teorplund.getOrDefault(Resources_Enum.Deuterium, (long)0));
+            result.setTeoreticalPlunder(teorplund.getOrDefault(Resources_Enum.Metal, (long)0), teorplund.getOrDefault(Resources_Enum.Crystal, (long)0), teorplund.getOrDefault(Resources_Enum.Deuterium, (long)0),Unit_Enum.Small_Cargo);
+            
+            HashMap<Resources_Enum,Long> realplund = statistics.getRealPlunder(result.getPlanet().getMetal(), result.getPlanet().getCrystal(), result.getPlanet().getDeuterium(), Player_Status_Enum.Neutral);
+            result.setRealPlunder(realplund.getOrDefault(Resources_Enum.Metal, (long)0), realplund.getOrDefault(Resources_Enum.Crystal, (long)0), realplund.getOrDefault(Resources_Enum.Deuterium, (long)0),1);
             
             
             for(Unit_Enum u:Unit_Enum.values()){

@@ -51,7 +51,7 @@ public class Result extends JPanel{
         setChanceForMoon(0);
         setAgressorLosses(0, 0, 0);
         setDefenderLosses(0, 0, 0);
-        setTeoreticalPlunder(0, 0, 0);
+        setTeoreticalPlunder(0, 0, 0, Unit_Enum.Large_Cargo);
         setRealPlunder(0, 0, 0, 0);
         setFuel(0);
         setTime(7200,200000);
@@ -144,7 +144,13 @@ public class Result extends JPanel{
                 .addComponent(label_fuel,label_size,label_size,label_size)
                 .addComponent(label_time,label_size,label_size,label_size))
             .addGroup(l.createParallelGroup()
-                .addComponent(battle_place)
+                .addGroup(l.createSequentialGroup()
+                    .addComponent(battle_place)
+                    .addContainerGap(10, 200)
+                    .addComponent(player_status,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(10, 10)
+                    .addComponent(change_planet,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                )
                 .addComponent(winner)
                 .addComponent(tactical_retreat)
                 .addComponent(derbis)
@@ -154,37 +160,55 @@ public class Result extends JPanel{
                 .addComponent(teoretical_plunder)
                 .addComponent(real_plunder)
                 .addComponent(fuel)
-                .addComponent(time))
-            .addComponent(player_status)
-            .addContainerGap(10, 10)
-            .addComponent(change_planet));
-        l.setVerticalGroup(l.createParallelGroup()
-            .addGroup(l.createSequentialGroup()
+                .addComponent(time)));
+        
+        l.setVerticalGroup(l.createSequentialGroup()
+            .addGroup(l.createParallelGroup()
                 .addComponent(label_battle_place)
-                .addComponent(label_winner)
-                .addComponent(label_tactical_retreat)
-                .addComponent(label_derbis)
-                .addComponent(label_chance_for_moon)
-                .addComponent(label_attacker_losses)
-                .addComponent(label_defender_losses)
-                .addComponent(label_teoretical_plunder)
-                .addComponent(label_real_plunder)
-                .addComponent(label_fuel)
-                .addComponent(label_time))
-            .addGroup(l.createSequentialGroup()
                 .addComponent(battle_place)
+                .addComponent(player_status)
+                .addComponent(change_planet)
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_winner)
                 .addComponent(winner)
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_tactical_retreat)
                 .addComponent(tactical_retreat)
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_derbis)
                 .addComponent(derbis)
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_chance_for_moon)
                 .addComponent(chance_for_moon)
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_attacker_losses)
                 .addComponent(attacker_losses)
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_defender_losses)
                 .addComponent(defender_losses)
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_teoretical_plunder)
                 .addComponent(teoretical_plunder)
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_real_plunder)
                 .addComponent(real_plunder)
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_fuel)
                 .addComponent(fuel)
-                .addComponent(time))
-            .addComponent(player_status,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
-            .addComponent(change_planet,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE));        
+                )
+            .addGroup(l.createParallelGroup()
+                .addComponent(label_time)
+                .addComponent(time)
+                ));
     }
 
     public void setBattlePlace(String planet_name,Coordinates coords) {
@@ -289,12 +313,13 @@ public class Result extends JPanel{
         defender_losses.setText(text);
     }
     
-    public void setTeoreticalPlunder(long Metal, long Crystal, long Deuterium) {
+    public void setTeoreticalPlunder(long Metal, long Crystal, long Deuterium, Unit_Enum unit) {
         String text = 
                 Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
                 Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
                 Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
-        teoretical_plunder.setText(text);
+        double number = 1.0*(Metal+Crystal+Deuterium)/unit.getCargo_Capacity();
+        teoretical_plunder.setText(text + " (~"+(int)Math.ceil(number)+" "+lang.GUI_Lang.get(unit.name())+")");
     }
         
     public void setRealPlunder(long Metal, long Crystal, long Deuterium,int percent) {

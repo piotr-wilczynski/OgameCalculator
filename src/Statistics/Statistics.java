@@ -197,7 +197,7 @@ public class Statistics {
     
     public HashMap<Resources_Enum, Long> getTeoreticalPlunder(long Metal,long Crystal,long Deuterium,Player_Status_Enum player){
         HashMap<Resources_Enum, Long> map = new HashMap<>();
-        double percent=0.5;
+        double percent=player.getPlunder_ratio();
         switch(player){
             case Bandit:{percent = 1.0;}break;
             case Honorable:{percent = 0.75;}break;
@@ -206,6 +206,49 @@ public class Statistics {
         map.put(Resources_Enum.Metal, (long)Math.floor(Metal*percent));
         map.put(Resources_Enum.Crystal, (long)Math.floor(Crystal*percent));
         map.put(Resources_Enum.Deuterium, (long)Math.floor(Deuterium*percent));
+        return map;
+    }
+    
+    public HashMap<Resources_Enum, Long> getRealPlunder(long Metal,long Crystal,long Deuterium,Player_Status_Enum player){
+        HashMap<Resources_Enum, Long> map = getTeoreticalPlunder(Metal, Crystal, Deuterium, player);
+        long max_metal = map.getOrDefault(Resources_Enum.Metal, (long)0);
+        long max_crystal = map.getOrDefault(Resources_Enum.Crystal, (long)0);
+        long max_deuterium = map.getOrDefault(Resources_Enum.Deuterium, (long)0);
+        long max_capacity = 0;
+        for(Unit_Enum unit:Unit_Enum.values()){
+            max_capacity+=(Math.round(map_agressor.getOrDefault(unit, 0.0))*unit.getCargo_Capacity());
+        }
+        map = new HashMap<>();
+        long temp = Math.min((long)Math.ceil(1.0*max_capacity/3), max_metal);
+        max_capacity-=temp;
+        max_metal-=temp;
+        map.put(Resources_Enum.Metal, map.getOrDefault(Resources_Enum.Metal, (long)0)+temp);
+        
+        temp = Math.min((long)Math.ceil(1.0*max_capacity/2), max_crystal);
+        max_capacity-=temp;
+        max_crystal-=temp;
+        map.put(Resources_Enum.Crystal, map.getOrDefault(Resources_Enum.Crystal, (long)0)+temp);
+        
+        temp = Math.min(max_capacity, max_deuterium);
+        max_capacity-=temp;
+        max_deuterium-=temp;
+        map.put(Resources_Enum.Deuterium, map.getOrDefault(Resources_Enum.Deuterium, (long)0)+temp);
+        
+        if(max_capacity>0){              
+            temp = Math.min((long)Math.ceil(1.0*max_capacity/2), max_metal);
+            max_capacity-=temp;
+            max_metal-=temp;
+            map.put(Resources_Enum.Metal, map.getOrDefault(Resources_Enum.Metal, (long)0)+temp);            
+            
+            temp = Math.min(max_capacity, max_crystal);
+            max_capacity-=temp;
+            max_crystal-=temp;
+            map.put(Resources_Enum.Crystal, map.getOrDefault(Resources_Enum.Crystal, (long)0)+temp);            
+        }
+        
+        
+        
+        
         return map;
     }
     

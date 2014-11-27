@@ -128,15 +128,18 @@ public class Clipboard extends Thread implements ClipboardOwner{
 
     @Override
     public void lostOwnership(java.awt.datatransfer.Clipboard clipboard, Transferable contents) {
-    try {  
-      Thread.sleep(20);  
-    } catch(Exception e) {  
-        e.printStackTrace();
-    }  
-        Transferable c = clip.getContents(this);
-        
-        processContents(c);  
-        regainOwnership(c);  
+        try {  
+          Thread.sleep(20);  
+        } catch(Exception e) {  
+            e.printStackTrace();
+        }  
+        try{
+            Transferable c = clip.getContents(this);
+            processContents(c);  
+            regainOwnership(c);  
+        }catch(Exception e){
+
+        }
     }
     
     void processContents(Transferable t) {  
