@@ -46,13 +46,13 @@ public class Result extends JPanel{
         initComponents();
         setBattlePlace("planeta",new Coordinates(1, 22, 3));
         setWinner(0,0,100, 1);
-        setTacticalRetreat(0.0, 0.0);
-        setDerbis(0, 0);
+        setTacticalRetreat(new double[]{0.0,0.0});
+        setDerbis(new long[]{0,0});
         setChanceForMoon(0);
-        setAgressorLosses(0, 0, 0);
-        setDefenderLosses(0, 0, 0);
-        setTeoreticalPlunder(0, 0, 0, Unit_Enum.Large_Cargo);
-        setRealPlunder(0, 0, 0, 0);
+        setLosses(Side_Enum.Agressor, new long[]{0,0,0});
+        setLosses(Side_Enum.Defender, new long[]{0,0,0});
+        setTeoreticalPlunder(new long[]{0,0,0}, Unit_Enum.Large_Cargo);
+        setRealPlunder(new long[]{0,0,0}, new long[]{0,0,0});
         setFuel(0);
         setTime(7200,200000);
     }
@@ -89,9 +89,9 @@ public class Result extends JPanel{
         fuel = new JLabel();
         time = new JLabel();
         planet = new Planet();
+        planet.setLocationRelativeTo(change_planet);
         
         change_planet.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 planet.setVisible(true);
@@ -260,23 +260,15 @@ public class Result extends JPanel{
         winner.setText(String.format(lang.GUI_Lang.get("winner"), text,rounds));
     }    
 
-    public void setTacticalRetreat(Double Agressor,Double Defender) {
-        if(Agressor==0)
-            Agressor=1.0;
-        if(Defender==0)
-            Defender=1.0;
+    public void setTacticalRetreat(double[] tacticalRetreat) {
+        if(tacticalRetreat[Side_Enum.Agressor.ordinal()]==0)
+            tacticalRetreat[Side_Enum.Agressor.ordinal()]=1.0;
+        if(tacticalRetreat[Side_Enum.Defender.ordinal()]==0)
+            tacticalRetreat[Side_Enum.Defender.ordinal()]=1.0;
         String left = "",right="";
-        if(Agressor>Defender){
-            left = ""+Strings.format(1.0*Agressor/Defender);
-            right="1";
-        }else if(Defender>Agressor){
-            left="1";
-            right = ""+Strings.format(1.0*Defender/Agressor);            
-        }else{
-            left="1";
-            right="1";
-        }
-        
+        double min = Math.min(tacticalRetreat[Side_Enum.Agressor.ordinal()], tacticalRetreat[Side_Enum.Defender.ordinal()]);
+        left = ""+Strings.format(tacticalRetreat[Side_Enum.Agressor.ordinal()]/min);
+        right = ""+Strings.format(tacticalRetreat[Side_Enum.Defender.ordinal()]/min);
         tactical_retreat.setText(String.format("<html>%s<span style=\"color:green;\"> %s:%s </span>%s</html>", 
                 lang.GUI_Lang.get(Side_Enum.Agressor.name()),
                 left,
@@ -285,63 +277,62 @@ public class Result extends JPanel{
                 ));
     }
     
-    public void setDerbis(long Metal, long Crystal) {
+    public void setDerbis(long[] derbis) {
         String text = 
-                Strings.format(Metal)+" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Strings.format(Crystal)+" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name());
-        double number = (1.0*(Metal+Crystal))/Unit_Enum.Recycler.getCargo_Capacity();
-        derbis.setText(text + " (~"+(int)Math.ceil(number)+" "+lang.GUI_Lang.get(Unit_Enum.Recycler.name())+")");
+                Strings.format(derbis[Resources_Enum.Metal.ordinal()])+" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
+                Strings.format(derbis[Resources_Enum.Crystal.ordinal()])+" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name());
+        double number = (1.0*(derbis[Resources_Enum.Metal.ordinal()]+derbis[Resources_Enum.Crystal.ordinal()]))/Unit_Enum.Recycler.getCargo_Capacity();
+        this.derbis.setText(text + " (~"+(int)Math.ceil(number)+" "+lang.GUI_Lang.get(Unit_Enum.Recycler.name())+")");
     }
     
     public void setChanceForMoon(int percent) {
         chance_for_moon.setText(String.format(lang.GUI_Lang.get("chance_for_moon"), percent));
     }
     
-    public void setAgressorLosses(long Metal, long Crystal, long Deuterium) {
+    public void setLosses(Side_Enum side,long[] resources){
         String text = 
-                Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
-                Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
-        attacker_losses.setText(text);
+                Strings.format(resources[Resources_Enum.Metal.ordinal()])       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
+                Strings.format(resources[Resources_Enum.Crystal.ordinal()])     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
+                Strings.format(resources[Resources_Enum.Deuterium.ordinal()])   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
+        switch(side){
+            case Agressor:{attacker_losses.setText(text);}break;
+            case Defender:{defender_losses.setText(text);}break; 
+        }
+        
     }
     
-    public void setDefenderLosses(long Metal, long Crystal, long Deuterium) {
+    public void setTeoreticalPlunder(long[] resources, Unit_Enum unit) {
         String text = 
-                Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
-                Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
-        defender_losses.setText(text);
-    }
-    
-    public void setTeoreticalPlunder(long Metal, long Crystal, long Deuterium, Unit_Enum unit) {
-        String text = 
-                Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
-                Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
-        double number = 1.0*(Metal+Crystal+Deuterium)/unit.getCargo_Capacity();
+                Strings.format(resources[Resources_Enum.Metal.ordinal()])       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
+                Strings.format(resources[Resources_Enum.Crystal.ordinal()])     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
+                Strings.format(resources[Resources_Enum.Deuterium.ordinal()])   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
+        double number = 1.0*(resources[Resources_Enum.Metal.ordinal()]+resources[Resources_Enum.Crystal.ordinal()]+resources[Resources_Enum.Deuterium.ordinal()])/unit.getCargo_Capacity();
         teoretical_plunder.setText(text + " (~"+(int)Math.ceil(number)+" "+lang.GUI_Lang.get(unit.name())+")");
     }
         
-    public void setRealPlunder(long Metal, long Crystal, long Deuterium,int percent) {
+    public void setRealPlunder(long[] realplund,long[] teorplund) {        
+        long rsum = realplund[Resources_Enum.Metal.ordinal()]+realplund[Resources_Enum.Crystal.ordinal()]+realplund[Resources_Enum.Deuterium.ordinal()];
+        long tsum = teorplund[Resources_Enum.Metal.ordinal()]+teorplund[Resources_Enum.Crystal.ordinal()]+teorplund[Resources_Enum.Deuterium.ordinal()];
+        int percent = (int) (100.0 * (rsum) / (tsum));
         String text = 
-                Strings.format(Metal)       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
-                Strings.format(Crystal)     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
-                Strings.format(Deuterium)   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
+                Strings.format(realplund[Resources_Enum.Metal.ordinal()])       +" "+lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
+                Strings.format(realplund[Resources_Enum.Crystal.ordinal()])     +" "+lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
+                Strings.format(realplund[Resources_Enum.Deuterium.ordinal()])   +" "+lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
         real_plunder.setText(String.format(lang.GUI_Lang.get("real_plunder"),text ,percent));
     }    
     
-    public void setFuel(int Fuel){
+    public void setFuel(long Fuel){
         fuel.setText(String.format("%d "+lang.GUI_Lang.get(Enums.Resources_Enum.Deuterium.name()), Fuel));
     }
 
-    public void setTime(int time,int time_recycler) {
+    public void setTime(long time,long time_recycler) {
         this.time.setText(String.format("%s(%s: %s)",getTime(time),lang.GUI_Lang.get(Unit_Enum.Recycler.name()),getTime(time_recycler)));
     }
     
-    private String getTime(int time){
-        int seconds = time%60;
-        int minutes = ((time-seconds)%3600)/60;
-        int hours = (time-minutes-seconds)/3600;
+    private String getTime(long time){
+        long seconds = time%60;
+        long minutes = ((time-seconds)%3600)/60;
+        long hours = (time-minutes-seconds)/3600;
         String sseconds="",sminutes="",shours="";
         if(seconds<10)
             sseconds = "0";

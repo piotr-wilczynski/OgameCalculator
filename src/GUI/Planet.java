@@ -130,7 +130,6 @@ public class Planet extends JDialog{
         
         setIconImage(utilities.IO_Utilities.getImage("icon.png"));        
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        setLocationRelativeTo(null);
         pack();
     }
     
@@ -168,7 +167,11 @@ public class Planet extends JDialog{
         }
     }
     
+    public long[] getResources(){
+        return new long[]{getMetal(),getCrystal(),getDeuterium()};
+    }
+    
     private void Action(){
-        
+        setVisible(false);        
     }
 }

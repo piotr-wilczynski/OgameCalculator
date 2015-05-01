@@ -51,9 +51,10 @@ public class UnitPanel extends JPanel{
     
     private void initComonents(){
         background = images[0];             
-        
+        setOpaque(false);
         label = new JLabel();
         label.setHorizontalAlignment(JLabel.TRAILING);
+        label.setOpaque(false);
         label.setForeground(Color.RED);
         Font f = label.getFont();
         label.setFont(new java.awt.Font(f.getName(), Font.BOLD, 11));
@@ -185,7 +186,19 @@ public class UnitPanel extends JPanel{
             label.setVisible(enabled);
         }
         super.setEnabled(enabled);
+        updateUI();
     }    
+    
+    public void setEdtable(boolean enabled){
+        if(enabled){
+            background = images[0];
+            textfield.setEditable(enabled);
+        }else{
+            background = images[1];
+            textfield.setEditable(enabled);
+        }
+        updateUI();
+    }
 
     public Object getObject() {
         return object;

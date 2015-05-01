@@ -50,11 +50,18 @@ public class BattleUnit {
         }
         int rapidfire;
         if((rapidfire=this.unit.getRapidfire(unit.getUnit()))>0){
-            float probability_to_shot_again = (1.0f*(rapidfire-1))/rapidfire;
+            double probability_to_shot_again = (100-(100.0/rapidfire));
             if(probability(probability_to_shot_again)){
                 return true;
             }
         }
+        //0.85714287
+        return false;
+    }
+    
+    public boolean Fight2(BattleUnit unit,Battle_Technologies tech){
+        boolean ShootsAgain = true;
+        
         return false;
     }
 
@@ -106,13 +113,13 @@ public class BattleUnit {
         return new BattleUnit(unit, Hull_Plating, Shield_Strength, Attack_Strength);
     }
     
-    
-    public boolean probability(float chance){
-        int r = random.nextInt(10000);
-        if(r<(10000*chance))//<=
+    public boolean probability(double chance){
+        double r = random.nextDouble();
+        if(r*100<=(chance))
             return true;
-        else
+        else{
             return false;
+        }
     }  
     
     

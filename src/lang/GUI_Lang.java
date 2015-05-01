@@ -29,6 +29,10 @@ public class GUI_Lang {
         texts.put("Defender", "Obrońca");
         texts.put("Remis", "Resmis");
         
+        texts.put("Neutral", "Neutralny");
+        texts.put("Honorable", "Honorowy");
+        texts.put("Bandit", "Bandyta");
+        
         texts.put("Light_Fighter", "Lekki myśliwiec");
         texts.put("Heavy_Fighter", "Ciężki myśliwiec");
         texts.put("Cruiser", "Krążownik");
@@ -100,6 +104,7 @@ public class GUI_Lang {
         texts.put("Moon", "Księżyc");
         texts.put("label_planet_locations", "Położenie");
         texts.put("label_planet_name", "Nazwa planety");
+        texts.put("change_planet", "Zmień");
         
         /*try {
             IO_Utilities.save_ini("polish", texts);

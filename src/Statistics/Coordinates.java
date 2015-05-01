@@ -9,7 +9,7 @@ package Statistics;
  *
  * @author Piotr
  */
-public class Coordinates {
+public class Coordinates{
     private final int galaxy,solar_system,position;
 
     public Coordinates(int galaxy, int solar_system, int position) {
@@ -35,11 +35,20 @@ public class Coordinates {
     public int getPosition() {
         return position;
     }
+    
 
     @Override
     public String toString() {
         return String.format("[%d:%d:%d]", galaxy,solar_system,position);
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Coordinates){
+            Coordinates coord = (Coordinates) obj;
+            if(galaxy==coord.galaxy&&solar_system==coord.solar_system&&position==coord.position)
+                return true;
+        }
+        return false;
+    }    
 }

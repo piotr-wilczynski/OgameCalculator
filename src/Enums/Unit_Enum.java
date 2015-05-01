@@ -18,7 +18,7 @@ public enum Unit_Enum{
     Large_Shield_Dome(      50000,  50000,  0,      100000, 10000,1,     0,        0,      0),
     Anti_Ballistic_Missiles(8000,   0,      2000,   8000,   1,    1,     0,        0,      0),
     Interplanetary_Missiles(12500,  2500,   10000,  15000,  1,    12000, 0,        0,      0),
-    Espionage_Probe(        0,      1000,   0,      1000,   0.01f,    0.01f,     100000000,5,      1),
+    Espionage_Probe(        0,      1000,   0,      1000,   0.01f,0.01f, 100000000,5,      1),
     Solar_Satellite(        0,      2000,   500,    2000,   1,    1,     0,        0,      0),
     Small_Cargo(            2000,   2000,   0,      4000,   10,   5,     5000,     5000,   10,      new RF[]{new RF(Espionage_Probe, 5),new RF(Solar_Satellite, 5)}),
     Large_Cargo(            6000,   6000,   0,      12000,  25,   5,     7500,     25000,  50,      new RF[]{new RF(Espionage_Probe, 5),new RF(Solar_Satellite, 5)}),
@@ -162,16 +162,17 @@ public enum Unit_Enum{
                 return Speed+(tech.getHyperspace_Drive()*Speed*3/10);
             }
             case Small_Cargo:{
-                if(tech.getImpulse_Drive()<5)
+                if(tech.getImpulse_Drive()<5){
                     return Speed+(tech.getCombustion_Drive()*Speed/10);
-                else
-                    return Speed+(tech.getImpulse_Drive()*Speed*2/10);
+                }else{
+                    return 10000+(tech.getImpulse_Drive()*10000*2/10);
+                }
             }
             case Bomber:{
                 if(tech.getHyperspace_Drive()<8)
                     return Speed+(tech.getImpulse_Drive()*Speed*2/10);
                 else
-                    return Speed+(tech.getHyperspace_Drive()*Speed*3/10);
+                    return 5000+(tech.getHyperspace_Drive()*5000*3/10);
             }
                 
         }
@@ -182,8 +183,16 @@ public enum Unit_Enum{
         return Cargo_Capacity;
     }
 
-    public int getFuel_usage() {
-        return Fuel_Usage;
+    public int getFuel_usage(Battle_Technologies technologies) {
+        switch(this){
+            case Small_Cargo:{
+                if(technologies.getImpulse_Drive()>=5){
+                    return 20;
+                }
+            };
+            default:{return Fuel_Usage;}
+        }
+        
     }
 
     public int getMetal() {
@@ -198,6 +207,15 @@ public enum Unit_Enum{
         return Deuterium;
     }
     
+    public int getResources(Resources_Enum res){
+        switch(res){
+            case Metal:{return getMetal();}
+            case Crystal:{return getCrystal();}
+            case Deuterium:{return getDeuterium();}
+        }
+        return 0;
+    }
+    
     public int getRapidfire(Unit_Enum unit) {
         if(Rapidfire.get(unit)!=null){
             return Rapidfire.get(unit);
@@ -210,7 +228,14 @@ public enum Unit_Enum{
         for (Map.Entry<Unit_Enum, Integer> entry : Rapidfire.entrySet()) {
             rapids+=" Rapidfire("+entry.getKey().toString()+")="+entry.getValue();
          }
-        return toString()+" Structural="+getStructural_Integrity(tech)+" Shield="+getShield_Strength(tech)+" Attack="+getAttack_Strength(tech)+" Speed="+getSpeed(tech)+rapids;
+        float hull = getHull_Plating(tech);
+        float shild = getShield_Strength(tech);
+        float attack = getAttack_Strength(tech);
+        System.out.printf("%-15s%s\n", "Typ =", ""+this.name());
+        System.out.printf("%-15s%s\n", "Uzbrojenie =", ""+attack);
+        System.out.printf("%-15s%s\n", "Tarcza =", ""+shild);
+        System.out.printf("%-15s%s\n", "Osłona =", ""+hull);
+        return toString();//+" Structural="+getStructural_Integrity(tech)+" Shield="+getShield_Strength(tech)+" Attack="+getAttack_Strength(tech)+" Speed="+getSpeed(tech)+rapids;
         
     }
     

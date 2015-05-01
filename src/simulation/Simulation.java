@@ -25,6 +25,7 @@ public class Simulation extends Thread{
         random = new Random();
     }   
     
+    
     @Override
     public void run(){
         BattleUnit[] a,d;
@@ -61,7 +62,6 @@ public class Simulation extends Thread{
     private void Single_Simulation(BattleUnit[] attacker,BattleUnit[] defender){  
         for(int i=0;i<6;i++){
             if(attacker.length==0||defender.length==0){
-                win = Side_Enum.Remis;
                 break;
             }
             Attack_All(attacker, defender, defender_tech);
