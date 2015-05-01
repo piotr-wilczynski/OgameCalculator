@@ -1,6 +1,7 @@
 
 package GUI;
 
+import Statistics.Coordinates;
 import java.awt.Color;
 import java.awt.Insets;
 import javax.swing.*;
@@ -12,7 +13,7 @@ public class Options extends JPanel{
     private JCheckBox clipboard_check;
     private JLabel label_fleet_derbis,label_defense_derbis,label_simulation_number,label_fleet_speed,label_location;
 
-    private final String[] percents = new String[]{"100%","90%","80%","70%","60%","50%","40%","30%","20%","10%","0%"};
+    private final String[] percents = new String[]{"100%","90%","80%","70%","60%","50%","40%","30%","20%","10%"};
     
     public Options() {
         setOpaque(false);
@@ -40,6 +41,7 @@ public class Options extends JPanel{
         label_simulation_number.setForeground(Color.WHITE);
         label_fleet_speed.setForeground(Color.WHITE);
         location.setOpaque(false);
+        location.setEditable(true);
         
         simulation_start.setMargin(new Insets(14, 14, 14, 14));
         clear_location.setMargin(new Insets(0, 0, 0, 0));
@@ -153,10 +155,27 @@ public class Options extends JPanel{
             number = Integer.parseInt(text);
         }catch(NumberFormatException ex){
             number = 100;
+            simulation_number.setText("100");
         }
         return number;
     }
     
+    public Coordinates getCoordinates(){
+        String text = (String) location.getSelectedItem();
+        location.setSelectedItem("1:1:1");
+        return new Coordinates(text);
+    }
+    public int getFleetSpeedPercent(){
+        String text = (String) fleet_speed.getSelectedItem();
+        int percent = 100;
+        try{
+            percent = Integer.parseInt(text.substring(0, text.length()-1));            
+        }catch(NumberFormatException ex){
+            percent = 100;
+            fleet_speed.setSelectedItem(percents[0]);
+        }
+        return percent;
+    }
     
     
 }

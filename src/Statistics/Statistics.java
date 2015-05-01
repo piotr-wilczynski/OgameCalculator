@@ -269,7 +269,7 @@ public class Statistics {
         return 0;
     }
 
-    public long getDuration(int[][] units, Coordinates start, Coordinates end, boolean circularUniverses, int universeSpeed, Battle_Technologies techs) {
+    public long getDuration(int[][] units, Coordinates start, Coordinates end,int percent, boolean circularUniverses, int universeSpeed, Battle_Technologies techs) {
         float min = Long.MAX_VALUE;
         for (Unit_Enum unit : Unit_Enum.values()) {
             if (units[Side_Enum.Agressor.ordinal()][unit.ordinal()] > 0) {
@@ -279,13 +279,13 @@ public class Statistics {
             }
         }
         long distance = getDistance(start, end, circularUniverses);
-        int value = (int) Math.round((350 * Math.pow((distance * 1000 / (min)), 0.5) + 10) / (universeSpeed));
+        int value = (int) Math.round((35000.0/percent* Math.pow((distance * 1000 / (min)), 0.5) + 10) / (universeSpeed));
         return value;
     }
 
-    public long getFuel(int[][] units, Coordinates start, Coordinates end, boolean circularUniverses, int universeSpeed, Battle_Technologies techs) {
+    public long getFuel(int[][] units, Coordinates start, Coordinates end,int percent, boolean circularUniverses, int universeSpeed, Battle_Technologies techs) {
         double fuel = 0;
-        long duration = getDuration(units, start, end, circularUniverses, universeSpeed, techs);
+        long duration = getDuration(units, start, end,percent, circularUniverses, universeSpeed, techs);
         long distance = getDistance(start, end, circularUniverses);
         for (Unit_Enum unit : Unit_Enum.values()) {
             int ships = units[Side_Enum.Agressor.ordinal()][unit.ordinal()];

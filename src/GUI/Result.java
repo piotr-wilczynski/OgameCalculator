@@ -44,7 +44,7 @@ public class Result extends JPanel{
 
     public Result() {
         initComponents();
-        setBattlePlace("planeta",new Coordinates(1, 22, 3));
+        setBattlePlace("Planeta",new Coordinates(1, 1, 1));
         setWinner(0,0,100, 1);
         setTacticalRetreat(new double[]{0.0,0.0});
         setDerbis(new long[]{0,0});
@@ -54,7 +54,7 @@ public class Result extends JPanel{
         setTeoreticalPlunder(new long[]{0,0,0}, Unit_Enum.Large_Cargo);
         setRealPlunder(new long[]{0,0,0}, new long[]{0,0,0});
         setFuel(0);
-        setTime(7200,200000);
+        setTime(0,0);
     }
     
     

@@ -2,6 +2,7 @@ package GUI;
 
 import Enums.Resources_Enum;
 import Statistics.Coordinates;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
@@ -25,8 +26,14 @@ public class Planet extends JDialog{
     private JButton ok,cancel;
     private JCheckBox moon;
     public Planet() {
+        this(new Coordinates());
+    }
+
+    public Planet(Coordinates coordinates) {
+        coord = coordinates;
         initComponents();
     }
+    
     
     private void initComponents(){
         label_metal = new JLabel(lang.GUI_Lang.get(Resources_Enum.Metal.name()));
@@ -170,6 +177,20 @@ public class Planet extends JDialog{
     public long[] getResources(){
         return new long[]{getMetal(),getCrystal(),getDeuterium()};
     }
+
+    public Coordinates getCoordinates() {
+        return new Coordinates(planet_location.getText());
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coord = coordinates;
+        planet_location.setText(coord.getGalaxy()+":"+coord.getSolar_system()+":"+coord.getPosition());        
+    }
+    
+    
+    
+    
+    
     
     private void Action(){
         setVisible(false);        

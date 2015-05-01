@@ -1,73 +1,96 @@
-
 package simulation;
 
-import Enums.Side_Enum;
-import Enums.Unit_Enum;
+import Enums.*;
 import Statistics.Statistics;
-import java.util.HashMap;
-import java.util.Random;
 
-public class Simulation extends Thread{
-    //private List<BattleUnit> attacker,defender;
-    private final  HashMap<Unit_Enum,Integer> attacker,defender;
-    private final Battle_Technologies attacker_tech,defender_tech;
-    private Statistics statistics;
-    private Random random;
-    private Side_Enum win;
+public abstract class Simulation {
+    protected int[][] units;
+    protected Battle_Technologies[] techs;
+    protected Statistics[] statistics;
+            
+    public Simulation() {
+        units = new int[2][Unit_Enum.values().length];
+        for(int i=0;i<units.length;i++){
+            for(int j=0;j<units[i].length;j++){
+                units[i][j] = 0;
+            }
+        }
+        techs = new Battle_Technologies[2];
+    }
     
+    public void setUnit(Side_Enum side,Unit_Enum unit,int value){
+        units[side.ordinal()][unit.ordinal()] = value;
+    }
+    
+    public int getUnit(Side_Enum side,Unit_Enum unit){
+        return units[side.ordinal()][unit.ordinal()];
+    }
+    
+    public void setUnits(int[][] units){
+        this.units = units;
+    }
 
-    public Simulation(HashMap<Unit_Enum,Integer> attacker, HashMap<Unit_Enum,Integer> defender,Battle_Technologies attacket_tech,Battle_Technologies defender_tech,ThreadGroup group,int number) {
-        super(group, "Simulation nr="+number);
-        this.attacker = attacker;
-        this.defender = defender;
-        this.attacker_tech = attacket_tech;
-        this.defender_tech = defender_tech;
-        random = new Random();
-    }   
+    public int[][] getUnits() {
+        return units;
+    }    
+    
+    public void setTechnologies(Side_Enum side,Battle_Technologies techs){
+        this.techs[side.ordinal()] = techs;
+    }
+    
+    public Battle_Technologies getTechnologies(Side_Enum side){
+        Battle_Technologies techs = this.techs[side.ordinal()];
+        if(techs==null)
+            return new Battle_Technologies();
+        else 
+            return techs;
+    }
     
     
-    @Override
-    public void run(){
+    public abstract void simulate(int SimulationCount);    
+
+    public Statistics getStatistics() {
+        return new Statistics(statistics);
+    }    
+    
+    protected abstract int random(int bound);
+    
+    protected Statistics simulate(){
+        
+        
         BattleUnit[] a,d;
         int sum_a=0,sum_d=0;
         for(Unit_Enum unit:Unit_Enum.values()){
-            sum_a += attacker.getOrDefault(unit, 0);
-            sum_d += defender.getOrDefault(unit, 0);
+            sum_a += getUnit(Side_Enum.Agressor, unit);
+            sum_d += getUnit(Side_Enum.Defender, unit);
         }
         a = new BattleUnit[sum_a];
         d = new BattleUnit[sum_d];
         sum_a=0;
         sum_d=0;
         for(Unit_Enum unit:Unit_Enum.values()){
-            for(int i=0;i<attacker.getOrDefault(unit, 0);i++){
-                a[sum_a] = new BattleUnit(unit, attacker_tech);
+            for(int i=0;i<getUnit(Side_Enum.Agressor, unit);i++){
+                a[sum_a] = new BattleUnit(unit, getTechnologies(Side_Enum.Agressor));
                 sum_a++;
             }            
-            for(int i=0;i<defender.getOrDefault(unit, 0);i++){
-                d[sum_d] = new BattleUnit(unit, defender_tech);
+            for(int i=0;i<getUnit(Side_Enum.Defender, unit);i++){
+                d[sum_d] = new BattleUnit(unit, getTechnologies(Side_Enum.Defender));
                 sum_d++;
             }
         }
-        Single_Simulation(a, d);                
+        return Battle(a, d);
     }
     
-    public Side_Enum getResult(){
-        return win;
-    }
-    
-    public Statistics getStatistics(){
-        return statistics;
-    }
-    
-    private void Single_Simulation(BattleUnit[] attacker,BattleUnit[] defender){  
+    private Statistics Battle(BattleUnit[] attacker,BattleUnit[] defender){  
+        Side_Enum win;
         for(int i=0;i<6;i++){
             if(attacker.length==0||defender.length==0){
                 break;
             }
-            Attack_All(attacker, defender, defender_tech);
-            Attack_All(defender, attacker, attacker_tech);   
-            attacker = Clear_After_Round(attacker,attacker_tech);
-            defender = Clear_After_Round(defender,defender_tech);            
+            Attack_All(attacker, defender, getTechnologies(Side_Enum.Defender));
+            Attack_All(defender, attacker, getTechnologies(Side_Enum.Agressor));   
+            attacker = Clear_After_Round(attacker,getTechnologies(Side_Enum.Agressor));
+            defender = Clear_After_Round(defender,getTechnologies(Side_Enum.Defender));            
         }
         if(defender.length==0&&attacker.length>0)
             win = Side_Enum.Agressor;
@@ -75,16 +98,15 @@ public class Simulation extends Thread{
             win = Side_Enum.Defender;
         else
             win = Side_Enum.Remis;
-        statistics = new Statistics(attacker,defender,win);
-        attacker = null;
-        defender = null;
+        return new Statistics(attacker,defender,win);
     }
+    
     
     private void Attack_All(BattleUnit[] attacker, BattleUnit[] defender,Battle_Technologies defender_tech){ 
         for(int i=0;i<attacker.length;i++){
-            int r = random.nextInt(defender.length);
+            int r = random(defender.length);
             while(attacker[i].Fight(defender[r], defender_tech)){
-                r = random.nextInt(defender.length);
+                r = random(defender.length);
             }
         }        
     }   
@@ -106,4 +128,6 @@ public class Simulation extends Thread{
         }
         return temp;
     }      
+    
+    
 }

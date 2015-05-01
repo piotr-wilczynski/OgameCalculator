@@ -5,7 +5,7 @@ import Statistics.Coordinates;
 import java.util.HashMap;
 import optimization.Solver;
 import simulation.Battle_Technologies;
-import simulation.Simulation_2;
+import simulation.Simulation;
 import simulation.Simulation_SWING;
 
 

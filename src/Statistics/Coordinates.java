@@ -9,8 +9,9 @@ package Statistics;
  *
  * @author Piotr
  */
-public class Coordinates{
-    private final int galaxy,solar_system,position;
+public class Coordinates {
+
+    private final int galaxy, solar_system, position;
 
     public Coordinates(int galaxy, int solar_system, int position) {
         this.galaxy = galaxy;
@@ -18,10 +19,27 @@ public class Coordinates{
         this.position = position;
     }
 
+    public Coordinates(String coordinates) {
+        int galaxy;
+        int solar;
+        int position;
+        try {
+            String[] split = coordinates.split(":", 3);
+            galaxy = Integer.parseInt(split[0]);
+            solar = Integer.parseInt(split[1]);
+            position = Integer.parseInt(split[2]);
+        } catch (Exception ex) {
+            galaxy = 1;
+            solar = 1;
+            position = 1;
+        }
+        this.galaxy = galaxy;
+        this.solar_system = solar;
+        this.position = position;
+    }
+
     public Coordinates() {
-        this.galaxy = 0;
-        this.solar_system = 0;
-        this.position = 0;
+        this(1, 1, 1);
     }
 
     public int getGalaxy() {
@@ -35,20 +53,20 @@ public class Coordinates{
     public int getPosition() {
         return position;
     }
-    
 
     @Override
     public String toString() {
-        return String.format("[%d:%d:%d]", galaxy,solar_system,position);
+        return String.format("[%d:%d:%d]", galaxy, solar_system, position);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Coordinates){
+        if (obj instanceof Coordinates) {
             Coordinates coord = (Coordinates) obj;
-            if(galaxy==coord.galaxy&&solar_system==coord.solar_system&&position==coord.position)
+            if (galaxy == coord.galaxy && solar_system == coord.solar_system && position == coord.position) {
                 return true;
+            }
         }
         return false;
-    }    
+    }
 }

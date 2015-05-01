@@ -7,7 +7,6 @@ package simulation;
 
 import Statistics.Statistics;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.SwingWorker;
@@ -16,7 +15,7 @@ import javax.swing.SwingWorker;
  *
  * @author Piotr
  */
-public class Simulation_SWING extends Simulation_2 {
+public class Simulation_SWING extends Simulation {
 
     private int processors;
     private SwingWorker<Integer, Integer> worker;
@@ -35,8 +34,8 @@ public class Simulation_SWING extends Simulation_2 {
     public int getProcessors() {
         return processors;
     }
-    
-    public void setListener(PropertyChangeListener listener){
+
+    public void setListener(PropertyChangeListener listener) {
         this.listener = listener;
     }
 
@@ -55,6 +54,7 @@ public class Simulation_SWING extends Simulation_2 {
                 int coutntDone = 0;
                 int countStart = 0;
                 done = 0;
+                long start = System.nanoTime();
                 while (coutntDone < SimulationCount) {
                     if (threads.activeCount() < processors && countStart < SimulationCount) {
                         final int number = countStart;
@@ -63,14 +63,13 @@ public class Simulation_SWING extends Simulation_2 {
                             @Override
                             public void run() {
                                 statistics[number] = simulate();
-                                synchronized(done){
-                                    final int prev = done;
+                                synchronized (done) {
                                     done++;
-                                    //pcs.firePropertyChange("Done", prev, done);
                                     publish(done);
                                 }
                             }
                         }, "Simulation nr=" + countStart);
+                        thread.setDaemon(true);
                         thread.start();
                     } else {
                         if (statistics[coutntDone] != null) {
@@ -78,25 +77,22 @@ public class Simulation_SWING extends Simulation_2 {
                         }
                     }
                 }
-                long start = System.nanoTime();
-                for (int i = 0; i < SimulationCount; i++) {
-                    statistics[i] = simulate();
-                }
+                //for (int i = 0; i < SimulationCount; i++) {
+                    //statistics[i] = simulate();
+                //}
                 long end = System.nanoTime();
                 System.out.printf("Simulation took %.2g seconds\n", (double) (end - start) / 1e9);
-                return 0;
+                return done;
             }
 
             @Override
             protected void process(List<Integer> chunks) {
                 super.process(chunks);
-                System.out.println(done);
-                firePropertyChange("done", done-1, done);
+                firePropertyChange("done", done - 1, done);
             }
-            
-            
+
         };
-        if(listener!=null){
+        if (listener != null) {
             worker.addPropertyChangeListener(listener);
         }
         worker.execute();

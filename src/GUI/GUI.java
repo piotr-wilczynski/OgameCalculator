@@ -1,30 +1,15 @@
 package GUI;
 
-import Enums.Player_Status_Enum;
-import Statistics.Statistics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import javax.swing.GroupLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingWorker;
-import javax.swing.UIManager;
+import javax.swing.*;
 import lang.GUI_Lang;
-import Enums.Research_Enum;
-import Enums.Resources_Enum;
-import Enums.Side_Enum;
-import simulation.Simulation;
-import simulation.Battle_Technologies;
-import Enums.Unit_Enum;
-import Statistics.Coordinates;
-import simulation.Simulation_SWING;
-import utilities.IO_Utilities;
-import utilities.Strings;
+import Enums.*;
+import Statistics.*;
+import simulation.*;
+import utilities.*;
 
 public class GUI extends JFrame {
 
@@ -37,7 +22,6 @@ public class GUI extends JFrame {
     private boolean processing = false;
     private Simulation_SWING sim;
 
-    //private JPanel options = new JPanel();
     public GUI() {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -130,7 +114,7 @@ public class GUI extends JFrame {
                     }
                 }
                 for (Research_Enum reserches : Research_Enum.values()) {
-                    UnitPanel t = technology.get(reserches, Technology.Defender_Side);
+                    UnitPanel t = technology.get(reserches, Side_Enum.Defender);
                     if (t != null) {
                         t.setNumber("" + clipboard.getResearches().getOrDefault(reserches, 0));
                     }
@@ -144,6 +128,33 @@ public class GUI extends JFrame {
         new Thread(clipboard).start();
     }
 
+    private int[][] getUnits() {
+        int[][] units = new int[2][Unit_Enum.values().length];
+        for (int i = 0; i < units.length; i++) {
+            for (int j = 0; j < units[i].length; j++) {
+                units[i][j] = 0;
+            }
+        }
+        for (Unit_Enum u : Unit_Enum.values()) {
+            UnitPanel a = attacker_shipyard.get(u);
+            UnitPanel d = defender_shipyard.get(u);
+            UnitPanel dd = defense.get(u);
+
+            if (a != null) {
+                units[Side_Enum.Agressor.ordinal()][u.ordinal()] = a.getNumber();
+            }
+            if (d != null) {
+                units[Side_Enum.Defender.ordinal()][u.ordinal()] = d.getNumber();
+            }
+            if (dd != null) {
+                if (u != u.Anti_Ballistic_Missiles && u != u.Interplanetary_Missiles) {
+                    units[Side_Enum.Defender.ordinal()][u.ordinal()] = dd.getNumber();
+                }
+            }
+        }
+        return units;
+    }
+
     private void Action() {
         if (processing) {
             setGUIEnable(processing);
@@ -152,71 +163,30 @@ public class GUI extends JFrame {
             setGUIEnable(processing);
             processing = true;
             sim = new Simulation_SWING();
-            //sim.setUnit(Side_Enum.Defender, Unit_Enum.Cruiser, 5000);
-            //sim.setUnit(Side_Enum.Agressor, Unit_Enum.Cruiser, 5000);
             final int count = options.getNumberOfSimulations();
             options.getProgressBar().setMaximum(count);
             options.getProgressBar().setValue(0);
             sim.setListener(new PropertyChangeListener() {
-
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     String PropertyName = evt.getPropertyName();
-                    //System.out.println(evt.toString());
                     if (PropertyName.matches("done")) {
-                        int value = (int) evt.getNewValue();
-                        if(value == count){
-                            System.out.println("koniec");
-                            setGUIEnable(processing);
-                            processing = false;
-                            
-                        }
-                        //System.out.println(evt.getNewValue());
                         publish_results(sim.getStatistics());
                     } else if (PropertyName.matches("state")) {
-                        //System.out.println(evt.getNewValue());
+                        if (((SwingWorker.StateValue) evt.getNewValue()).equals(SwingWorker.StateValue.DONE)) {
+                            publish_results(sim.getStatistics());
+                            setGUIEnable(processing);
+                            processing = false;
+                        }
                     }
                 }
-            });                 
-            simulation.Battle_Technologies tech_agressor;
-            simulation.Battle_Technologies tech_defender;
-            int wt = technology.get(Research_Enum.Weapons_Technology, Technology.Attacker_Side).getNumber();
-            int st = technology.get(Research_Enum.Shielding_Technology, Technology.Attacker_Side).getNumber();
-            int at = technology.get(Research_Enum.Armour_Technology, Technology.Attacker_Side).getNumber();
-            int cd = technology.get(Research_Enum.Combustion_Drive, Technology.Attacker_Side).getNumber();
-            int id = technology.get(Research_Enum.Impulse_Drive, Technology.Attacker_Side).getNumber();
-            int hd = technology.get(Research_Enum.Hyperspace_Drive, Technology.Attacker_Side).getNumber();
-            tech_agressor = new Battle_Technologies(wt, st, at, cd, id, hd);
-
-            wt = technology.get(Research_Enum.Weapons_Technology, Technology.Defender_Side).getNumber();
-            st = technology.get(Research_Enum.Shielding_Technology, Technology.Defender_Side).getNumber();
-            at = technology.get(Research_Enum.Armour_Technology, Technology.Defender_Side).getNumber();
-            tech_defender = new Battle_Technologies(wt, st, at);
+            });
+            simulation.Battle_Technologies tech_agressor = technology.getTechnologies(Side_Enum.Agressor);
+            simulation.Battle_Technologies tech_defender = technology.getTechnologies(Side_Enum.Defender);
             sim.setTechnologies(Side_Enum.Agressor, tech_agressor);
             sim.setTechnologies(Side_Enum.Defender, tech_defender);
-            int[][] units = new int[2][Unit_Enum.values().length];
-            for(int i=0;i<units.length;i++){
-                for(int j=0;j<units[i].length;j++){
-                    units[i][j] = 0;
-                }
-            }
-            for (Unit_Enum u : Unit_Enum.values()) {
-                UnitPanel a = attacker_shipyard.get(u);
-                UnitPanel d = defender_shipyard.get(u);
-                UnitPanel dd = defense.get(u);
-
-                if (a != null) {
-                    sim.setUnit(Side_Enum.Agressor, u, a.getNumber());
-                }
-                if (d != null) {
-                    sim.setUnit(Side_Enum.Defender, u, d.getNumber());
-                }
-                if (dd != null) {
-                    if (u != u.Anti_Ballistic_Missiles && u != u.Interplanetary_Missiles) {
-                        sim.setUnit(Side_Enum.Defender, u, dd.getNumber());
-                    }
-                }
-            }
+            int[][] units = getUnits();
+            sim.setUnits(units);
             sim.simulate(count);
         }
     }
@@ -238,8 +208,8 @@ public class GUI extends JFrame {
             }
         }
         for (Research_Enum res : Research_Enum.values()) {
-            UnitPanel tp1 = technology.get(res, Technology.Attacker_Side);
-            UnitPanel tp2 = technology.get(res, Technology.Defender_Side);
+            UnitPanel tp1 = technology.get(res, Side_Enum.Agressor);
+            UnitPanel tp2 = technology.get(res, Side_Enum.Defender);
             if (tp1 != null) {
                 tp1.setEdtable(value);
             }
@@ -256,53 +226,55 @@ public class GUI extends JFrame {
         options.getProgressBar().setValue(statistics.getDone());
         options.getProgressBar().setString("" + statistics.getDone());
 
+        result.setBattlePlace(result.getPlanet().getName(), result.getPlanet().getCoordinates());
+
         //set winner
         result.setWinner((int) Math.round(100 * statistics.getResult(Side_Enum.Agressor)), (int) Math.round(100 * statistics.getResult(Side_Enum.Defender)), (int) Math.round(100 * statistics.getResult(Side_Enum.Remis)), 1);
 
         //set tactical retreat
         double[] tactical_retreat = statistics.getTactitalRetreat(sim.getUnits());
         result.setTacticalRetreat(tactical_retreat);
-        
+
         //set derbis            
-        long[] derb = statistics.getDerbis(sim.getUnits(),0.5,0);
+        long[] derb = statistics.getDerbis(sim.getUnits(), 0.5, 0);
         result.setDerbis(derb);
-        
+
         //set chance for moon
-        long chance = (derb[Resources_Enum.Metal.ordinal()]+ derb[Resources_Enum.Crystal.ordinal()])/100000;
+        long chance = (derb[Resources_Enum.Metal.ordinal()] + derb[Resources_Enum.Crystal.ordinal()]) / 100000;
         result.setChanceForMoon((int) chance);
-        
+
         //set agressor loss
         long[] aloss = statistics.getLosses(Side_Enum.Agressor, sim.getUnits());
         result.setLosses(Side_Enum.Agressor, aloss);
-        
+
         //set defender loss        
         long[] dloss = statistics.getLosses(Side_Enum.Defender, sim.getUnits());
         result.setLosses(Side_Enum.Defender, dloss);
-        
+
         long[] teorplund = statistics.getTeoreticalPlunder(result.getPlanet().getResources(), Player_Status_Enum.Neutral);
-        result.setTeoreticalPlunder(teorplund, Unit_Enum.Small_Cargo);
-        
+        result.setTeoreticalPlunder(teorplund, Unit_Enum.Large_Cargo);
+
         long[] realplund = statistics.getRealPlunder(result.getPlanet().getResources(), Player_Status_Enum.Neutral);
         result.setRealPlunder(realplund, teorplund);
-        
-        
-        Coordinates start = new Coordinates(3,22,1);
-        Coordinates end = new Coordinates(3,23,1);
-        int universeSpeed = 2;
-        long duration = statistics.getDuration(sim.getUnits(), start, end, false, universeSpeed, sim.getTechnologies(Side_Enum.Agressor));
+
+        Coordinates start = options.getCoordinates();
+        Coordinates end = result.getPlanet().getCoordinates();
+        int percent = options.getFleetSpeedPercent();
+        int universeSpeed = 4;
+        long duration = statistics.getDuration(sim.getUnits(), start, end, percent, false, universeSpeed, sim.getTechnologies(Side_Enum.Agressor));
         int rec[][] = new int[2][Unit_Enum.values().length];
-        for(int i=0;i<rec.length;i++){
-            for(int j=0;j<rec[i].length;j++){
+        for (int i = 0; i < rec.length; i++) {
+            for (int j = 0; j < rec[i].length; j++) {
                 rec[i][j] = 0;
             }
         }
         rec[Side_Enum.Agressor.ordinal()][Unit_Enum.Recycler.ordinal()] = 1;
-        long durationRec = statistics.getDuration(rec, start, end, false, universeSpeed, sim.getTechnologies(Side_Enum.Agressor));
-        
+        long durationRec = statistics.getDuration(rec, start, end, percent, false, universeSpeed, sim.getTechnologies(Side_Enum.Agressor));
+
         result.setTime(duration, durationRec);
-        
-        result.setFuel(statistics.getFuel(sim.getUnits(), start, end, false, universeSpeed, sim.getTechnologies(Side_Enum.Agressor)));
-        
+
+        result.setFuel(statistics.getFuel(sim.getUnits(), start, end, percent, false, universeSpeed, sim.getTechnologies(Side_Enum.Agressor)));
+
         for (Unit_Enum u : Unit_Enum.values()) {
             UnitPanel a = attacker_shipyard.get(u);
             UnitPanel d = defender_shipyard.get(u);

@@ -132,6 +132,7 @@ public class FXMLController implements Initializable {
                 HashMap<Unit_Enum,Integer> defender = new HashMap<>();
                 Battle_Technologies attacker_tech = new Battle_Technologies(1, 1, 1, 1, 1, 1);       
                 Battle_Technologies defender_tech = new Battle_Technologies(1, 1, 1, 1, 1, 1);
+                long start = System.nanoTime();
                 //attacker.put(Unit_Enum.Small_Cargo, 8);
                 /*
                 for(int i=0;i<fleet1panel.length;i++){
@@ -145,13 +146,12 @@ public class FXMLController implements Initializable {
                     System.out.println(defense2panel[i].getUnit()+" "+defense2panel[i].getNumber());
                     defender.put(defense2panel[i].getUnit(),defense2panel[i].getNumber());
                 }
-                */
+                *//*
                 attacker.put(Unit_Enum.Cruiser, 1000);
                 defender.put(Unit_Enum.Light_Laser, 10000);
                 //defender.put(Unit_Enum.Light_Laser, 8);
 
                 ThreadGroup threads = new ThreadGroup("Simulations");
-                long start = System.nanoTime();
                 List<Simulation> sims = new ArrayList<>();
                 for(int i=0;i<1000;i++)
                     sims.add(new Simulation(attacker, defender, attacker_tech, defender_tech,threads,i));
@@ -173,6 +173,7 @@ public class FXMLController implements Initializable {
                     //attacker_stat.add(sims.get(i).getAttacker_Statistics());
                     //defender_stat.add(sims.get(i).getDefender_Statistics());
                 }
+                */
                 //Statistics.getStats(attacker_stat);
                 //Statistics.getStats(defender_stat);
                 long end = System.nanoTime();
