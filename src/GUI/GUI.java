@@ -221,8 +221,28 @@ public class GUI extends JFrame {
     }
 
     private void publish_results(Statistics statistics) {
+        
         int precision = 2;
-
+        Coordinates start = options.getCoordinates();
+        Coordinates end = result.getPlanet().getCoordinates();
+        int universeSpeed = 4;
+        double derbisFleet = 0.5;
+        double derbisDefense = 0;
+        int percent = options.getFleetSpeedPercent();
+        
+        statistics.setStart(start);
+        statistics.setEnd(end);
+        statistics.setCircularUniverses(false);
+        statistics.setUniverseSpeed(universeSpeed);
+        statistics.setStartUnits(sim.getUnits());
+        statistics.setAggressorTechnologies(sim.getTechnologies(Side_Enum.Agressor));
+        statistics.setFleetSpeedPercent(percent);
+        statistics.setDerbisDefense(derbisDefense);
+        statistics.setDerbisFleet(derbisFleet);
+        statistics.setPlanetResources(result.getPlanet().getResources());
+        statistics.setPlayerStatus(Player_Status_Enum.Neutral);
+        
+        
         options.getProgressBar().setValue(statistics.getDone());
         options.getProgressBar().setString("" + statistics.getDone());
 
@@ -232,11 +252,11 @@ public class GUI extends JFrame {
         result.setWinner((int) Math.round(100 * statistics.getResult(Side_Enum.Agressor)), (int) Math.round(100 * statistics.getResult(Side_Enum.Defender)), (int) Math.round(100 * statistics.getResult(Side_Enum.Remis)), 1);
 
         //set tactical retreat
-        double[] tactical_retreat = statistics.getTactitalRetreat(sim.getUnits());
+        double[] tactical_retreat = statistics.getTactitalRetreat();
         result.setTacticalRetreat(tactical_retreat);
 
         //set derbis            
-        long[] derb = statistics.getDerbis(sim.getUnits(), 0.5, 0);
+        long[] derb = statistics.getDerbis();
         result.setDerbis(derb);
 
         //set chance for moon
@@ -244,24 +264,20 @@ public class GUI extends JFrame {
         result.setChanceForMoon((int) chance);
 
         //set agressor loss
-        long[] aloss = statistics.getLosses(Side_Enum.Agressor, sim.getUnits());
+        long[] aloss = statistics.getLosses(Side_Enum.Agressor);
         result.setLosses(Side_Enum.Agressor, aloss);
 
         //set defender loss        
-        long[] dloss = statistics.getLosses(Side_Enum.Defender, sim.getUnits());
+        long[] dloss = statistics.getLosses(Side_Enum.Defender);
         result.setLosses(Side_Enum.Defender, dloss);
 
-        long[] teorplund = statistics.getTeoreticalPlunder(result.getPlanet().getResources(), Player_Status_Enum.Neutral);
+        long[] teorplund = statistics.getTeoreticalPlunder();
         result.setTeoreticalPlunder(teorplund, Unit_Enum.Large_Cargo);
 
-        long[] realplund = statistics.getRealPlunder(result.getPlanet().getResources(), Player_Status_Enum.Neutral);
+        long[] realplund = statistics.getRealPlunder();
         result.setRealPlunder(realplund, teorplund);
 
-        Coordinates start = options.getCoordinates();
-        Coordinates end = result.getPlanet().getCoordinates();
-        int percent = options.getFleetSpeedPercent();
-        int universeSpeed = 4;
-        long duration = statistics.getDuration(sim.getUnits(), start, end, percent, false, universeSpeed, sim.getTechnologies(Side_Enum.Agressor));
+        long duration = statistics.getDuration();
         int rec[][] = new int[2][Unit_Enum.values().length];
         for (int i = 0; i < rec.length; i++) {
             for (int j = 0; j < rec[i].length; j++) {
@@ -269,11 +285,14 @@ public class GUI extends JFrame {
             }
         }
         rec[Side_Enum.Agressor.ordinal()][Unit_Enum.Recycler.ordinal()] = 1;
-        long durationRec = statistics.getDuration(rec, start, end, percent, false, universeSpeed, sim.getTechnologies(Side_Enum.Agressor));
+        
+        statistics.setStartUnits(rec);
+        long durationRec = statistics.getDuration();
+        statistics.setStartUnits(sim.getUnits());
 
         result.setTime(duration, durationRec);
 
-        result.setFuel(statistics.getFuel(sim.getUnits(), start, end, percent, false, universeSpeed, sim.getTechnologies(Side_Enum.Agressor)));
+        result.setFuel(statistics.getFuel());
 
         for (Unit_Enum u : Unit_Enum.values()) {
             UnitPanel a = attacker_shipyard.get(u);

@@ -9,20 +9,46 @@ public class Statistics {
     private double[][] units;
     private double[] result;
     private int done;
+    
+    private Coordinates start,end;
+    private boolean circularUniverses;
+    private int universeSpeed;
+    private int[][] startUnits;
+    private int fleetSpeedPercent;
+    private double derbisFleet;
+    private double derbisDefense;
+    private Battle_Technologies aggressorTechnologies;
+    private long[] planetResources;
+    private Player_Status_Enum playerStatus;
+    
 
     public Statistics() {
         units = new double[2][];
         units[Side_Enum.Agressor.ordinal()] = new double[Unit_Enum.values().length];
         units[Side_Enum.Defender.ordinal()] = new double[Unit_Enum.values().length];
+        startUnits = new int[2][];
+        startUnits[Side_Enum.Agressor.ordinal()] = new int[Unit_Enum.values().length];
+        startUnits[Side_Enum.Defender.ordinal()] = new int[Unit_Enum.values().length];
         result = new double[Side_Enum.values().length];
         for (int i = 0; i < units.length; i++) {
             for (int j = 0; j < units[i].length; j++) {
                 units[i][j] = 0;
+                startUnits[i][j] = 0;
             }
         }
         for (int i = 0; i < result.length; i++) {
             result[i] = 0;
         }
+        start = new Coordinates(1, 1, 1);
+        end = new Coordinates(1, 1, 1);
+        circularUniverses = false;
+        universeSpeed = 1;        
+        derbisFleet = 0.3;
+        derbisDefense = 0;
+        fleetSpeedPercent = 1;
+        aggressorTechnologies = new Battle_Technologies();
+        planetResources = new long[]{0,0,0};
+        playerStatus = Player_Status_Enum.Neutral;
     }
 
     public Statistics(BattleUnit[] units_agressor, BattleUnit[] units_defender, Side_Enum result) {
@@ -68,6 +94,52 @@ public class Statistics {
         done = count;
     }
 
+    public void setStart(Coordinates start) {
+        this.start = start;
+    }
+
+    public void setEnd(Coordinates end) {
+        this.end = end;
+    }
+
+    public void setCircularUniverses(boolean circularUniverses) {
+        this.circularUniverses = circularUniverses;
+    }
+
+    public void setUniverseSpeed(int universeSpeed) {
+        this.universeSpeed = universeSpeed;
+    }
+
+    public void setStartUnits(int[][] startUnits) {
+        this.startUnits = startUnits;
+    }
+
+    public void setAggressorTechnologies(Battle_Technologies aggressorTechnologies) {
+        this.aggressorTechnologies = aggressorTechnologies;
+    }
+
+    public void setFleetSpeedPercent(int fleetSpeedPercent) {
+        this.fleetSpeedPercent = fleetSpeedPercent;
+    }
+
+    public void setDerbisDefense(double derbisDefense) {
+        this.derbisDefense = derbisDefense;
+    }
+
+    public void setDerbisFleet(double derbisFleet) {
+        this.derbisFleet = derbisFleet;
+    }
+
+    public void setPlanetResources(long[] planetResources) {
+        this.planetResources = planetResources;
+    }
+
+    public void setPlayerStatus(Player_Status_Enum playerStatus) {
+        this.playerStatus = playerStatus;
+    }
+    
+    
+    
     @Override
     public String toString() {
         System.out.println("Agressor");
@@ -99,44 +171,44 @@ public class Statistics {
         return result[side.ordinal()];
     }
 
-    public long[] getDerbis(int[][] units, double percentfleet, double percentdefense) {
+    public long[] getDerbis() {
         long[] derbis = new long[Resources_Enum.values().length];
         for (int i = 0; i < derbis.length; i++) {
             derbis[i] = 0;
         }
         for (Unit_Enum unit : Unit_Enum.values()) {
-            double a = units[Side_Enum.Agressor.ordinal()][unit.ordinal()] - this.units[Side_Enum.Agressor.ordinal()][unit.ordinal()];
-            double d = units[Side_Enum.Defender.ordinal()][unit.ordinal()] - this.units[Side_Enum.Defender.ordinal()][unit.ordinal()];
+            double a = startUnits[Side_Enum.Agressor.ordinal()][unit.ordinal()] - this.units[Side_Enum.Agressor.ordinal()][unit.ordinal()];
+            double d = startUnits[Side_Enum.Defender.ordinal()][unit.ordinal()] - this.units[Side_Enum.Defender.ordinal()][unit.ordinal()];
             long rounda = Math.round(a);
             long roundd = Math.round(d);
             if (rounda > 0) {
                 if (unit.isFleet()) {
-                    derbis[Resources_Enum.Metal.ordinal()] += Math.round(unit.getMetal() * rounda * percentfleet);
-                    derbis[Resources_Enum.Crystal.ordinal()] += Math.round(unit.getCrystal() * rounda * percentfleet);
+                    derbis[Resources_Enum.Metal.ordinal()] += Math.round(unit.getMetal() * rounda * derbisFleet);
+                    derbis[Resources_Enum.Crystal.ordinal()] += Math.round(unit.getCrystal() * rounda * derbisFleet);
                 }
             }
             if (roundd > 0) {
                 if (unit.isFleet()) {
-                    derbis[Resources_Enum.Metal.ordinal()] += Math.round(unit.getMetal() * roundd * percentfleet);
-                    derbis[Resources_Enum.Crystal.ordinal()] += Math.round(unit.getCrystal() * roundd * percentfleet);
+                    derbis[Resources_Enum.Metal.ordinal()] += Math.round(unit.getMetal() * roundd * derbisFleet);
+                    derbis[Resources_Enum.Crystal.ordinal()] += Math.round(unit.getCrystal() * roundd * derbisFleet);
                 }
                 if (unit.isDefense()) {
-                    derbis[Resources_Enum.Metal.ordinal()] += Math.round(unit.getMetal() * roundd * percentdefense);
-                    derbis[Resources_Enum.Crystal.ordinal()] += Math.round(unit.getCrystal() * roundd * percentdefense);
+                    derbis[Resources_Enum.Metal.ordinal()] += Math.round(unit.getMetal() * roundd * derbisDefense);
+                    derbis[Resources_Enum.Crystal.ordinal()] += Math.round(unit.getCrystal() * roundd * derbisDefense);
                 }
             }
         }
         return derbis;
     }
 
-    public long[] getLosses(Side_Enum side, int[][] units) {
+    public long[] getLosses(Side_Enum side) {
         long[] losses = new long[Resources_Enum.values().length];
         for (int i = 0; i < losses.length; i++) {
             losses[i] = 0;
         }
 
         for (Unit_Enum unit : Unit_Enum.values()) {
-            double a = units[side.ordinal()][unit.ordinal()] - this.units[side.ordinal()][unit.ordinal()];
+            double a = startUnits[side.ordinal()][unit.ordinal()] - this.units[side.ordinal()][unit.ordinal()];
             long round = Math.round(a);
             if (round > 0) {
                 for (Resources_Enum res : Resources_Enum.values()) {
@@ -147,14 +219,14 @@ public class Statistics {
         return losses;
     }
 
-    public double[] getTactitalRetreat(int[][] units) {
+    public double[] getTactitalRetreat() {
         double[] retreat = new double[2];
         for (int i = 0; i < retreat.length; i++) {
             retreat[i] = 0;
         }
         for (Unit_Enum unit : Unit_Enum.values()) {
-            long numbera = units[Side_Enum.Agressor.ordinal()][unit.ordinal()];
-            long numberd = units[Side_Enum.Defender.ordinal()][unit.ordinal()];
+            long numbera = startUnits[Side_Enum.Agressor.ordinal()][unit.ordinal()];
+            long numberd = startUnits[Side_Enum.Defender.ordinal()][unit.ordinal()];
             switch (unit) {
                 case Light_Fighter:
                 case Heavy_Fighter:
@@ -183,20 +255,20 @@ public class Statistics {
         return retreat;
     }
 
-    public long[] getTeoreticalPlunder(long[] resources, Player_Status_Enum player) {
+    public long[] getTeoreticalPlunder() {
         long[] plunder = new long[Resources_Enum.values().length];
         for (int i = 0; i < plunder.length; i++) {
             plunder[i] = 0;
         }
-        double percent = player.getPlunder_ratio();
+        double percent = playerStatus.getPlunder_ratio();
         for (Resources_Enum res : Resources_Enum.values()) {
-            plunder[res.ordinal()] = (long) Math.floor(resources[res.ordinal()] * percent);
+            plunder[res.ordinal()] = (long) Math.floor(planetResources[res.ordinal()] * percent);
         }
         return plunder;
     }
 
-    public long[] getRealPlunder(long[] resources, Player_Status_Enum player) {
-        long[] plunder = getTeoreticalPlunder(resources, player);
+    public long[] getRealPlunder() {
+        long[] plunder = getTeoreticalPlunder();
         long max_metal = plunder[Resources_Enum.Metal.ordinal()];
         long max_crystal = plunder[Resources_Enum.Crystal.ordinal()];
         long max_deuterium = plunder[Resources_Enum.Deuterium.ordinal()];
@@ -236,7 +308,7 @@ public class Statistics {
         return plunder;
     }
 
-    public long getDistance(Coordinates start, Coordinates end, boolean circularUniverses) {
+    public long getDistance() {
         if (start.equals(end)) {
             return 5;
         }
@@ -269,31 +341,31 @@ public class Statistics {
         return 0;
     }
 
-    public long getDuration(int[][] units, Coordinates start, Coordinates end,int percent, boolean circularUniverses, int universeSpeed, Battle_Technologies techs) {
+    public long getDuration() {
         float min = Long.MAX_VALUE;
         for (Unit_Enum unit : Unit_Enum.values()) {
-            if (units[Side_Enum.Agressor.ordinal()][unit.ordinal()] > 0) {
-                if (min > unit.getSpeed(techs)) {
-                    min = unit.getSpeed(techs);
+            if (startUnits[Side_Enum.Agressor.ordinal()][unit.ordinal()] > 0) {
+                if (min > unit.getSpeed(aggressorTechnologies)) {
+                    min = unit.getSpeed(aggressorTechnologies);
                 }
             }
         }
-        long distance = getDistance(start, end, circularUniverses);
-        int value = (int) Math.round((35000.0/percent* Math.pow((distance * 1000 / (min)), 0.5) + 10) / (universeSpeed));
+        long distance = getDistance();
+        int value = (int) Math.round((35000.0/fleetSpeedPercent* Math.pow((distance * 1000 / (min)), 0.5) + 10) / (universeSpeed));
         return value;
     }
 
-    public long getFuel(int[][] units, Coordinates start, Coordinates end,int percent, boolean circularUniverses, int universeSpeed, Battle_Technologies techs) {
+    public long getFuel() {
         double fuel = 0;
-        long duration = getDuration(units, start, end,percent, circularUniverses, universeSpeed, techs);
-        long distance = getDistance(start, end, circularUniverses);
+        long duration = getDuration();
+        long distance = getDistance();
         for (Unit_Enum unit : Unit_Enum.values()) {
-            int ships = units[Side_Enum.Agressor.ordinal()][unit.ordinal()];
+            int ships = startUnits[Side_Enum.Agressor.ordinal()][unit.ordinal()];
             if (ships <= 0) {
                 continue;
             }
-            float speed = unit.getSpeed(techs);
-            int fuelcost = unit.getFuel_usage(techs);
+            float speed = unit.getSpeed(aggressorTechnologies);
+            int fuelcost = unit.getFuel_usage(aggressorTechnologies);
             double cost = (ships) * (fuelcost) * distance / 35000.0 * Math.pow((35000.0 / ((duration) * (universeSpeed) - 10.0) * Math.pow((distance * 10.0 / (speed)), 0.5)) / 10.0 + 1, 2);
             fuel += cost;
         }

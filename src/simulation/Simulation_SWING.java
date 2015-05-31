@@ -43,8 +43,7 @@ public class Simulation_SWING extends Simulation {
     public int random(int bound) {
         return ThreadLocalRandom.current().nextInt(bound);
     }
-
-    @Override
+    
     public void simulate(int SimulationCount) {
         statistics = new Statistics[SimulationCount];
         worker = new SwingWorker<Integer, Integer>() {
@@ -77,9 +76,6 @@ public class Simulation_SWING extends Simulation {
                         }
                     }
                 }
-                //for (int i = 0; i < SimulationCount; i++) {
-                    //statistics[i] = simulate();
-                //}
                 long end = System.nanoTime();
                 System.out.printf("Simulation took %.2g seconds\n", (double) (end - start) / 1e9);
                 return done;

@@ -44,10 +44,7 @@ public abstract class Simulation {
             return new Battle_Technologies();
         else 
             return techs;
-    }
-    
-    
-    public abstract void simulate(int SimulationCount);    
+    }     
 
     public Statistics getStatistics() {
         return new Statistics(statistics);
@@ -55,9 +52,7 @@ public abstract class Simulation {
     
     protected abstract int random(int bound);
     
-    protected Statistics simulate(){
-        
-        
+    protected Statistics simulate(int[][] units){        
         BattleUnit[] a,d;
         int sum_a=0,sum_d=0;
         for(Unit_Enum unit:Unit_Enum.values()){
@@ -69,16 +64,20 @@ public abstract class Simulation {
         sum_a=0;
         sum_d=0;
         for(Unit_Enum unit:Unit_Enum.values()){
-            for(int i=0;i<getUnit(Side_Enum.Agressor, unit);i++){
+            for(int i=0;i<units[Side_Enum.Agressor.ordinal()][unit.ordinal()];i++){
                 a[sum_a] = new BattleUnit(unit, getTechnologies(Side_Enum.Agressor));
                 sum_a++;
             }            
-            for(int i=0;i<getUnit(Side_Enum.Defender, unit);i++){
+            for(int i=0;i<units[Side_Enum.Defender.ordinal()][unit.ordinal()];i++){
                 d[sum_d] = new BattleUnit(unit, getTechnologies(Side_Enum.Defender));
                 sum_d++;
             }
         }
-        return Battle(a, d);
+        return Battle(a, d);        
+    }
+    
+    protected Statistics simulate(){        
+        return simulate(units);
     }
     
     private Statistics Battle(BattleUnit[] attacker,BattleUnit[] defender){  

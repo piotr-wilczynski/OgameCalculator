@@ -93,6 +93,17 @@ public enum Unit_Enum{
         }
         return false;
     }
+    
+    public static int getFleetNumber(){
+        int i = 0;
+        for(Unit_Enum u:values()){
+            if(u.isFleet()){
+                i++;
+            }
+        }
+        return i;
+    }
+    
     public boolean isDefense(){
         switch(this){
             case Rocket_Launcher:
