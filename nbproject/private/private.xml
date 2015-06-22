@@ -4,10 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/simulation/Simulation_SWING.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/Statistics/Statistics.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/GUI/GUI.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/Localization.java</file>
             <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/simulation/Optimization.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/simulation/Simulation.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/OgameApi.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/Players.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/ServerDataReader.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/PlayerData.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/ServerData.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/main.java</file>
         </group>
     </open-files>
 </project-private>
