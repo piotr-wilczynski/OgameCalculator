@@ -55,17 +55,48 @@ public class OgameApi {
         return serverData = getServerData("http://"+serverData.getDomain());   
     }   
     
+    public Players getPlayers(String URL)  throws MalformedURLException, JAXBException, FileNotFoundException {
+        return players = readData(URL+"/api/players.xml", Players.class);
+    } 
 
     public Players getPlayers(Universes.Universe universe) throws MalformedURLException, JAXBException, FileNotFoundException {
-        return players = readData(universe.href+"/api/players.xml", Players.class);
+        return players = getPlayers(universe.getHref());
+    }
+    
+    public Players getPlayers(String lang,int serverID) throws MalformedURLException, JAXBException, FileNotFoundException {
+        return players = getPlayers("http://s" + serverID + "-" + lang + ".ogame.gameforge.com");
+    }
+    
+    public Players getPlayers(ServerData serverData) throws MalformedURLException, JAXBException, FileNotFoundException {
+        return players = getPlayers("http://"+serverData.getDomain());
     }
 
+    public PlayerData getPlayerData(String URL,int playerId) throws MalformedURLException, JAXBException, FileNotFoundException {
+        return playerData = readData(URL+"/api/playerData.xml?id="+playerId, PlayerData.class);
+    } 
+    
     public PlayerData getPlayerData(Universes.Universe universe,Players.Player player) throws MalformedURLException, JAXBException, FileNotFoundException {
-        return playerData = readData(universe.href+"/api/playerData.xml?id="+player.id, PlayerData.class);
-    }   
+        return playerData = getPlayerData(universe.getHref(),player.getId().intValue());
+    }      
+    
+    public PlayerData getPlayerData(String lang,int serverID, int playerId)  throws MalformedURLException, JAXBException, FileNotFoundException {
+        return playerData = getPlayerData("http://s" + serverID + "-" + lang + ".ogame.gameforge.com",playerId);
+    }
 
+    public Universe getUniverse(String URL)  throws MalformedURLException, JAXBException, FileNotFoundException {
+        return universe = readData(URL+"/api/universe.xml", Universe.class);
+    }  
+    
     public Universe getUniverse(Universes.Universe universe)  throws MalformedURLException, JAXBException, FileNotFoundException {
-        return this.universe = readData(universe.href+"/api/universe.xml", Universe.class);
+        return this.universe = getUniverse(universe.getHref());
+    }  
+    
+    public Universe getUniverse(String lang,int serverID)  throws MalformedURLException, JAXBException, FileNotFoundException {
+        return universe = getUniverse("http://s" + serverID + "-" + lang + ".ogame.gameforge.com");
+    }
+    
+    public Universe getUniverse(ServerData serverData)  throws MalformedURLException, JAXBException, FileNotFoundException {
+        return universe = getUniverse("http://"+serverData.getDomain());
     }  
 
     public Localization getLocalization(String URL)  throws MalformedURLException, JAXBException, FileNotFoundException {
@@ -73,7 +104,7 @@ public class OgameApi {
     } 
     
     public Localization getLocalization(Universes.Universe universe)  throws MalformedURLException, JAXBException, FileNotFoundException {
-        return localization = getLocalization(universe.href);
+        return localization = getLocalization(universe.getHref());
     }
     
     public Localization getLocalization(String lang,int serverID)  throws MalformedURLException, JAXBException, FileNotFoundException {
@@ -82,9 +113,7 @@ public class OgameApi {
     
     public Localization getLocalization(ServerData serverData)  throws MalformedURLException, JAXBException, FileNotFoundException {
         return localization = getLocalization("http://"+serverData.getDomain()); 
-    }
-    
-    
+    }    
 
     public static OgameApi getInstance() {
         return ogameApi;
