@@ -1,8 +1,6 @@
 
 import OgameApi.LocalizationValues;
 import OgameApi.OgameApi;
-import OgameApi.PlayerData;
-import OgameApi.Players;
 import OgameApi.Universes.Universe;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
