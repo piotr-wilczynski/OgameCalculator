@@ -127,7 +127,7 @@ import javax.xml.bind.annotation.XmlType;
     "alliance"
 })
 @XmlRootElement(name = "playerData")
-public class PlayerData {
+public class PlayerData implements Timestamp{
 
     @XmlElement(required = true)
     protected PlayerData.Positions positions;

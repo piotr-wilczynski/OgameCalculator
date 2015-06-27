@@ -83,7 +83,7 @@ import javax.xml.bind.annotation.XmlType;
     "donutSystem"
 })
 @XmlRootElement(name = "serverData")
-public class ServerData {
+public class ServerData implements Timestamp{
 
     protected String name;
     @XmlElement(required = true)

@@ -73,7 +73,7 @@ import javax.xml.bind.annotation.XmlType;
     "planet"
 })
 @XmlRootElement(name = "universe")
-public class Universe {
+public class Universe implements Timestamp{
 
     @XmlElement(required = true)
     protected Universe.Planet planet;

@@ -69,7 +69,7 @@ import javax.xml.bind.annotation.XmlType;
     "alliance"
 })
 @XmlRootElement(name = "alliances")
-public class Alliances {
+public class Alliances implements Timestamp{
 
     @XmlElement(required = true)
     protected Alliances.Alliance alliance;
@@ -102,6 +102,8 @@ public class Alliances {
         this.alliance = value;
     }
 
+    
+    
     /**
      * Gets the value of the timestamp property.
      * 
@@ -110,9 +112,11 @@ public class Alliances {
      *     {@link BigInteger }
      *     
      */
+    @Override
     public BigInteger getTimestamp() {
         return timestamp;
     }
+    
 
     /**
      * Sets the value of the timestamp property.

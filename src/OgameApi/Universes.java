@@ -8,6 +8,7 @@
 
 package OgameApi;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -53,7 +54,7 @@ import javax.xml.bind.annotation.XmlType;
     "universe"
 })
 @XmlRootElement(name = "universes")
-public class Universes {
+public class Universes implements Timestamp{
 
     @XmlElement(required = true)
     protected List<Universes.Universe> universe;
@@ -99,8 +100,8 @@ public class Universes {
      *     {@link Integer }
      *     
      */
-    public Integer getTimestamp() {
-        return timestamp;
+    public BigInteger getTimestamp() {
+        return new BigInteger(""+timestamp);
     }
 
     /**

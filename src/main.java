@@ -1,6 +1,8 @@
 
+import OgameApi.Localization;
 import OgameApi.LocalizationValues;
 import OgameApi.OgameApi;
+import OgameApi.Universes;
 import OgameApi.Universes.Universe;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
@@ -9,9 +11,12 @@ import javax.xml.bind.JAXBException;
 public class main {
 
     public static void main(String[] args) throws MalformedURLException, JAXBException, FileNotFoundException {
-        OgameApi api = OgameApi.getInstance();
+        String lang = "no";
+        Universes api = OgameApi.getInstance().getUniverses(lang);
         Universe myUni = null;
-        for(LocalizationValues.Name name : OgameApi.getInstance().getLocalization("jp", 1).getTechs().getName()){
+        Localization localization =  OgameApi.getInstance().getLocalization(api.getUniverse().get(0),false);
+        if(localization!=null)
+        for(LocalizationValues.Name name : localization.getTechs().getName()){
             System.out.println(name.getId()+" "+name.getValue());
         }
         

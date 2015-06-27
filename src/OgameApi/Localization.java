@@ -8,6 +8,7 @@
 
 package OgameApi;
 
+import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -44,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     "missions"
 })
 @XmlRootElement(name = "localization")
-public class Localization {
+public class Localization implements Timestamp{
 
     @XmlElement(required = true)
     protected LocalizationValues techs;
@@ -111,8 +112,8 @@ public class Localization {
      *     {@link Integer }
      *     
      */
-    public Integer getTimestamp() {
-        return timestamp;
+    public BigInteger getTimestamp() {
+        return new BigInteger(""+timestamp);
     }
 
     /**

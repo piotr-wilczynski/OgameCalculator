@@ -62,7 +62,7 @@ import javax.xml.bind.annotation.XmlType;
     "player"
 })
 @XmlRootElement(name = "players")
-public class Players {
+public class Players implements Timestamp{
 
     @XmlElement(required = true)
     protected List<Players.Player> player;
