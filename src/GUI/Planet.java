@@ -19,7 +19,8 @@ import javax.swing.border.TitledBorder;
  *
  * @author Piotr
  */
-public class Planet extends JDialog{
+public class Planet extends JDialog{    
+    private static final long serialVersionUID = -3446203745199891504L;
     private Coordinates coord;
     private JLabel label_metal,label_crystal,label_deuterium,label_planet_name,label_planet_locations;
     private JTextField metal,crystal,deuterium,planet_name,planet_location; 

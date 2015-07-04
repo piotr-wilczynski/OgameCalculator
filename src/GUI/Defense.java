@@ -13,6 +13,7 @@ import Enums.Unit_Enum;
 import utilities.IO_Utilities;
 
 public class Defense extends ImagePanel{
+    private static final long serialVersionUID = -4126305380843207028L;
     private UnitPanel[] defense;
     private JLabel label;
     public Defense(String text) {

@@ -22,6 +22,7 @@ import Enums.Unit_Enum;
 import utilities.IO_Utilities;
 
 public class UnitPanel extends JPanel{
+    private static final long serialVersionUID = 7351637395493681985L;
     private BufferedImage background;
     private final BufferedImage background2;
     private final BufferedImage images[];

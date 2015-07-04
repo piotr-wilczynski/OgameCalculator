@@ -58,7 +58,7 @@ public class Clipboard extends Thread implements ClipboardOwner{
     public Hashtable<Unit_Enum, Integer> getUnits() {
         return units;
     }
-    
+    @SuppressWarnings("fallthrough")
     private void function(String text){
         Hashtable<Research_Enum,Integer> rese = new Hashtable<>();
         Hashtable<Resources_Enum,Integer> reso = new Hashtable<>();

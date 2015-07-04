@@ -13,6 +13,7 @@ import Enums.Unit_Enum;
 import utilities.IO_Utilities;
 
 public class Shipyard extends ImagePanel{
+    private static final long serialVersionUID = 151794423153413346L;
     
     private UnitPanel[] ships;
     private JLabel label;

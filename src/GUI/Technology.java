@@ -19,6 +19,7 @@ import utilities.IO_Utilities;
  * @author Piotr
  */
 public class Technology extends ImagePanel {
+    private static final long serialVersionUID = 8230957842425927537L;
 
     private JLabel title;
     private JLabel label_agressor, label_defender;

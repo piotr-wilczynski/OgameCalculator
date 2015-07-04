@@ -12,6 +12,7 @@ import simulation.*;
 import utilities.*;
 
 public class GUI extends JFrame {
+    private static final long serialVersionUID = 1105636786932301235L;
 
     private Shipyard attacker_shipyard, defender_shipyard;
     private Defense defense;
@@ -147,7 +148,7 @@ public class GUI extends JFrame {
                 units[Side_Enum.Defender.ordinal()][u.ordinal()] = d.getNumber();
             }
             if (dd != null) {
-                if (u != u.Anti_Ballistic_Missiles && u != u.Interplanetary_Missiles) {
+                if (u != Enums.Unit_Enum.Anti_Ballistic_Missiles && u != Enums.Unit_Enum.Interplanetary_Missiles) {
                     units[Side_Enum.Defender.ordinal()][u.ordinal()] = dd.getNumber();
                 }
             }

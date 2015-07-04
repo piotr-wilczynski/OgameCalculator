@@ -26,6 +26,7 @@ import utilities.Strings;
  * @author Piotr
  */
 public class Result extends JPanel{
+    private static final long serialVersionUID = -1891145963751146404L;
     private JLabel 
             label_battle_place,battle_place,
             label_winner,winner,

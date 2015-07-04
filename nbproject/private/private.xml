@@ -5,12 +5,15 @@
         <group>
             <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/simulation/Simulation_SWING.java</file>
             <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/Alliances.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/LocalizationValues.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/GUI/GUI.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/Enums/Lang_Enum.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/.git/config</file>
             <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/Localization.java</file>
             <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/simulation/Optimization.java</file>
             <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/OgameApi.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/OgameApi/Timestamp.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/Enums/Unit_Enum.java</file>
             <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/main.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/OgameCalculator/src/ProfileManager/Profile.java</file>
         </group>
     </open-files>
 </project-private>

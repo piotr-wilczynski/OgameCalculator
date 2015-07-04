@@ -69,4 +69,13 @@ public class Coordinates {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + this.galaxy;
+        hash = 31 * hash + this.solar_system;
+        hash = 31 * hash + this.position;
+        return hash;
+    }
 }

@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Insets;
 import javax.swing.*;
 public class Options extends JPanel{
+    private static final long serialVersionUID = -1859367914279114426L;
     private JButton simulation_start,clear_location;
     private JProgressBar progress_bar;
     private JTextField simulation_number;

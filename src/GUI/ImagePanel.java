@@ -5,10 +5,8 @@
  */
 package GUI;
 
-import java.awt.AlphaComposite;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
@@ -17,6 +15,7 @@ import javax.swing.JPanel;
  * @author Piotr
  */
 public class ImagePanel extends JPanel{    
+    private static final long serialVersionUID = 4426229139205446582L;
     private BufferedImage background;
 
     public ImagePanel(BufferedImage image) {
