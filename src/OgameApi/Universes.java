@@ -33,28 +33,6 @@ public class Universes implements Timestamp{
     @XmlAttribute(name = "serverId")
     protected String serverId;
 
-    /**
-     * Gets the value of the universe property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the universe property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getUniverse().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Universes.Universe }
-     * 
-     * 
-     */
     public List<Universes.Universe> getUniverse() {
         if (universe == null) {
             universe = new ArrayList<Universes.Universe>();

@@ -319,178 +319,90 @@ public class ServerData implements Timestamp{
         this.systems = value;
     }
 
-    /**
-     * Gets the value of the acs property.
-     * 
-     */
     public boolean isAcs() {
         return acs;
     }
 
-    /**
-     * Sets the value of the acs property.
-     * 
-     */
     public void setAcs(boolean value) {
         this.acs = value;
     }
 
-    /**
-     * Gets the value of the rapidFire property.
-     * 
-     */
     public boolean isRapidFire() {
         return rapidFire;
     }
 
-    /**
-     * Sets the value of the rapidFire property.
-     * 
-     */
     public void setRapidFire(boolean value) {
         this.rapidFire = value;
     }
-
-    /**
-     * Gets the value of the defToTF property.
-     * 
-     */
+    
     public boolean isDefToTF() {
         return defToTF;
     }
 
-    /**
-     * Sets the value of the defToTF property.
-     * 
-     */
     public void setDefToTF(boolean value) {
         this.defToTF = value;
     }
 
-    /**
-     * Gets the value of the debrisFactor property.
-     * 
-     */
     public float getDebrisFactor() {
         return debrisFactor;
     }
 
-    /**
-     * Sets the value of the debrisFactor property.
-     * 
-     */
     public void setDebrisFactor(float value) {
         this.debrisFactor = value;
     }
 
-    /**
-     * Gets the value of the repairFactor property.
-     * 
-     */
     public float getRepairFactor() {
         return repairFactor;
     }
 
-    /**
-     * Sets the value of the repairFactor property.
-     * 
-     */
     public void setRepairFactor(float value) {
         this.repairFactor = value;
     }
 
-    /**
-     * Gets the value of the newbieProtectionLimit property.
-     * 
-     */
     public int getNewbieProtectionLimit() {
         return newbieProtectionLimit;
     }
 
-    /**
-     * Sets the value of the newbieProtectionLimit property.
-     * 
-     */
     public void setNewbieProtectionLimit(int value) {
         this.newbieProtectionLimit = value;
     }
 
-    /**
-     * Gets the value of the newbieProtectionHigh property.
-     * 
-     */
     public int getNewbieProtectionHigh() {
         return newbieProtectionHigh;
     }
 
-    /**
-     * Sets the value of the newbieProtectionHigh property.
-     * 
-     */
     public void setNewbieProtectionHigh(int value) {
         this.newbieProtectionHigh = value;
     }
 
-    /**
-     * Gets the value of the topScore property.
-     * 
-     */
     public float getTopScore() {
         return topScore;
     }
 
-    /**
-     * Sets the value of the topScore property.
-     * 
-     */
     public void setTopScore(float value) {
         this.topScore = value;
     }
 
-    /**
-     * Gets the value of the bonusFields property.
-     * 
-     */
     public int getBonusFields() {
         return bonusFields;
     }
 
-    /**
-     * Sets the value of the bonusFields property.
-     * 
-     */
     public void setBonusFields(int value) {
         this.bonusFields = value;
     }
 
-    /**
-     * Gets the value of the donutGalaxy property.
-     * 
-     */
     public boolean isDonutGalaxy() {
         return donutGalaxy;
     }
 
-    /**
-     * Sets the value of the donutGalaxy property.
-     * 
-     */
     public void setDonutGalaxy(boolean value) {
         this.donutGalaxy = value;
     }
 
-    /**
-     * Gets the value of the donutSystem property.
-     * 
-     */
     public boolean isDonutSystem() {
         return donutSystem;
     }
 
-    /**
-     * Sets the value of the donutSystem property.
-     * 
-     */
     public void setDonutSystem(boolean value) {
         this.donutSystem = value;
     }
