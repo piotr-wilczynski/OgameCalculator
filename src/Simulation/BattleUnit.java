@@ -1,127 +1,216 @@
-
 package Simulation;
 
 import Enums.Unit_Enum;
 import java.util.Random;
 
+/**
+ * This class represents single unit.
+ *
+ * Use this class in simulation process.
+ *
+ * @author Piotr Wilczynski
+ * @version 1.0, 05/07/16
+ */
 public class BattleUnit {
+
+    /**
+     * Represents type {@value}) of unit.
+     * @see Unit_Enum
+     */
     private final Unit_Enum unit;
-    private float Hull_Plating;
-    private float Shield_Strength;
-    private float Attack_Strength;
+    
+    /**
+     * Represents hull plating of unit.
+     */
+    private float hullPlating;
+    
+    /**
+     * Represents shield strength of unit.
+     */
+    private float shieldStrength;    
+    
+    /**
+     * Represents attack strength of unit.
+     */
+    private float attackStrength;
+    
+    
+    /**
+     * Random object to get probability. Used in each unit to perform better quality of multithreading.
+     * @see Random
+     */
     private Random random;
 
-    public BattleUnit(Unit_Enum unit,Battle_Technologies tech) {
+    
+    /** 
+    * Class constructor. This constructor creates new unit with parameters dependent on technologies.
+    * @param unit type of unit.
+    * @param tech technologies of unit.
+    * @see Unit_Enum
+    * @see Battle_Technologies
+    */
+    public BattleUnit(Unit_Enum unit, Battle_Technologies tech) {
         this.unit = unit;
-        Hull_Plating = unit.getHull_Plating(tech);
-        Shield_Strength = unit.getShield_Strength(tech);
-        Attack_Strength = unit.getAttack_Strength(tech);
+        hullPlating = unit.getHull_Plating(tech);
+        shieldStrength = unit.getShield_Strength(tech);
+        attackStrength = unit.getAttack_Strength(tech);
         random = new Random();
     }
 
-    public BattleUnit(Unit_Enum unit, float Hull_Plating, float Shield_Strength, float Attack_Strength) {
+    /** 
+    * Class constructor. This constructor creates new unit with parameters dependent on technologies.
+    * @param unit type of unit.
+    * @param Hull_Plating level of technology named hull plating.
+    * @param Shield_Strength level of technology named shield strength.
+    * @param Attack_Strength level of technology named attack strength.
+    * @see Unit_Enum
+    */
+    public BattleUnit(Unit_Enum unit, float hullPlating, float shieldStrength, float attackStrength) {
         this.unit = unit;
-        this.Hull_Plating = Hull_Plating;
-        this.Shield_Strength = Shield_Strength;
-        this.Attack_Strength = Attack_Strength;
+        this.hullPlating = hullPlating;
+        this.shieldStrength = shieldStrength;
+        this.attackStrength = attackStrength;
         random = new Random();
     }
-    
-    
-    
-    public boolean Fight(BattleUnit unit,Battle_Technologies tech){
+
+    /** 
+    * Simulate battle of two units. On is this unit, second is passed in parameter.
+    * @param unit unit to fight with.
+    * @param tech technologies of unit passed in parameter.
+    * @return true if unit get chance to shot again. 
+    * @see BattleUnit
+    * @see Battle_Technologies
+    */    
+    public boolean Fight(BattleUnit unit, Battle_Technologies tech) {
         //If the Weaponry of the shooting unit is less than 1% of the Shielding of the target unit, the shot is bounced, and the target unit does not lose anything (i.e. shot is wasted).
-        if(Attack_Strength<unit.getShield_Strength()/100){
-        }else if(Attack_Strength<unit.getShield_Strength()){
-            unit.setShield_Strength(unit.getShield_Strength()-Attack_Strength);
-        }else{
-            float hull = unit.getHull_Plating()+unit.getShield_Strength()-(Attack_Strength);
-            if(hull<0)
-                hull=0;
-            unit.setHull_Plating(hull);
-            unit.setShield_Strength(0);
+        if (attackStrength < unit.getShieldStrength() / 100) {
+        } else if (attackStrength < unit.getShieldStrength()) {
+            unit.setShieldStrength(unit.getShieldStrength() - attackStrength);
+        } else {
+            float hull = unit.getHullPlating() + unit.getShieldStrength() - (attackStrength);
+            if (hull < 0) {
+                hull = 0;
+            }
+            unit.setHullPlating(hull);
+            unit.setShieldStrength(0);
             float initial_hull = unit.getUnit().getHull_Plating(tech);
-            if(unit.getHull_Plating()<0.7f*initial_hull&&hull>0){
-                 //if(rand() % 100 >= 100.f * obj->Life / MaxLifes[DefferID][ZielTeam][obj->Type])
-                if(random.nextInt(100)>=100*(unit.getHull_Plating()/initial_hull)){
-                    unit.setHull_Plating(0);
+            if (unit.getHullPlating() < 0.7f * initial_hull && hull > 0) {
+                //if(rand() % 100 >= 100.f * obj->Life / MaxLifes[DefferID][ZielTeam][obj->Type])
+                if (random.nextInt(100) >= 100 * (unit.getHullPlating() / initial_hull)) {
+                    unit.setHullPlating(0);
                 }
-            }              
+            }
         }
         int rapidfire;
-        if((rapidfire=this.unit.getRapidfire(unit.getUnit()))>0){
-            double probability_to_shot_again = (100-(100.0/rapidfire));
-            if(probability(probability_to_shot_again)){
+        if ((rapidfire = this.unit.getRapidfire(unit.getUnit())) > 0) {
+            double probability_to_shot_again = (100 - (100.0 / rapidfire));
+            if (probability(probability_to_shot_again)) {
                 return true;
             }
         }
         //0.85714287
         return false;
     }
+
+    /** 
+    * Getter for hull plating.
+    * @return hull plating of unit. 
+    */   
+    public float getHullPlating() {
+        return hullPlating;
+    }
     
-    public boolean Fight2(BattleUnit unit,Battle_Technologies tech){
-        boolean ShootsAgain = true;
-        
-        return false;
+    /** 
+    * Getter for shield strength.
+    * @return shield strength of unit. 
+    */ 
+    public float getShieldStrength() {
+        return shieldStrength;
     }
 
-    public float getHull_Plating() {
-        return Hull_Plating;
+    /** 
+    * Getter for attack strength.
+    * @return attack strength of unit. 
+    */ 
+    public float getAttackStrength() {
+        return attackStrength;
     }
 
-    public float getShield_Strength() {
-        return Shield_Strength;
-    }
-
-    public float getAttack_Strength() {
-        return Attack_Strength;
-    }
-
+    /** 
+    * Getter for unit type.
+    * @return unit type. 
+    * @see Unit_Enum
+    */ 
     public Unit_Enum getUnit() {
         return unit;
-    }    
-
-    public void setHull_Plating(float Hull_Plating) {
-        this.Hull_Plating = Hull_Plating;
     }
 
-    public void setShield_Strength(float Shield_Strength) {
-        this.Shield_Strength = Shield_Strength;
+    /** 
+    * Setter for hull plating.
+    * @param hullPlating value of hull plating.
+    */ 
+    public void setHullPlating(float hullPlating) {
+        this.hullPlating = hullPlating;
     }
 
-    public void setAttack_Strength(float Attack_Strength) {
-        this.Attack_Strength = Attack_Strength;
+    /** 
+    * Setter for shield strength.
+    * @param shieldStrength value of shield strength.
+    */ 
+    public void setShieldStrength(float shieldStrength) {
+        this.shieldStrength = shieldStrength;
     }
-    
-    public boolean isDestroyed(){
-        if(Hull_Plating<=0)
+
+    /** 
+    * Setter for attack strength.
+    * @param attackStrength value of attack strength.
+    */ 
+    public void setAttackStrength(float attackStrength) {
+        this.attackStrength = attackStrength;
+    }
+
+    /** 
+    * This method return state of the unit.
+    * @return true if unit is destroyed. 
+    */     
+    public boolean isDestroyed() {
+        if (hullPlating <= 0) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
-    public void renewShield(Battle_Technologies tech){
-        Shield_Strength = unit.getShield_Strength(tech);
+
+    /** 
+    * This method is used after each round to renew unit shield.
+    * @param tech technologies of unit.
+    * @see Battle_Technologies
+    */
+    public void renewShield(Battle_Technologies tech) {
+        shieldStrength = unit.getShield_Strength(tech);
     }
 
     @Override
     public String toString() {
-        return Hull_Plating+" "+Shield_Strength+" "+Attack_Strength;
+        return hullPlating + " " + shieldStrength + " " + attackStrength;
     }
 
     @Override
-    protected BattleUnit clone(){
-        return new BattleUnit(unit, Hull_Plating, Shield_Strength, Attack_Strength);
+    protected BattleUnit clone() {
+        return new BattleUnit(unit, hullPlating, shieldStrength, attackStrength);
     }
-    
-    public boolean probability(double chance){
+
+    /** 
+    * This method is used to get probability of rapid fire.
+    * @param chance value of probability. Must be between 0.0 and 100.0
+    */
+    private boolean probability(double chance) {
         double r = random.nextDouble();
-        if(r*100<=(chance))
+        if (r * 100 <= (chance)) {
             return true;
-        else{
+        } else {
             return false;
         }
-    }  
-    
-    
-    
+    }
+
 }
