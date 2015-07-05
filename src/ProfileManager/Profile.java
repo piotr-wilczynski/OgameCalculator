@@ -5,41 +5,58 @@
  */
 package ProfileManager;
 
-import Enums.Lang_Enum;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  *
  * @author Piotr
  */
 public class Profile implements Serializable{
-    private static final long serialVersionUID = 7614135346269102453L;
-    private final Lang_Enum language;
-    private final int server_ID;
-    private final String playerName;    
+    private static final long serialVersionUID = -7508759438067394579L;    
+    
+    private String lang;
+    private List<PlayerProfile> profiles;
+    private int mainProfile;    
 
     public Profile() {
-        this.language = null;
-        this.server_ID = 0;
-        this.playerName = null;
+        this.lang = "";
+        this.profiles = new ArrayList<>();
+        this.mainProfile = 0;    
     }    
     
-    public Profile(Lang_Enum language, int server_ID, String playerName) {
-        this.language = language;
-        this.server_ID = server_ID;
-        this.playerName = playerName;
+    public Profile(Locale lang, List<PlayerProfile> profiles, int mainProfile) {
+        this.lang = lang.getLanguage();
+        this.profiles = profiles;
+        this.mainProfile = mainProfile;
     }
 
-    public Lang_Enum getLanguage() {
-        return language;
+    public Locale getLang() {
+        return new Locale(lang);
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public void setLang(Locale lang) {
+        this.lang = lang.getLanguage();
     }
 
-    public int getServer_ID() {
-        return server_ID;
-    }    
+    public List<PlayerProfile> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(List<PlayerProfile> profiles) {
+        this.profiles = profiles;
+    }
+
+    public int getMainProfile() {
+        return mainProfile;
+    }
+
+    public void setMainProfile(int mainProfile) {
+        this.mainProfile = mainProfile;
+    }
+    
+    
     
 }
