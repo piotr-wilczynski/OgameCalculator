@@ -1,5 +1,5 @@
 
-package simulation;
+package Simulation;
 
 import Enums.Unit_Enum;
 import java.util.Random;

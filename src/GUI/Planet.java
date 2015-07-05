@@ -37,19 +37,19 @@ public class Planet extends JDialog{
     
     
     private void initComponents(){
-        label_metal = new JLabel(lang.GUI_Lang.get(Resources_Enum.Metal.name()));
-        label_crystal = new JLabel(lang.GUI_Lang.get(Resources_Enum.Crystal.name()));
-        label_deuterium = new JLabel(lang.GUI_Lang.get(Resources_Enum.Deuterium.name()));
-        label_planet_name = new JLabel(lang.GUI_Lang.get("label_planet_name"));
-        label_planet_locations = new JLabel(lang.GUI_Lang.get("label_planet_locations"));
+        label_metal = new JLabel(Lang.GUI_Lang.get(Resources_Enum.Metal.name()));
+        label_crystal = new JLabel(Lang.GUI_Lang.get(Resources_Enum.Crystal.name()));
+        label_deuterium = new JLabel(Lang.GUI_Lang.get(Resources_Enum.Deuterium.name()));
+        label_planet_name = new JLabel(Lang.GUI_Lang.get("label_planet_name"));
+        label_planet_locations = new JLabel(Lang.GUI_Lang.get("label_planet_locations"));
         metal = new JTextField("0",6);
         crystal = new JTextField("0",6);
         deuterium = new JTextField("0",6);
         planet_name = new JTextField();
         planet_location = new JTextField("0:0:0",5);
-        ok = new JButton(lang.GUI_Lang.get("OK"));
-        cancel = new JButton(lang.GUI_Lang.get("Cancel"));
-        moon = new JCheckBox(lang.GUI_Lang.get("Moon"));
+        ok = new JButton(Lang.GUI_Lang.get("OK"));
+        cancel = new JButton(Lang.GUI_Lang.get("Cancel"));
+        moon = new JCheckBox(Lang.GUI_Lang.get("Moon"));
         label_planet_name.setBorder(new EmptyBorder(0, 0, 0, 0));
         label_planet_locations.setBorder(new EmptyBorder(0, 0, 0, 0));
         
@@ -69,7 +69,7 @@ public class Planet extends JDialog{
         });
         
         JPanel resources = new JPanel();
-        resources.setBorder(new TitledBorder(lang.GUI_Lang.get("Resources")));
+        resources.setBorder(new TitledBorder(Lang.GUI_Lang.get("Resources")));
         GroupLayout l = new GroupLayout(resources);
         resources.setLayout(l);
         l.setAutoCreateGaps(true);
@@ -136,7 +136,7 @@ public class Planet extends JDialog{
                 .addComponent(cancel)
                 .addComponent(ok)));
         
-        setIconImage(utilities.IO_Utilities.getImage("icon.png"));        
+        setIconImage(Utilities.IO_Utilities.getImage("icon.png"));        
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         pack();
     }

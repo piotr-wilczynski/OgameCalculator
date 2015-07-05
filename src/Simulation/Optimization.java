@@ -1,4 +1,4 @@
-package simulation;
+package Simulation;
 
 import Enums.Side_Enum;
 import Enums.Unit_Enum;

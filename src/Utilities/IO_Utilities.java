@@ -1,5 +1,5 @@
 
-package utilities;
+package Utilities;
 
 import java.awt.image.BufferedImage;
 import java.io.*;

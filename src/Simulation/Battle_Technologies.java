@@ -1,5 +1,5 @@
 
-package simulation;
+package Simulation;
 public class Battle_Technologies {
     private final int Weapons_Technology;
     private final int Shielding_Technology;

@@ -1,4 +1,4 @@
-package simulation;
+package Simulation;
 
 import Enums.*;
 import Statistics.Statistics;

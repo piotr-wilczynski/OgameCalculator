@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import Enums.Research_Enum;
 import Enums.Unit_Enum;
-import utilities.IO_Utilities;
+import Utilities.IO_Utilities;
 
 public class UnitPanel extends JPanel{
     private static final long serialVersionUID = 7351637395493681985L;
@@ -34,7 +34,7 @@ public class UnitPanel extends JPanel{
         this.object = unit;
         images = getImage(unit);
         background2 = IO_Utilities.getImage("labels.gif");  
-        setToolTipText(lang.GUI_Lang.get(unit.name()));
+        setToolTipText(Lang.GUI_Lang.get(unit.name()));
         initComonents();
     }
 

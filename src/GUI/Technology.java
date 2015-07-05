@@ -8,11 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import lang.GUI_Lang;
+import Lang.GUI_Lang;
 import Enums.Research_Enum;
 import Enums.Side_Enum;
-import simulation.Battle_Technologies;
-import utilities.IO_Utilities;
+import Simulation.Battle_Technologies;
+import Utilities.IO_Utilities;
 
 /**
  *
@@ -145,7 +145,7 @@ public class Technology extends ImagePanel {
     }
 
     public Battle_Technologies getTechnologies(Side_Enum side) {
-        simulation.Battle_Technologies tech = null;
+        Simulation.Battle_Technologies tech = null;
         switch (side) {
             case Agressor: {
 

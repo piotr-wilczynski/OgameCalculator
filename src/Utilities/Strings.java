@@ -1,5 +1,5 @@
 
-package utilities;
+package Utilities;
 public class Strings {
     public static String precision(double value,int precision){
         String text = ""+(long)value+"."+(((long)(100*value))%100);

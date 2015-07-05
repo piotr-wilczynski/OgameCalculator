@@ -22,10 +22,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import simulation.Simulation;
-import simulation.Battle_Technologies;
+import Simulation.Simulation;
+import Simulation.Battle_Technologies;
 import Enums.Unit_Enum;
-import utilities.FXIO;
+import Utilities.FXIO;
 
 /**
  * FXML Controller class

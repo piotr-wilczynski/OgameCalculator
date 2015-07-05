@@ -23,7 +23,7 @@ public class Options extends JPanel{
     
     
     private void initComponents(){
-        simulation_start = new JButton(lang.GUI_Lang.get("simulation_start"));
+        simulation_start = new JButton(Lang.GUI_Lang.get("simulation_start"));
         clear_location = new JButton("X");
         progress_bar = new JProgressBar(0,100);
         simulation_number = new JTextField("100");
@@ -31,12 +31,12 @@ public class Options extends JPanel{
         defense_derbis = new JComboBox<>(percents);
         fleet_speed = new JComboBox<>(percents);
         location = new JComboBox<>();
-        clipboard_check = new JCheckBox(lang.GUI_Lang.get("clipboard_check"), false);
-        label_fleet_derbis = new JLabel(lang.GUI_Lang.get("fleet_derbis"));
-        label_defense_derbis = new JLabel(lang.GUI_Lang.get("defense_derbis"));
-        label_simulation_number = new JLabel(lang.GUI_Lang.get("simulation_number"));
-        label_fleet_speed = new JLabel(lang.GUI_Lang.get("fleet_speed"));
-        label_location = new JLabel(lang.GUI_Lang.get("own_location"));
+        clipboard_check = new JCheckBox(Lang.GUI_Lang.get("clipboard_check"), false);
+        label_fleet_derbis = new JLabel(Lang.GUI_Lang.get("fleet_derbis"));
+        label_defense_derbis = new JLabel(Lang.GUI_Lang.get("defense_derbis"));
+        label_simulation_number = new JLabel(Lang.GUI_Lang.get("simulation_number"));
+        label_fleet_speed = new JLabel(Lang.GUI_Lang.get("fleet_speed"));
+        label_location = new JLabel(Lang.GUI_Lang.get("own_location"));
         
         label_location.setForeground(Color.WHITE);
         label_simulation_number.setForeground(Color.WHITE);

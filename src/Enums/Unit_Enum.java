@@ -2,7 +2,7 @@ package Enums;
 
 import java.util.HashMap;
 import java.util.Map;
-import simulation.Battle_Technologies;
+import Simulation.Battle_Technologies;
 
 public enum Unit_Enum {
     //Name                  M       C       D       SI      SS    AS     Speed     CC      FU   Rapidfire   //LF  HF  C   B   BC  B   D   DS  SC  LC  CS  R   EP  SS

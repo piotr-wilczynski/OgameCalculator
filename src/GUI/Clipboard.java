@@ -82,7 +82,7 @@ public class Clipboard extends Thread implements ClipboardOwner{
                     switch(level){
                         case researches:{
                             for(Research_Enum res:Research_Enum.values()){
-                                if(list.get(i-1).matches(lang.GUI_Lang.get(res.name()))){
+                                if(list.get(i-1).matches(Lang.GUI_Lang.get(res.name()))){
                                     rese.put(res, number);
                                     break;
                                 }
@@ -90,7 +90,7 @@ public class Clipboard extends Thread implements ClipboardOwner{
                         }
                         case units:{
                             for(Unit_Enum u:Unit_Enum.values()){
-                                if(list.get(i-1).matches(lang.GUI_Lang.get(u.name()))){
+                                if(list.get(i-1).matches(Lang.GUI_Lang.get(u.name()))){
                                     unit.put(u, number);
                                     level = units;
                                     break;
@@ -99,7 +99,7 @@ public class Clipboard extends Thread implements ClipboardOwner{
                         }
                         case resources:{
                             for(Resources_Enum res:Resources_Enum.values()){
-                                if(list.get(i-1).replaceAll("[:]", "").matches(lang.GUI_Lang.get(res.name()))){
+                                if(list.get(i-1).replaceAll("[:]", "").matches(Lang.GUI_Lang.get(res.name()))){
                                     reso.put(res, number);
                                     if(res.equals(Resources_Enum.Metal)){
                                         if(i-2>=0){

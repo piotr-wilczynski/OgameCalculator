@@ -1,8 +1,8 @@
 package Statistics;
 
 import Enums.*;
-import simulation.BattleUnit;
-import simulation.Battle_Technologies;
+import Simulation.BattleUnit;
+import Simulation.Battle_Technologies;
 
 public class Statistics {
 

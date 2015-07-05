@@ -1,15 +1,16 @@
 package GUI;
 
+import Utilities.IO_Utilities;
+import Utilities.Strings;
+import Simulation.Simulation_SWING;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.*;
-import lang.GUI_Lang;
+import Lang.GUI_Lang;
 import Enums.*;
 import Statistics.*;
-import simulation.*;
-import utilities.*;
 
 public class GUI extends JFrame {
     private static final long serialVersionUID = 1105636786932301235L;
@@ -125,7 +126,7 @@ public class GUI extends JFrame {
                 result.getPlanet().setDeuterium(clipboard.getResources().getOrDefault(Resources_Enum.Deuterium, 0));
             }
         });
-        setIconImage(utilities.IO_Utilities.getImage("icon.png"));
+        setIconImage(Utilities.IO_Utilities.getImage("icon.png"));
         new Thread(clipboard).start();
     }
 
@@ -182,8 +183,8 @@ public class GUI extends JFrame {
                     }
                 }
             });
-            simulation.Battle_Technologies tech_agressor = technology.getTechnologies(Side_Enum.Agressor);
-            simulation.Battle_Technologies tech_defender = technology.getTechnologies(Side_Enum.Defender);
+            Simulation.Battle_Technologies tech_agressor = technology.getTechnologies(Side_Enum.Agressor);
+            Simulation.Battle_Technologies tech_defender = technology.getTechnologies(Side_Enum.Defender);
             sim.setTechnologies(Side_Enum.Agressor, tech_agressor);
             sim.setTechnologies(Side_Enum.Defender, tech_defender);
             int[][] units = getUnits();

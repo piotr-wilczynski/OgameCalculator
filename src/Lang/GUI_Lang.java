@@ -1,4 +1,4 @@
-package lang;
+package Lang;
 
 import java.util.Hashtable;
 
