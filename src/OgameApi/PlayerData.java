@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2015.06.23 at 10:45:17 PM CEST 
 //
-
-
 package OgameApi;
 
 import java.math.BigInteger;
@@ -18,108 +16,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
-/**
- * <p>Java class for anonymous complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="positions">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="position" maxOccurs="8" minOccurs="8">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;attribute name="type">
- *                             &lt;simpleType>
- *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
- *                                 &lt;minInclusive value="0"/>
- *                                 &lt;maxInclusive value="7"/>
- *                               &lt;/restriction>
- *                             &lt;/simpleType>
- *                           &lt;/attribute>
- *                           &lt;attribute name="score" type="{http://www.w3.org/2001/XMLSchema}long" />
- *                           &lt;attribute name="ships" type="{http://www.w3.org/2001/XMLSchema}long" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="planets">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="planet">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="moon" minOccurs="0">
- *                               &lt;complexType>
- *                                 &lt;complexContent>
- *                                   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                     &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *                                     &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *                                     &lt;attribute name="size" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *                                   &lt;/restriction>
- *                                 &lt;/complexContent>
- *                               &lt;/complexType>
- *                             &lt;/element>
- *                           &lt;/sequence>
- *                           &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *                           &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                           &lt;attribute name="coords" use="required">
- *                             &lt;simpleType>
- *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *                                 &lt;pattern value="[1-9]:[0-9]{1,3}:[0-9]{1,2}"/>
- *                               &lt;/restriction>
- *                             &lt;/simpleType>
- *                           &lt;/attribute>
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="alliance">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                   &lt;element name="tag" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                 &lt;/sequence>
- *                 &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute name="timestamp" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *       &lt;attribute name="serverId" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "positions",
@@ -127,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
     "alliance"
 })
 @XmlRootElement(name = "playerData")
-public class PlayerData implements Timestamp{
+public class PlayerData implements Timestamp {
 
     @XmlElement(required = true)
     protected PlayerData.Positions positions;
@@ -142,11 +38,9 @@ public class PlayerData implements Timestamp{
 
     /**
      * Gets the value of the positions property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PlayerData.Positions }
-     *     
+     *
+     * @return possible object is {@link PlayerData.Positions }
+     *
      */
     public PlayerData.Positions getPositions() {
         return positions;
@@ -154,11 +48,9 @@ public class PlayerData implements Timestamp{
 
     /**
      * Sets the value of the positions property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PlayerData.Positions }
-     *     
+     *
+     * @param value allowed object is {@link PlayerData.Positions }
+     *
      */
     public void setPositions(PlayerData.Positions value) {
         this.positions = value;
@@ -166,11 +58,9 @@ public class PlayerData implements Timestamp{
 
     /**
      * Gets the value of the planets property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PlayerData.Planets }
-     *     
+     *
+     * @return possible object is {@link PlayerData.Planets }
+     *
      */
     public PlayerData.Planets getPlanets() {
         return planets;
@@ -178,11 +68,9 @@ public class PlayerData implements Timestamp{
 
     /**
      * Sets the value of the planets property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PlayerData.Planets }
-     *     
+     *
+     * @param value allowed object is {@link PlayerData.Planets }
+     *
      */
     public void setPlanets(PlayerData.Planets value) {
         this.planets = value;
@@ -190,11 +78,9 @@ public class PlayerData implements Timestamp{
 
     /**
      * Gets the value of the alliance property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PlayerData.Alliance }
-     *     
+     *
+     * @return possible object is {@link PlayerData.Alliance }
+     *
      */
     public PlayerData.Alliance getAlliance() {
         return alliance;
@@ -202,11 +88,9 @@ public class PlayerData implements Timestamp{
 
     /**
      * Sets the value of the alliance property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PlayerData.Alliance }
-     *     
+     *
+     * @param value allowed object is {@link PlayerData.Alliance }
+     *
      */
     public void setAlliance(PlayerData.Alliance value) {
         this.alliance = value;
@@ -214,11 +98,9 @@ public class PlayerData implements Timestamp{
 
     /**
      * Gets the value of the timestamp property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @return possible object is {@link BigInteger }
+     *
      */
     public BigInteger getTimestamp() {
         return timestamp;
@@ -226,11 +108,9 @@ public class PlayerData implements Timestamp{
 
     /**
      * Sets the value of the timestamp property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @param value allowed object is {@link BigInteger }
+     *
      */
     public void setTimestamp(BigInteger value) {
         this.timestamp = value;
@@ -238,11 +118,9 @@ public class PlayerData implements Timestamp{
 
     /**
      * Gets the value of the serverId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link String }
+     *
      */
     public String getServerId() {
         return serverId;
@@ -250,38 +128,14 @@ public class PlayerData implements Timestamp{
 
     /**
      * Sets the value of the serverId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link String }
+     *
      */
     public void setServerId(String value) {
         this.serverId = value;
     }
 
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="tag" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *       &lt;/sequence>
-     *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "name",
@@ -298,11 +152,9 @@ public class PlayerData implements Timestamp{
 
         /**
          * Gets the value of the name property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible object is {@link String }
+         *
          */
         public String getName() {
             return name;
@@ -310,11 +162,9 @@ public class PlayerData implements Timestamp{
 
         /**
          * Sets the value of the name property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is {@link String }
+         *
          */
         public void setName(String value) {
             this.name = value;
@@ -322,11 +172,9 @@ public class PlayerData implements Timestamp{
 
         /**
          * Gets the value of the tag property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible object is {@link String }
+         *
          */
         public String getTag() {
             return tag;
@@ -334,11 +182,9 @@ public class PlayerData implements Timestamp{
 
         /**
          * Sets the value of the tag property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is {@link String }
+         *
          */
         public void setTag(String value) {
             this.tag = value;
@@ -346,11 +192,9 @@ public class PlayerData implements Timestamp{
 
         /**
          * Gets the value of the id property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link BigInteger }
-         *     
+         *
+         * @return possible object is {@link BigInteger }
+         *
          */
         public BigInteger getId() {
             return id;
@@ -358,11 +202,9 @@ public class PlayerData implements Timestamp{
 
         /**
          * Sets the value of the id property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link BigInteger }
-         *     
+         *
+         * @param value allowed object is {@link BigInteger }
+         *
          */
         public void setId(BigInteger value) {
             this.id = value;
@@ -370,71 +212,20 @@ public class PlayerData implements Timestamp{
 
     }
 
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="planet">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="moon" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;complexContent>
-     *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-     *                           &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-     *                           &lt;attribute name="size" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-     *                         &lt;/restriction>
-     *                       &lt;/complexContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                 &lt;/sequence>
-     *                 &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-     *                 &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *                 &lt;attribute name="coords" use="required">
-     *                   &lt;simpleType>
-     *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-     *                       &lt;pattern value="[1-9]:[0-9]{1,3}:[0-9]{1,2}"/>
-     *                     &lt;/restriction>
-     *                   &lt;/simpleType>
-     *                 &lt;/attribute>
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "planet"
     })
     public static class Planets {
-        
+
         @XmlElement(required = true)
         protected List<PlayerData.Planets.Planet> planet;
 
         /**
          * Gets the value of the planet property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link PlayerData.Planets.Planet }
-         *     
+         *
+         * @return possible object is {@link PlayerData.Planets.Planet }
+         *
          */
         public List<PlayerData.Planets.Planet> getPlanet() {
             if (planet == null) {
@@ -443,44 +234,6 @@ public class PlayerData implements Timestamp{
             return this.planet;
         }
 
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="moon" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;complexContent>
-         *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-         *                 &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-         *                 &lt;attribute name="size" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-         *               &lt;/restriction>
-         *             &lt;/complexContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-         *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *       &lt;attribute name="coords" use="required">
-         *         &lt;simpleType>
-         *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *             &lt;pattern value="[1-9]:[0-9]{1,3}:[0-9]{1,2}"/>
-         *           &lt;/restriction>
-         *         &lt;/simpleType>
-         *       &lt;/attribute>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
             "moon"
@@ -497,11 +250,10 @@ public class PlayerData implements Timestamp{
 
             /**
              * Gets the value of the moon property.
-             * 
-             * @return
-             *     possible object is
+             *
+             * @return possible object is
              *     {@link PlayerData.Planets.Planet.Moon }
-             *     
+             *
              */
             public PlayerData.Planets.Planet.Moon getMoon() {
                 return moon;
@@ -509,11 +261,10 @@ public class PlayerData implements Timestamp{
 
             /**
              * Sets the value of the moon property.
-             * 
-             * @param value
-             *     allowed object is
+             *
+             * @param value allowed object is
              *     {@link PlayerData.Planets.Planet.Moon }
-             *     
+             *
              */
             public void setMoon(PlayerData.Planets.Planet.Moon value) {
                 this.moon = value;
@@ -521,11 +272,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Gets the value of the id property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link BigInteger }
-             *     
+             *
+             * @return possible object is {@link BigInteger }
+             *
              */
             public BigInteger getId() {
                 return id;
@@ -533,11 +282,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Sets the value of the id property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link BigInteger }
-             *     
+             *
+             * @param value allowed object is {@link BigInteger }
+             *
              */
             public void setId(BigInteger value) {
                 this.id = value;
@@ -545,11 +292,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Gets the value of the name property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is {@link String }
+             *
              */
             public String getName() {
                 return name;
@@ -557,11 +302,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Sets the value of the name property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is {@link String }
+             *
              */
             public void setName(String value) {
                 this.name = value;
@@ -569,11 +312,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Gets the value of the coords property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is {@link String }
+             *
              */
             public String getCoords() {
                 return coords;
@@ -581,36 +322,14 @@ public class PlayerData implements Timestamp{
 
             /**
              * Sets the value of the coords property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is {@link String }
+             *
              */
             public void setCoords(String value) {
                 this.coords = value;
             }
 
-
-            /**
-             * <p>Java class for anonymous complex type.
-             * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
-             * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-             *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
-             *       &lt;attribute name="size" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
-             * </pre>
-             * 
-             * 
-             */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "")
             public static class Moon {
@@ -624,11 +343,9 @@ public class PlayerData implements Timestamp{
 
                 /**
                  * Gets the value of the id property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link BigInteger }
-                 *     
+                 *
+                 * @return possible object is {@link BigInteger }
+                 *
                  */
                 public BigInteger getId() {
                     return id;
@@ -636,11 +353,9 @@ public class PlayerData implements Timestamp{
 
                 /**
                  * Sets the value of the id property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link BigInteger }
-                 *     
+                 *
+                 * @param value allowed object is {@link BigInteger }
+                 *
                  */
                 public void setId(BigInteger value) {
                     this.id = value;
@@ -648,11 +363,9 @@ public class PlayerData implements Timestamp{
 
                 /**
                  * Gets the value of the name property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link BigInteger }
-                 *     
+                 *
+                 * @return possible object is {@link BigInteger }
+                 *
                  */
                 public String getName() {
                     return name;
@@ -660,11 +373,9 @@ public class PlayerData implements Timestamp{
 
                 /**
                  * Sets the value of the name property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link BigInteger }
-                 *     
+                 *
+                 * @param value allowed object is {@link BigInteger }
+                 *
                  */
                 public void setName(String value) {
                     this.name = value;
@@ -672,11 +383,9 @@ public class PlayerData implements Timestamp{
 
                 /**
                  * Gets the value of the size property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link BigInteger }
-                 *     
+                 *
+                 * @return possible object is {@link BigInteger }
+                 *
                  */
                 public BigInteger getSize() {
                     return size;
@@ -684,11 +393,9 @@ public class PlayerData implements Timestamp{
 
                 /**
                  * Sets the value of the size property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link BigInteger }
-                 *     
+                 *
+                 * @param value allowed object is {@link BigInteger }
+                 *
                  */
                 public void setSize(BigInteger value) {
                     this.size = value;
@@ -700,43 +407,6 @@ public class PlayerData implements Timestamp{
 
     }
 
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="position" maxOccurs="8" minOccurs="8">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;attribute name="type">
-     *                   &lt;simpleType>
-     *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
-     *                       &lt;minInclusive value="0"/>
-     *                       &lt;maxInclusive value="7"/>
-     *                     &lt;/restriction>
-     *                   &lt;/simpleType>
-     *                 &lt;/attribute>
-     *                 &lt;attribute name="score" type="{http://www.w3.org/2001/XMLSchema}long" />
-     *                 &lt;attribute name="ships" type="{http://www.w3.org/2001/XMLSchema}long" />
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "position"
@@ -748,25 +418,25 @@ public class PlayerData implements Timestamp{
 
         /**
          * Gets the value of the position property.
-         * 
+         *
          * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the position property.
-         * 
+         * This accessor method returns a reference to the live list, not a
+         * snapshot. Therefore any modification you make to the returned list
+         * will be present inside the JAXB object. This is why there is not a
+         * <CODE>set</CODE> method for the position property.
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getPosition().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link PlayerData.Positions.Position }
-         * 
-         * 
+         *
+         *
          */
         public List<PlayerData.Positions.Position> getPosition() {
             if (position == null) {
@@ -775,33 +445,6 @@ public class PlayerData implements Timestamp{
             return this.position;
         }
 
-
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;attribute name="type">
-         *         &lt;simpleType>
-         *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}integer">
-         *             &lt;minInclusive value="0"/>
-         *             &lt;maxInclusive value="7"/>
-         *           &lt;/restriction>
-         *         &lt;/simpleType>
-         *       &lt;/attribute>
-         *       &lt;attribute name="score" type="{http://www.w3.org/2001/XMLSchema}long" />
-         *       &lt;attribute name="ships" type="{http://www.w3.org/2001/XMLSchema}long" />
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
         public static class Position {
@@ -815,11 +458,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Gets the value of the type property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link Integer }
-             *     
+             *
+             * @return possible object is {@link Integer }
+             *
              */
             public Integer getType() {
                 return type;
@@ -827,11 +468,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Sets the value of the type property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link Integer }
-             *     
+             *
+             * @param value allowed object is {@link Integer }
+             *
              */
             public void setType(Integer value) {
                 this.type = value;
@@ -839,11 +478,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Gets the value of the score property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link Long }
-             *     
+             *
+             * @return possible object is {@link Long }
+             *
              */
             public Long getScore() {
                 return score;
@@ -851,11 +488,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Sets the value of the score property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link Long }
-             *     
+             *
+             * @param value allowed object is {@link Long }
+             *
              */
             public void setScore(Long value) {
                 this.score = value;
@@ -863,11 +498,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Gets the value of the ships property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link Long }
-             *     
+             *
+             * @return possible object is {@link Long }
+             *
              */
             public Long getShips() {
                 return ships;
@@ -875,11 +508,9 @@ public class PlayerData implements Timestamp{
 
             /**
              * Sets the value of the ships property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link Long }
-             *     
+             *
+             * @param value allowed object is {@link Long }
+             *
              */
             public void setShips(Long value) {
                 this.ships = value;
