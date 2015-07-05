@@ -416,28 +416,6 @@ public class PlayerData implements Timestamp {
         @XmlElement(required = true)
         protected List<PlayerData.Positions.Position> position;
 
-        /**
-         * Gets the value of the position property.
-         *
-         * <p>
-         * This accessor method returns a reference to the live list, not a
-         * snapshot. Therefore any modification you make to the returned list
-         * will be present inside the JAXB object. This is why there is not a
-         * <CODE>set</CODE> method for the position property.
-         *
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getPosition().add(newItem);
-         * </pre>
-         *
-         *
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link PlayerData.Positions.Position }
-         *
-         *
-         */
         public List<PlayerData.Positions.Position> getPosition() {
             if (position == null) {
                 position = new ArrayList<PlayerData.Positions.Position>();
