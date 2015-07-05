@@ -60,9 +60,9 @@ public class BattleUnit {
     /** 
     * Class constructor. This constructor creates new unit with parameters dependent on technologies.
     * @param unit type of unit.
-    * @param Hull_Plating level of technology named hull plating.
-    * @param Shield_Strength level of technology named shield strength.
-    * @param Attack_Strength level of technology named attack strength.
+    * @param hullPlating level of technology named hull plating.
+    * @param shieldStrength level of technology named shield strength.
+    * @param attackStrength level of technology named attack strength.
     * @see Unit_Enum
     */
     public BattleUnit(Unit_Enum unit, float hullPlating, float shieldStrength, float attackStrength) {
