@@ -1,0 +1,6 @@
+/*
+ * Copyright (C) ${date?date?string("yyyy")} ${project.organization!user}.
+ * All rights reserved. 
+ *
+ * Please refer any queries to ${user} <${email}>.
+ */

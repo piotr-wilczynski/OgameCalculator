@@ -1,4 +1,9 @@
-
+/*
+ * Copyright (C) 2015 Piotr Wilczynski.
+ * All rights reserved. 
+ *
+ * Please refer any queries to Piotr Wilczynski <wilczynskipio@gmail.com>.
+ */
 import Enums.Lang_Enum;
 import ProfileManager.PlayerProfile;
 import ProfileManager.Profile;
