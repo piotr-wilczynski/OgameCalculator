@@ -6,7 +6,7 @@
  */
 package Simulation;
 
-import Enums.Unit_Enum;
+import Enums.UnitEnum;
 import java.util.Random;
 
 /**
@@ -22,9 +22,9 @@ public class BattleUnit {
     /**
      * Represents type {@value}) of unit.
      *
-     * @see Unit_Enum
+     * @see UnitEnum
      */
-    private final Unit_Enum unit;
+    private final UnitEnum unit;
 
     /**
      * Represents hull plating of unit.
@@ -55,14 +55,14 @@ public class BattleUnit {
      *
      * @param unit type of unit.
      * @param tech technologies of unit.
-     * @see Unit_Enum
+     * @see UnitEnum
      * @see Battle_Technologies
      */
-    public BattleUnit(Unit_Enum unit, Battle_Technologies tech) {
+    public BattleUnit(UnitEnum unit, Battle_Technologies tech) {
         this.unit = unit;
-        hullPlating = unit.getHull_Plating(tech);
-        shieldStrength = unit.getShield_Strength(tech);
-        attackStrength = unit.getAttack_Strength(tech);
+        hullPlating = unit.getHullPlating(tech);
+        shieldStrength = unit.getShieldStrength(tech);
+        attackStrength = unit.getAttackStrength(tech);
         random = new Random();
     }
 
@@ -74,9 +74,9 @@ public class BattleUnit {
      * @param hullPlating level of technology named hull plating.
      * @param shieldStrength level of technology named shield strength.
      * @param attackStrength level of technology named attack strength.
-     * @see Unit_Enum
+     * @see UnitEnum
      */
-    public BattleUnit(Unit_Enum unit, float hullPlating, float shieldStrength, float attackStrength) {
+    public BattleUnit(UnitEnum unit, float hullPlating, float shieldStrength, float attackStrength) {
         this.unit = unit;
         this.hullPlating = hullPlating;
         this.shieldStrength = shieldStrength;
@@ -106,7 +106,7 @@ public class BattleUnit {
             }
             unit.setHullPlating(hull);
             unit.setShieldStrength(0);
-            float initial_hull = unit.getUnit().getHull_Plating(tech);
+            float initial_hull = unit.getUnit().getHullPlating(tech);
             if (unit.getHullPlating() < 0.7f * initial_hull && hull > 0) {
                 //if(rand() % 100 >= 100.f * obj->Life / MaxLifes[DefferID][ZielTeam][obj->Type])
                 if (random.nextInt(100) >= 100 * (unit.getHullPlating() / initial_hull)) {
@@ -116,8 +116,8 @@ public class BattleUnit {
         }
         int rapidfire;
         if ((rapidfire = this.unit.getRapidfire(unit.getUnit())) > 0) {
-            double probability_to_shot_again = (100 - (100.0 / rapidfire));
-            if (probability(probability_to_shot_again)) {
+            double probabilityToShotAgain = (100 - (100.0 / rapidfire));
+            if (probability(probabilityToShotAgain)) {
                 return true;
             }
         }
@@ -156,9 +156,9 @@ public class BattleUnit {
      * Getter for unit type.
      *
      * @return unit type.
-     * @see Unit_Enum
+     * @see UnitEnum
      */
-    public Unit_Enum getUnit() {
+    public UnitEnum getUnit() {
         return unit;
     }
 
@@ -209,7 +209,7 @@ public class BattleUnit {
      * @see Battle_Technologies
      */
     public void renewShield(Battle_Technologies tech) {
-        shieldStrength = unit.getShield_Strength(tech);
+        shieldStrength = unit.getShieldStrength(tech);
     }
 
     @Override

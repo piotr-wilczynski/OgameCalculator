@@ -14,7 +14,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import Enums.Unit_Enum;
+import Enums.UnitEnum;
 import Utilities.IO_Utilities;
 
 public class Defense extends ImagePanel{
@@ -36,16 +36,16 @@ public class Defense extends ImagePanel{
         label.setFont(new Font(f.getName(), Font.BOLD, 26));               
         
         defense = new UnitPanel[10];
-        defense[0] = new UnitPanel(Unit_Enum.Rocket_Launcher);
-        defense[1] = new UnitPanel(Unit_Enum.Light_Laser);
-        defense[2] = new UnitPanel(Unit_Enum.Heavy_Laser);
-        defense[3] = new UnitPanel(Unit_Enum.Gauss_Cannon);
-        defense[4] = new UnitPanel(Unit_Enum.Ion_Cannon);
-        defense[5] = new UnitPanel(Unit_Enum.Plasma_Turret);
-        defense[6] = new UnitPanel(Unit_Enum.Small_Shield_Dome);
-        defense[7] = new UnitPanel(Unit_Enum.Large_Shield_Dome);
-        defense[8] = new UnitPanel(Unit_Enum.Anti_Ballistic_Missiles);
-        defense[9] = new UnitPanel(Unit_Enum.Interplanetary_Missiles);
+        defense[0] = new UnitPanel(UnitEnum.RocketLauncher);
+        defense[1] = new UnitPanel(UnitEnum.LightLaser);
+        defense[2] = new UnitPanel(UnitEnum.HeavyLaser);
+        defense[3] = new UnitPanel(UnitEnum.GaussCannon);
+        defense[4] = new UnitPanel(UnitEnum.IonCannon);
+        defense[5] = new UnitPanel(UnitEnum.PlasmaTurret);
+        defense[6] = new UnitPanel(UnitEnum.SmallShieldDome);
+        defense[7] = new UnitPanel(UnitEnum.LargeShieldDome);
+        defense[8] = new UnitPanel(UnitEnum.AntiBallisticMissiles);
+        defense[9] = new UnitPanel(UnitEnum.InterplanetaryMissiles);
         
         GroupLayout l = new GroupLayout(defense_pane);
         defense_pane.setLayout(l);
@@ -105,9 +105,9 @@ public class Defense extends ImagePanel{
         }
     }
     
-    public UnitPanel get(Unit_Enum unit){
+    public UnitPanel get(UnitEnum unit){
         for(UnitPanel u:defense){
-            if(((Unit_Enum)u.getObject()).equals(unit))
+            if(((UnitEnum)u.getObject()).equals(unit))
                 return u;
         }
         return null;

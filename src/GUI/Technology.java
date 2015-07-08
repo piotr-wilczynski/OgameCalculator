@@ -61,7 +61,7 @@ public class Technology extends ImagePanel {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
 
-        label_agressor = new JLabel(GUI_Lang.getGUI().agressor);
+        label_agressor = new JLabel(GUI_Lang.getInstance().agressor);
         label_agressor.setOpaque(true);
         label_agressor.setForeground(new Color(255, 193, 7));
         Font f = label_agressor.getFont();
@@ -69,7 +69,7 @@ public class Technology extends ImagePanel {
         label_agressor.setFont(new Font(f.getName(), Font.BOLD, 26));
         label_agressor.setBackground(new Color(10, 10, 10, 150));
 
-        label_defender = new JLabel(GUI_Lang.getGUI().defender);
+        label_defender = new JLabel(GUI_Lang.getInstance().defender);
         label_defender.setForeground(new Color(255, 193, 7));
         f = label_defender.getFont();
         label_defender.setOpaque(true);

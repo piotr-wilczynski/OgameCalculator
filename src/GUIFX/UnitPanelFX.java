@@ -19,16 +19,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import Enums.Unit_Enum;
+import Enums.UnitEnum;
 
 public class UnitPanelFX extends AnchorPane{
     private ImageView image ;
     private TextField textfield;
     private Label label;
-    private Unit_Enum unit;
+    private UnitEnum unit;
     private Tooltip label_tooltip,textfield_tooltip;
 
-    public UnitPanelFX(Unit_Enum unit,Image image) {
+    public UnitPanelFX(UnitEnum unit,Image image) {
                 
         this.image = new ImageView(image);
         this.image.setFitHeight(70);
@@ -104,7 +104,7 @@ public class UnitPanelFX extends AnchorPane{
         label.setVisible(true);
     }
 
-    public Unit_Enum getUnit() {
+    public UnitEnum getUnit() {
         return unit;
     }
     

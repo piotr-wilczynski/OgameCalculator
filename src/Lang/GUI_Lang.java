@@ -6,17 +6,28 @@
  */
 package Lang;
 
+import Enums.UnitEnum;
+import OgameApi.Localization;
+import OgameApi.LocalizationValues.Name;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Hashtable;
+import java.util.List;
+import javax.xml.bind.JAXBException;
 
 public class GUI_Lang {
+
     private static final GUI_Lang gui = new GUI_Lang();
     public final String shipyard_of_argessor;
     public final String shipyard_of_defender;
     public final String defense_of_defender;
-    public final String research;;
-    public final String agressor;;
+    public final String research;
+    ;
+    public final String agressor;
+    ;
     public final String defender;
-    private static Hashtable<String,String> texts;
+    private static Hashtable<String, String> texts;
+
     public GUI_Lang() {
         texts = new Hashtable<>();
         shipyard_of_argessor = "Stocznia agresora";
@@ -24,21 +35,20 @@ public class GUI_Lang {
         defense_of_defender = "Obrona obrońcy";
         research = "Badania";
         agressor = "Agresor";
-        defender = "Obrońca";        
-        
-        
+        defender = "Obrońca";
+
         texts.put("Metal", "Metal");
         texts.put("Crystal", "Kryształ");
         texts.put("Deuterium", "Deuter");
-        
+
         texts.put("Agressor", "Atakujący");
         texts.put("Defender", "Obrońca");
         texts.put("Remis", "Resmis");
-        
+
         texts.put("Neutral", "Neutralny");
         texts.put("Honorable", "Honorowy");
         texts.put("Bandit", "Bandyta");
-        
+
         texts.put("Light_Fighter", "Lekki myśliwiec");
         texts.put("Heavy_Fighter", "Ciężki myśliwiec");
         texts.put("Cruiser", "Krążownik");
@@ -53,7 +63,7 @@ public class GUI_Lang {
         texts.put("Recycler", "Recykler");
         texts.put("Espionage_Probe", "Sonda szpiegowska");
         texts.put("Solar_Satellite", "Satelita słoneczny");
-        
+
         texts.put("Rocket_Launcher", "Wyrzutnia rakiet");
         texts.put("Light_Laser", "Lekkie działo laserowe");
         texts.put("Heavy_Laser", "Ciężkie działo laserowe");
@@ -64,7 +74,7 @@ public class GUI_Lang {
         texts.put("Large_Shield_Dome", "Duża powłoka ochronna");
         texts.put("Anti_Ballistic_Missiles", "Przeciwrakieta");
         texts.put("Interplanetary_Missiles", "Rakieta międzyplanetarna");
-        
+
         texts.put("Energy_Technology", "Technologia energetyczna");
         texts.put("Laser_Technology", "Technologia laserowa");
         texts.put("Ion_Technology", "Technologia jonowa");
@@ -81,13 +91,12 @@ public class GUI_Lang {
         texts.put("Weapons_Technology", "Technologia bojowa");
         texts.put("Shielding_Technology", "Technologia ochronna");
         texts.put("Armour_Technology", "Opancerzenie");
-                
+
         texts.put("simulation_start", "Rozpocznij Symulację");
         texts.put("own_location", "Własna pozycja:");
         texts.put("fleet_speed", "Prędkość:");
         texts.put("simulation_number", "Ilość symulacji:");
-        
-        
+
         texts.put("label_battle_place", "Bitwa...");
         texts.put("label_winner", "Zwycięży");
         texts.put("label_tactical_retreat", "Taktyczny odwrót");
@@ -99,32 +108,46 @@ public class GUI_Lang {
         texts.put("label_real_plunder", "Rzeczywisty Rabunek");
         texts.put("label_fuel", "Potrzebne Paliwo");
         texts.put("label_time", "Czas Lotu");
-                
+
         texts.put("battle_place", "Bitwa na %s %s");
         texts.put("winner", "%s po %d rundach");
         texts.put("chance_for_moon", "Szansa na księżyc wynosi %d%%");
         texts.put("real_plunder", "%s (%d%% Łupu)");
-        
+
         texts.put("Resources", "Zasoby");
         texts.put("Cancel", "Anuluj");
         texts.put("Moon", "Księżyc");
         texts.put("label_planet_locations", "Położenie");
         texts.put("label_planet_name", "Nazwa planety");
         texts.put("change_planet", "Zmień");
-        
+
         /*try {
-            IO_Utilities.save_ini("polish", texts);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-                */
-    }
-    public static GUI_Lang getGUI(){
-        return gui;
-    }
-    public static String get(String key){
-        return texts.getOrDefault(key,key);
+         IO_Utilities.save_ini("polish", texts);
+         } catch (IOException ex) {
+         ex.printStackTrace();
+         }
+         */
     }
 
-    
+    public static GUI_Lang getInstance() {
+        return gui;
+    }
+
+    public static String get(String key) {
+        return texts.getOrDefault(key, key);
+    }
+
+    public static String getUnit(UnitEnum unit) {
+        Localization loc = ProfileManager.Profile.getInstance().getLocalization();
+        if (loc != null) {
+            List<Name> list = loc.getTechs().getName();
+            for (Name name : list) {
+                if (name.getId() == unit.getLocalizationId()) {
+                    return name.getValue();
+                }
+            }            
+        } 
+        return null;
+    }
+
 }

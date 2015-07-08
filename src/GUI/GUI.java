@@ -27,6 +27,7 @@ public class GUI extends JFrame {
     private Clipboard clipboard;
     private Options options;
     private Result result;
+    private TopBar topBar;
     private boolean processing = false;
     private Simulation_SWING sim;
 
@@ -57,37 +58,45 @@ public class GUI extends JFrame {
             }
         });
         //options.setOpaque(false);
-        attacker_shipyard = new Shipyard(GUI_Lang.getGUI().shipyard_of_argessor);
-        defender_shipyard = new Shipyard(GUI_Lang.getGUI().shipyard_of_defender);
-        defense = new Defense(GUI_Lang.getGUI().defense_of_defender);
-        attacker_shipyard.get(Unit_Enum.Solar_Satellite).setEnabled(false);
-        defense.get(Unit_Enum.Anti_Ballistic_Missiles).setEnabled(false);
-        defense.get(Unit_Enum.Interplanetary_Missiles).setEnabled(false);
-        technology = new Technology(GUI_Lang.getGUI().research);
-
+        attacker_shipyard = new Shipyard(GUI_Lang.getInstance().shipyard_of_argessor);
+        defender_shipyard = new Shipyard(GUI_Lang.getInstance().shipyard_of_defender);
+        defense = new Defense(GUI_Lang.getInstance().defense_of_defender);
+        attacker_shipyard.get(UnitEnum.SolarSatellite).setEnabled(false);
+        defense.get(UnitEnum.AntiBallisticMissiles).setEnabled(false);
+        defense.get(UnitEnum.InterplanetaryMissiles).setEnabled(false);
+        technology = new Technology(GUI_Lang.getInstance().research);
+        topBar = new TopBar();
         GroupLayout l = new GroupLayout(p);
         p.setLayout(l);
         l.setAutoCreateContainerGaps(true);
         l.setAutoCreateGaps(true);
-        l.setHorizontalGroup(l.createSequentialGroup()
+        l.setHorizontalGroup(l.createParallelGroup()
+            .addComponent(topBar,GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Integer.MAX_VALUE)
+            .addGroup(
+                l.createSequentialGroup()
                 .addGroup(l.createParallelGroup()
-                        .addComponent(attacker_shipyard)
-                        .addComponent(technology)
-                        .addComponent(result))
+                    .addComponent(attacker_shipyard)
+                    .addComponent(technology)
+                    .addComponent(result))
                 .addGap(20)
                 .addGroup(l.createParallelGroup()
-                        .addComponent(defender_shipyard)
-                        .addComponent(defense)
-                        .addComponent(options, GroupLayout.Alignment.CENTER)));
-        l.setVerticalGroup(l.createParallelGroup()
+                    .addComponent(defender_shipyard)
+                    .addComponent(defense)
+                    .addComponent(options, GroupLayout.Alignment.CENTER)))
+            );
+        l.setVerticalGroup(l.createSequentialGroup()
+            .addComponent(topBar)
+            .addGroup(
+                l.createParallelGroup()
                 .addGroup(l.createSequentialGroup()
-                        .addComponent(attacker_shipyard)
-                        .addComponent(technology)
-                        .addComponent(result))
+                    .addComponent(attacker_shipyard)
+                    .addComponent(technology)
+                    .addComponent(result))
                 .addGroup(l.createSequentialGroup()
-                        .addComponent(defender_shipyard)
-                        .addComponent(defense)
-                        .addComponent(options)));
+                    .addComponent(defender_shipyard)
+                    .addComponent(defense)
+                    .addComponent(options)))
+            );
 
         attacker_shipyard.addActionListener(new ActionListener() {
             @Override
@@ -111,7 +120,7 @@ public class GUI extends JFrame {
         clipboard.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                for (Unit_Enum unit : Unit_Enum.values()) {
+                for (UnitEnum unit : UnitEnum.values()) {
                     UnitPanel s = defender_shipyard.get(unit);
                     UnitPanel d = defense.get(unit);
                     if (s != null) {
@@ -137,13 +146,13 @@ public class GUI extends JFrame {
     }
 
     private int[][] getUnits() {
-        int[][] units = new int[2][Unit_Enum.values().length];
+        int[][] units = new int[2][UnitEnum.values().length];
         for (int i = 0; i < units.length; i++) {
             for (int j = 0; j < units[i].length; j++) {
                 units[i][j] = 0;
             }
         }
-        for (Unit_Enum u : Unit_Enum.values()) {
+        for (UnitEnum u : UnitEnum.values()) {
             UnitPanel a = attacker_shipyard.get(u);
             UnitPanel d = defender_shipyard.get(u);
             UnitPanel dd = defense.get(u);
@@ -155,7 +164,7 @@ public class GUI extends JFrame {
                 units[Side_Enum.Defender.ordinal()][u.ordinal()] = d.getNumber();
             }
             if (dd != null) {
-                if (u != Enums.Unit_Enum.Anti_Ballistic_Missiles && u != Enums.Unit_Enum.Interplanetary_Missiles) {
+                if (u != Enums.UnitEnum.AntiBallisticMissiles && u != Enums.UnitEnum.InterplanetaryMissiles) {
                     units[Side_Enum.Defender.ordinal()][u.ordinal()] = dd.getNumber();
                 }
             }
@@ -201,7 +210,7 @@ public class GUI extends JFrame {
 
     private void setGUIEnable(boolean value) {
         //options.getSimulationStartButton().setEnabled(value);
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             UnitPanel ap = attacker_shipyard.get(unit);
             UnitPanel dp = defender_shipyard.get(unit);
             UnitPanel d = defense.get(unit);
@@ -280,19 +289,19 @@ public class GUI extends JFrame {
         result.setLosses(Side_Enum.Defender, dloss);
 
         long[] teorplund = statistics.getTeoreticalPlunder();
-        result.setTeoreticalPlunder(teorplund, Unit_Enum.Large_Cargo);
+        result.setTeoreticalPlunder(teorplund, UnitEnum.LargeCargo);
 
         long[] realplund = statistics.getRealPlunder();
         result.setRealPlunder(realplund, teorplund);
 
         long duration = statistics.getDuration();
-        int rec[][] = new int[2][Unit_Enum.values().length];
+        int rec[][] = new int[2][UnitEnum.values().length];
         for (int i = 0; i < rec.length; i++) {
             for (int j = 0; j < rec[i].length; j++) {
                 rec[i][j] = 0;
             }
         }
-        rec[Side_Enum.Agressor.ordinal()][Unit_Enum.Recycler.ordinal()] = 1;
+        rec[Side_Enum.Agressor.ordinal()][UnitEnum.Recycler.ordinal()] = 1;
         
         statistics.setStartUnits(rec);
         long durationRec = statistics.getDuration();
@@ -302,7 +311,7 @@ public class GUI extends JFrame {
 
         result.setFuel(statistics.getFuel());
 
-        for (Unit_Enum u : Unit_Enum.values()) {
+        for (UnitEnum u : UnitEnum.values()) {
             UnitPanel a = attacker_shipyard.get(u);
             UnitPanel d = defender_shipyard.get(u);
             UnitPanel dd = defense.get(u);

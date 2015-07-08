@@ -18,14 +18,14 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import Enums.Research_Enum;
 import Enums.Resources_Enum;
-import Enums.Unit_Enum;
+import Enums.UnitEnum;
 
 public class Clipboard extends Thread implements ClipboardOwner{
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private java.awt.datatransfer.Clipboard clip;
     private Hashtable<Research_Enum,Integer> researches;
     private Hashtable<Resources_Enum,Integer> resources;
-    private Hashtable<Unit_Enum,Integer> units;
+    private Hashtable<UnitEnum,Integer> units;
     private long time;
     public Clipboard() {
         clip = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -60,14 +60,14 @@ public class Clipboard extends Thread implements ClipboardOwner{
         return resources;
     }
 
-    public Hashtable<Unit_Enum, Integer> getUnits() {
+    public Hashtable<UnitEnum, Integer> getUnits() {
         return units;
     }
     @SuppressWarnings("fallthrough")
     private void function(String text){
         Hashtable<Research_Enum,Integer> rese = new Hashtable<>();
         Hashtable<Resources_Enum,Integer> reso = new Hashtable<>();
-        Hashtable<Unit_Enum,Integer> unit = new Hashtable<>();
+        Hashtable<UnitEnum,Integer> unit = new Hashtable<>();
         ArrayList<String> list = new ArrayList<>();
         String tab[] = text.split("\n");
         for(int i=0;i<tab.length;i++){
@@ -94,7 +94,7 @@ public class Clipboard extends Thread implements ClipboardOwner{
                             }                            
                         }
                         case units:{
-                            for(Unit_Enum u:Unit_Enum.values()){
+                            for(UnitEnum u:UnitEnum.values()){
                                 if(list.get(i-1).matches(Lang.GUI_Lang.get(u.name()))){
                                     unit.put(u, number);
                                     level = units;

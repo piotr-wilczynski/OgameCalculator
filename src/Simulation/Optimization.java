@@ -7,7 +7,7 @@
 package Simulation;
 
 import Enums.Side_Enum;
-import Enums.Unit_Enum;
+import Enums.UnitEnum;
 import Statistics.Statistics;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -36,7 +36,7 @@ public class Optimization extends Simulation {
         super();
         threads = new ThreadGroup("Optimalization");
         availableProcessors = Runtime.getRuntime().availableProcessors();
-        unitsEqualNumber = new int[Unit_Enum.getFleetNumber()];
+        unitsEqualNumber = new int[UnitEnum.getFleetNumber()];
         metalRate = 3;
         crystalRate = 2;
         deuteriumRate = 1;
@@ -70,7 +70,7 @@ public class Optimization extends Simulation {
         int maxUnit = 0;
         double[] costs = new double[unitsEqualNumber.length];
         int i = 0;
-        for (Unit_Enum u : Unit_Enum.values()) {
+        for (UnitEnum u : UnitEnum.values()) {
             if (u.isFleet()) {
                 double cost = u.getMetal() / metalRate + u.getCrystal() / crystalRate + u.getDeuterium() / deuteriumRate;
                 costs[i] = cost;
@@ -99,7 +99,7 @@ public class Optimization extends Simulation {
                 isDone = false;
                 int counter = 0;
                 while (!isDone) {
-                    Unit_Enum unit = getBestUnit();
+                    UnitEnum unit = getBestUnit();
                     if (unit != null) {
                         units[side.ordinal()][unit.ordinal()]++;
                         publish(counter);
@@ -121,10 +121,10 @@ public class Optimization extends Simulation {
         worker.execute();
     }
 
-    private Unit_Enum getBestUnit() {
-        Statistics[] bestUnitStatistics = new Statistics[Unit_Enum.values().length];
+    private UnitEnum getBestUnit() {
+        Statistics[] bestUnitStatistics = new Statistics[UnitEnum.values().length];
         Statistics bestStats = new Statistics();
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             if (threads.activeCount() < availableProcessors) {
                 Thread thread = new Thread(threads, new Runnable() {
                     @Override
@@ -143,7 +143,7 @@ public class Optimization extends Simulation {
                 }
             }
         }
-        return Unit_Enum.Deathstar;
+        return UnitEnum.Deathstar;
     }
 
     private int[][] arrayCopy(int[][] array) {

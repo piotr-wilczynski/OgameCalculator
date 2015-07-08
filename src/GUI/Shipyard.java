@@ -14,7 +14,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import Enums.Unit_Enum;
+import Enums.UnitEnum;
 import Utilities.IO_Utilities;
 
 public class Shipyard extends ImagePanel{
@@ -40,20 +40,20 @@ public class Shipyard extends ImagePanel{
         label.setFont(new Font(f.getName(), Font.BOLD, 26));
         
         ships = new UnitPanel[14];
-        ships[0] = new UnitPanel(Unit_Enum.Light_Fighter);
-        ships[1] = new UnitPanel(Unit_Enum.Heavy_Fighter);
-        ships[2] = new UnitPanel(Unit_Enum.Cruiser);
-        ships[3] = new UnitPanel(Unit_Enum.Battleship);
-        ships[4] = new UnitPanel(Unit_Enum.Battlecruiser);
-        ships[5] = new UnitPanel(Unit_Enum.Bomber);
-        ships[6] = new UnitPanel(Unit_Enum.Destroyer);
-        ships[7] = new UnitPanel(Unit_Enum.Deathstar);
-        ships[8] = new UnitPanel(Unit_Enum.Small_Cargo);
-        ships[9] = new UnitPanel(Unit_Enum.Large_Cargo);
-        ships[10] = new UnitPanel(Unit_Enum.Colony_Ship);
-        ships[11] = new UnitPanel(Unit_Enum.Recycler);
-        ships[12] = new UnitPanel(Unit_Enum.Espionage_Probe);
-        ships[13] = new UnitPanel(Unit_Enum.Solar_Satellite);        
+        ships[0] = new UnitPanel(UnitEnum.LightFighter);
+        ships[1] = new UnitPanel(UnitEnum.HeavyFighter);
+        ships[2] = new UnitPanel(UnitEnum.Cruiser);
+        ships[3] = new UnitPanel(UnitEnum.Battleship);
+        ships[4] = new UnitPanel(UnitEnum.Battlecruiser);
+        ships[5] = new UnitPanel(UnitEnum.Bomber);
+        ships[6] = new UnitPanel(UnitEnum.Destroyer);
+        ships[7] = new UnitPanel(UnitEnum.Deathstar);
+        ships[8] = new UnitPanel(UnitEnum.SmallCargo);
+        ships[9] = new UnitPanel(UnitEnum.LargeCargo);
+        ships[10] = new UnitPanel(UnitEnum.ColonyShip);
+        ships[11] = new UnitPanel(UnitEnum.Recycler);
+        ships[12] = new UnitPanel(UnitEnum.EspionageProbe);
+        ships[13] = new UnitPanel(UnitEnum.SolarSatellite);        
         
         GroupLayout l = new GroupLayout(Combat_ships);
         Combat_ships.setLayout(l);
@@ -125,9 +125,9 @@ public class Shipyard extends ImagePanel{
                  
     }
     
-    public UnitPanel get(Unit_Enum unit){
+    public UnitPanel get(UnitEnum unit){
         for(UnitPanel u:ships){
-            if(((Unit_Enum)u.getObject()).equals(unit))
+            if(((UnitEnum)u.getObject()).equals(unit))
                 return u;
         }
         return null;

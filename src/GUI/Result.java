@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Enums.Resources_Enum;
 import Enums.Side_Enum;
-import Enums.Unit_Enum;
+import Enums.UnitEnum;
 import Statistics.Coordinates;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -53,7 +53,7 @@ public class Result extends JPanel{
         setChanceForMoon(0);
         setLosses(Side_Enum.Agressor, new long[]{0,0,0});
         setLosses(Side_Enum.Defender, new long[]{0,0,0});
-        setTeoreticalPlunder(new long[]{0,0,0}, Unit_Enum.Large_Cargo);
+        setTeoreticalPlunder(new long[]{0,0,0}, UnitEnum.LargeCargo);
         setRealPlunder(new long[]{0,0,0}, new long[]{0,0,0});
         setFuel(0);
         setTime(0,0);
@@ -283,8 +283,8 @@ public class Result extends JPanel{
         String text = 
                 Strings.format(derbis[Resources_Enum.Metal.ordinal()])+" "+Lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
                 Strings.format(derbis[Resources_Enum.Crystal.ordinal()])+" "+Lang.GUI_Lang.get(Resources_Enum.Crystal.name());
-        double number = (1.0*(derbis[Resources_Enum.Metal.ordinal()]+derbis[Resources_Enum.Crystal.ordinal()]))/Unit_Enum.Recycler.getCargo_Capacity();
-        this.derbis.setText(text + " (~"+(int)Math.ceil(number)+" "+Lang.GUI_Lang.get(Unit_Enum.Recycler.name())+")");
+        double number = (1.0*(derbis[Resources_Enum.Metal.ordinal()]+derbis[Resources_Enum.Crystal.ordinal()]))/UnitEnum.Recycler.getCargoCapacity();
+        this.derbis.setText(text + " (~"+(int)Math.ceil(number)+" "+Lang.GUI_Lang.get(UnitEnum.Recycler.name())+")");
     }
     
     public void setChanceForMoon(int percent) {
@@ -303,12 +303,12 @@ public class Result extends JPanel{
         
     }
     
-    public void setTeoreticalPlunder(long[] resources, Unit_Enum unit) {
+    public void setTeoreticalPlunder(long[] resources, UnitEnum unit) {
         String text = 
                 Strings.format(resources[Resources_Enum.Metal.ordinal()])       +" "+Lang.GUI_Lang.get(Resources_Enum.Metal.name())+", "+
                 Strings.format(resources[Resources_Enum.Crystal.ordinal()])     +" "+Lang.GUI_Lang.get(Resources_Enum.Crystal.name())+", "+
                 Strings.format(resources[Resources_Enum.Deuterium.ordinal()])   +" "+Lang.GUI_Lang.get(Resources_Enum.Deuterium.name());
-        double number = 1.0*(resources[Resources_Enum.Metal.ordinal()]+resources[Resources_Enum.Crystal.ordinal()]+resources[Resources_Enum.Deuterium.ordinal()])/unit.getCargo_Capacity();
+        double number = 1.0*(resources[Resources_Enum.Metal.ordinal()]+resources[Resources_Enum.Crystal.ordinal()]+resources[Resources_Enum.Deuterium.ordinal()])/unit.getCargoCapacity();
         teoretical_plunder.setText(text + " (~"+(int)Math.ceil(number)+" "+Lang.GUI_Lang.get(unit.name())+")");
     }
         
@@ -328,7 +328,7 @@ public class Result extends JPanel{
     }
 
     public void setTime(long time,long time_recycler) {
-        this.time.setText(String.format("%s(%s: %s)",getTime(time),Lang.GUI_Lang.get(Unit_Enum.Recycler.name()),getTime(time_recycler)));
+        this.time.setText(String.format("%s(%s: %s)",getTime(time),Lang.GUI_Lang.get(UnitEnum.Recycler.name()),getTime(time_recycler)));
     }
     
     private String getTime(long time){

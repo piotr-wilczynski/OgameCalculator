@@ -16,8 +16,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -39,7 +37,6 @@ public class OgameApi {
         ThreadGroup tg = new ThreadGroup("Universes Search");
         universes = null;
         counter = 1;
-        Universes temp = new Universes();
         while (universes == null) {
             final String url = "http://s" + counter + "-" + lang + ".ogame.gameforge.com/api/universes.xml";
 
@@ -128,14 +125,23 @@ public class OgameApi {
         return localization = getLocalization(universe.getHref(), Update);
     }
 
-    public Localization getLocalization(String lang, int serverID, boolean Update) throws MalformedURLException, JAXBException, FileNotFoundException {
-        return localization = getLocalization("http://s" + serverID + "-" + lang + ".ogame.gameforge.com", Update);
+    public Localization getLocalization(String lang, int serverID, boolean Update){
+        try {
+            return localization = getLocalization("http://s" + serverID + "-" + lang + ".ogame.gameforge.com", Update);
+        } catch (MalformedURLException | JAXBException | FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
-    public Localization getLocalization(String lang) throws MalformedURLException, JAXBException, FileNotFoundException {
+    public Localization getLocalization(String lang){
         Universes unis = getUniverses(lang);
         if (unis != null) {
-            return localization = getLocalization(unis.getUniverse().get(0), true);
+            try {
+                return localization = getLocalization(unis.getUniverse().get(0), true);
+            } catch (MalformedURLException | JAXBException | FileNotFoundException ex) {
+                return null;
+            }
         } else {
             return null;
         }

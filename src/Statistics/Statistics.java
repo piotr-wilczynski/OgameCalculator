@@ -30,11 +30,11 @@ public class Statistics {
 
     public Statistics() {
         units = new double[2][];
-        units[Side_Enum.Agressor.ordinal()] = new double[Unit_Enum.values().length];
-        units[Side_Enum.Defender.ordinal()] = new double[Unit_Enum.values().length];
+        units[Side_Enum.Agressor.ordinal()] = new double[UnitEnum.values().length];
+        units[Side_Enum.Defender.ordinal()] = new double[UnitEnum.values().length];
         startUnits = new int[2][];
-        startUnits[Side_Enum.Agressor.ordinal()] = new int[Unit_Enum.values().length];
-        startUnits[Side_Enum.Defender.ordinal()] = new int[Unit_Enum.values().length];
+        startUnits[Side_Enum.Agressor.ordinal()] = new int[UnitEnum.values().length];
+        startUnits[Side_Enum.Defender.ordinal()] = new int[UnitEnum.values().length];
         result = new double[Side_Enum.values().length];
         for (int i = 0; i < units.length; i++) {
             for (int j = 0; j < units[i].length; j++) {
@@ -61,12 +61,12 @@ public class Statistics {
         this();
         //System.out.println(units);
         for (int i = 0; i < units_agressor.length; i++) {
-            Unit_Enum unit = units_agressor[i].getUnit();
+            UnitEnum unit = units_agressor[i].getUnit();
             //System.out.println(unit.ordinal()+" "+Side_Enum.Defender.ordinal());
             units[Side_Enum.Agressor.ordinal()][unit.ordinal()] += 1;
         }
         for (int i = 0; i < units_defender.length; i++) {
-            Unit_Enum unit = units_defender[i].getUnit();
+            UnitEnum unit = units_defender[i].getUnit();
             units[Side_Enum.Defender.ordinal()][unit.ordinal()] += 1;
         }
         this.result[result.ordinal()] = 1.0;
@@ -79,7 +79,7 @@ public class Statistics {
         for (int i = 0; i < statistics.length; i++) {
             Statistics stat = statistics[i];
             if (stat != null) {
-                for (Unit_Enum unit : Unit_Enum.values()) {
+                for (UnitEnum unit : UnitEnum.values()) {
                     units[Side_Enum.Agressor.ordinal()][unit.ordinal()] += stat.getShip(Side_Enum.Agressor, unit);
                     units[Side_Enum.Defender.ordinal()][unit.ordinal()] += stat.getShip(Side_Enum.Defender, unit);
                 }
@@ -89,7 +89,7 @@ public class Statistics {
                 count++;
             }
         }
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             units[Side_Enum.Agressor.ordinal()][unit.ordinal()] = units[Side_Enum.Agressor.ordinal()][unit.ordinal()] / count;
             units[Side_Enum.Defender.ordinal()][unit.ordinal()] = units[Side_Enum.Defender.ordinal()][unit.ordinal()] / count;
         }
@@ -149,14 +149,14 @@ public class Statistics {
     @Override
     public String toString() {
         System.out.println("Agressor");
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             double number = units[Side_Enum.Agressor.ordinal()][unit.ordinal()];
             if (number > 0) {
                 System.out.println("\t" + unit.name() + " \t\t\t" + number);
             }
         }
         System.out.println("Defender");
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             double number = units[Side_Enum.Defender.ordinal()][unit.ordinal()];
             if (number > 0) {
                 System.out.println("\t" + unit.name() + " \t\t\t" + number);
@@ -169,7 +169,7 @@ public class Statistics {
         return done;
     }
 
-    public double getShip(Side_Enum side, Unit_Enum unit) {
+    public double getShip(Side_Enum side, UnitEnum unit) {
         return units[side.ordinal()][unit.ordinal()];
     }
 
@@ -182,7 +182,7 @@ public class Statistics {
         for (int i = 0; i < derbis.length; i++) {
             derbis[i] = 0;
         }
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             double a = startUnits[Side_Enum.Agressor.ordinal()][unit.ordinal()] - this.units[Side_Enum.Agressor.ordinal()][unit.ordinal()];
             double d = startUnits[Side_Enum.Defender.ordinal()][unit.ordinal()] - this.units[Side_Enum.Defender.ordinal()][unit.ordinal()];
             long rounda = Math.round(a);
@@ -213,7 +213,7 @@ public class Statistics {
             losses[i] = 0;
         }
 
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             double a = startUnits[side.ordinal()][unit.ordinal()] - this.units[side.ordinal()][unit.ordinal()];
             long round = Math.round(a);
             if (round > 0) {
@@ -230,12 +230,12 @@ public class Statistics {
         for (int i = 0; i < retreat.length; i++) {
             retreat[i] = 0;
         }
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             long numbera = startUnits[Side_Enum.Agressor.ordinal()][unit.ordinal()];
             long numberd = startUnits[Side_Enum.Defender.ordinal()][unit.ordinal()];
             switch (unit) {
-                case Light_Fighter:
-                case Heavy_Fighter:
+                case LightFighter:
+                case HeavyFighter:
                 case Cruiser:
                 case Battleship:
                 case Battlecruiser:
@@ -247,9 +247,9 @@ public class Statistics {
                     retreat[Side_Enum.Defender.ordinal()] += (numberd * cost);
                 }
                 break;
-                case Small_Cargo:
-                case Large_Cargo:
-                case Colony_Ship:
+                case SmallCargo:
+                case LargeCargo:
+                case ColonyShip:
                 case Recycler: {
                     long cost = unit.getMetal() + unit.getCrystal() + unit.getDeuterium();
                     retreat[Side_Enum.Agressor.ordinal()] += (numbera * cost / 4);
@@ -279,8 +279,8 @@ public class Statistics {
         long max_crystal = plunder[Resources_Enum.Crystal.ordinal()];
         long max_deuterium = plunder[Resources_Enum.Deuterium.ordinal()];
         long max_capacity = 0;
-        for (Unit_Enum unit : Unit_Enum.values()) {
-            max_capacity += (Math.round(units[Side_Enum.Agressor.ordinal()][unit.ordinal()]) * unit.getCargo_Capacity());
+        for (UnitEnum unit : UnitEnum.values()) {
+            max_capacity += (Math.round(units[Side_Enum.Agressor.ordinal()][unit.ordinal()]) * unit.getCargoCapacity());
         }
         for (int i = 0; i < plunder.length; i++) {
             plunder[i] = 0;
@@ -349,7 +349,7 @@ public class Statistics {
 
     public long getDuration() {
         float min = Long.MAX_VALUE;
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             if (startUnits[Side_Enum.Agressor.ordinal()][unit.ordinal()] > 0) {
                 if (min > unit.getSpeed(aggressorTechnologies)) {
                     min = unit.getSpeed(aggressorTechnologies);
@@ -365,13 +365,13 @@ public class Statistics {
         double fuel = 0;
         long duration = getDuration();
         long distance = getDistance();
-        for (Unit_Enum unit : Unit_Enum.values()) {
+        for (UnitEnum unit : UnitEnum.values()) {
             int ships = startUnits[Side_Enum.Agressor.ordinal()][unit.ordinal()];
             if (ships <= 0) {
                 continue;
             }
             float speed = unit.getSpeed(aggressorTechnologies);
-            int fuelcost = unit.getFuel_usage(aggressorTechnologies);
+            int fuelcost = unit.getFuelUsage(aggressorTechnologies);
             double cost = (ships) * (fuelcost) * distance / 35000.0 * Math.pow((35000.0 / ((duration) * (universeSpeed) - 10.0) * Math.pow((distance * 10.0 / (speed)), 0.5)) / 10.0 + 1, 2);
             fuel += cost;
         }

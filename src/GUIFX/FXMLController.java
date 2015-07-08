@@ -25,7 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import Simulation.Simulation;
 import Simulation.Battle_Technologies;
-import Enums.Unit_Enum;
+import Enums.UnitEnum;
 import Utilities.FXIO;
 
 /**
@@ -76,49 +76,49 @@ public class FXMLController implements Initializable {
         Defensive_Structures_Pane = new GridPane();        
         
         Combat_Ships_Attacker = new UnitPanelFX[8];
-        Combat_Ships_Attacker[0] = new UnitPanelFX(Unit_Enum.Light_Fighter, FleetImage[0]);
-        Combat_Ships_Attacker[1] = new UnitPanelFX(Unit_Enum.Heavy_Fighter, FleetImage[1]);
-        Combat_Ships_Attacker[2] = new UnitPanelFX(Unit_Enum.Cruiser, FleetImage[2]);
-        Combat_Ships_Attacker[3] = new UnitPanelFX(Unit_Enum.Battleship, FleetImage[3]);   
-        Combat_Ships_Attacker[4] = new UnitPanelFX(Unit_Enum.Battlecruiser, FleetImage[4]);
-        Combat_Ships_Attacker[5] = new UnitPanelFX(Unit_Enum.Bomber, FleetImage[5]);
-        Combat_Ships_Attacker[6] = new UnitPanelFX(Unit_Enum.Destroyer, FleetImage[6]);
-        Combat_Ships_Attacker[7] = new UnitPanelFX(Unit_Enum.Deathstar, FleetImage[7]);
+        Combat_Ships_Attacker[0] = new UnitPanelFX(UnitEnum.LightFighter, FleetImage[0]);
+        Combat_Ships_Attacker[1] = new UnitPanelFX(UnitEnum.HeavyFighter, FleetImage[1]);
+        Combat_Ships_Attacker[2] = new UnitPanelFX(UnitEnum.Cruiser, FleetImage[2]);
+        Combat_Ships_Attacker[3] = new UnitPanelFX(UnitEnum.Battleship, FleetImage[3]);   
+        Combat_Ships_Attacker[4] = new UnitPanelFX(UnitEnum.Battlecruiser, FleetImage[4]);
+        Combat_Ships_Attacker[5] = new UnitPanelFX(UnitEnum.Bomber, FleetImage[5]);
+        Combat_Ships_Attacker[6] = new UnitPanelFX(UnitEnum.Destroyer, FleetImage[6]);
+        Combat_Ships_Attacker[7] = new UnitPanelFX(UnitEnum.Deathstar, FleetImage[7]);
         
         Combat_Ships_Defender = new UnitPanelFX[8];
-        Combat_Ships_Defender[0] = new UnitPanelFX(Unit_Enum.Light_Fighter, FleetImage[0]);
-        Combat_Ships_Defender[1] = new UnitPanelFX(Unit_Enum.Heavy_Fighter, FleetImage[1]);
-        Combat_Ships_Defender[2] = new UnitPanelFX(Unit_Enum.Cruiser, FleetImage[2]);
-        Combat_Ships_Defender[3] = new UnitPanelFX(Unit_Enum.Battleship, FleetImage[3]);   
-        Combat_Ships_Defender[4] = new UnitPanelFX(Unit_Enum.Battlecruiser, FleetImage[4]);
-        Combat_Ships_Defender[5] = new UnitPanelFX(Unit_Enum.Bomber, FleetImage[5]);
-        Combat_Ships_Defender[6] = new UnitPanelFX(Unit_Enum.Destroyer, FleetImage[6]);
-        Combat_Ships_Defender[7] = new UnitPanelFX(Unit_Enum.Deathstar, FleetImage[7]);
+        Combat_Ships_Defender[0] = new UnitPanelFX(UnitEnum.LightFighter, FleetImage[0]);
+        Combat_Ships_Defender[1] = new UnitPanelFX(UnitEnum.HeavyFighter, FleetImage[1]);
+        Combat_Ships_Defender[2] = new UnitPanelFX(UnitEnum.Cruiser, FleetImage[2]);
+        Combat_Ships_Defender[3] = new UnitPanelFX(UnitEnum.Battleship, FleetImage[3]);   
+        Combat_Ships_Defender[4] = new UnitPanelFX(UnitEnum.Battlecruiser, FleetImage[4]);
+        Combat_Ships_Defender[5] = new UnitPanelFX(UnitEnum.Bomber, FleetImage[5]);
+        Combat_Ships_Defender[6] = new UnitPanelFX(UnitEnum.Destroyer, FleetImage[6]);
+        Combat_Ships_Defender[7] = new UnitPanelFX(UnitEnum.Deathstar, FleetImage[7]);
                 
         Civil_Ships_Attacker = new UnitPanelFX[5];
-        Civil_Ships_Attacker[0] = new UnitPanelFX(Unit_Enum.Small_Cargo, FleetImage[8]);
-        Civil_Ships_Attacker[1] = new UnitPanelFX(Unit_Enum.Large_Cargo, FleetImage[9]);
-        Civil_Ships_Attacker[2] = new UnitPanelFX(Unit_Enum.Colony_Ship, FleetImage[10]);    
-        Civil_Ships_Attacker[3] = new UnitPanelFX(Unit_Enum.Recycler, FleetImage[11]);
-        Civil_Ships_Attacker[4] = new UnitPanelFX(Unit_Enum.Espionage_Probe, FleetImage[12]);
+        Civil_Ships_Attacker[0] = new UnitPanelFX(UnitEnum.SmallCargo, FleetImage[8]);
+        Civil_Ships_Attacker[1] = new UnitPanelFX(UnitEnum.LargeCargo, FleetImage[9]);
+        Civil_Ships_Attacker[2] = new UnitPanelFX(UnitEnum.ColonyShip, FleetImage[10]);    
+        Civil_Ships_Attacker[3] = new UnitPanelFX(UnitEnum.Recycler, FleetImage[11]);
+        Civil_Ships_Attacker[4] = new UnitPanelFX(UnitEnum.EspionageProbe, FleetImage[12]);
         
         Civil_Ships_Defender = new UnitPanelFX[6];
-        Civil_Ships_Defender[0] = new UnitPanelFX(Unit_Enum.Small_Cargo, FleetImage[8]);
-        Civil_Ships_Defender[1] = new UnitPanelFX(Unit_Enum.Large_Cargo, FleetImage[9]);
-        Civil_Ships_Defender[2] = new UnitPanelFX(Unit_Enum.Colony_Ship, FleetImage[10]);    
-        Civil_Ships_Defender[3] = new UnitPanelFX(Unit_Enum.Recycler, FleetImage[11]);
-        Civil_Ships_Defender[4] = new UnitPanelFX(Unit_Enum.Espionage_Probe, FleetImage[12]);
-        Civil_Ships_Defender[5] = new UnitPanelFX(Unit_Enum.Solar_Satellite, FleetImage[13]);
+        Civil_Ships_Defender[0] = new UnitPanelFX(UnitEnum.SmallCargo, FleetImage[8]);
+        Civil_Ships_Defender[1] = new UnitPanelFX(UnitEnum.LargeCargo, FleetImage[9]);
+        Civil_Ships_Defender[2] = new UnitPanelFX(UnitEnum.ColonyShip, FleetImage[10]);    
+        Civil_Ships_Defender[3] = new UnitPanelFX(UnitEnum.Recycler, FleetImage[11]);
+        Civil_Ships_Defender[4] = new UnitPanelFX(UnitEnum.EspionageProbe, FleetImage[12]);
+        Civil_Ships_Defender[5] = new UnitPanelFX(UnitEnum.SolarSatellite, FleetImage[13]);
                 
         Defensive_Structures = new UnitPanelFX[8];
-        Defensive_Structures[0] = new UnitPanelFX(Unit_Enum.Rocket_Launcher, DefenseImage[0]);
-        Defensive_Structures[1] = new UnitPanelFX(Unit_Enum.Light_Laser, DefenseImage[1]);
-        Defensive_Structures[2] = new UnitPanelFX(Unit_Enum.Heavy_Laser, DefenseImage[2]);
-        Defensive_Structures[3] = new UnitPanelFX(Unit_Enum.Gauss_Cannon, DefenseImage[3]);
-        Defensive_Structures[4] = new UnitPanelFX(Unit_Enum.Ion_Cannon, DefenseImage[4]);
-        Defensive_Structures[5] = new UnitPanelFX(Unit_Enum.Plasma_Turret, DefenseImage[5]);
-        Defensive_Structures[6] = new UnitPanelFX(Unit_Enum.Small_Shield_Dome, DefenseImage[6]);        
-        Defensive_Structures[7] = new UnitPanelFX(Unit_Enum.Large_Shield_Dome, DefenseImage[7]);
+        Defensive_Structures[0] = new UnitPanelFX(UnitEnum.RocketLauncher, DefenseImage[0]);
+        Defensive_Structures[1] = new UnitPanelFX(UnitEnum.LightLaser, DefenseImage[1]);
+        Defensive_Structures[2] = new UnitPanelFX(UnitEnum.HeavyLaser, DefenseImage[2]);
+        Defensive_Structures[3] = new UnitPanelFX(UnitEnum.GaussCannon, DefenseImage[3]);
+        Defensive_Structures[4] = new UnitPanelFX(UnitEnum.IonCannon, DefenseImage[4]);
+        Defensive_Structures[5] = new UnitPanelFX(UnitEnum.PlasmaTurret, DefenseImage[5]);
+        Defensive_Structures[6] = new UnitPanelFX(UnitEnum.SmallShieldDome, DefenseImage[6]);        
+        Defensive_Structures[7] = new UnitPanelFX(UnitEnum.LargeShieldDome, DefenseImage[7]);
     }
     
         
@@ -129,12 +129,12 @@ public class FXMLController implements Initializable {
         Task<Object> task = new Task<Object>() {
             @Override
             protected Object call() throws Exception {                
-                HashMap<Unit_Enum,Integer> attacker = new HashMap<>();
-                HashMap<Unit_Enum,Integer> defender = new HashMap<>();
+                HashMap<UnitEnum,Integer> attacker = new HashMap<>();
+                HashMap<UnitEnum,Integer> defender = new HashMap<>();
                 Battle_Technologies attacker_tech = new Battle_Technologies(1, 1, 1, 1, 1, 1);       
                 Battle_Technologies defender_tech = new Battle_Technologies(1, 1, 1, 1, 1, 1);
                 long start = System.nanoTime();
-                //attacker.put(Unit_Enum.Small_Cargo, 8);
+                //attacker.put(UnitEnum.SmallCargo, 8);
                 /*
                 for(int i=0;i<fleet1panel.length;i++){
                     attacker.put(fleet1panel[i].getUnit(),fleet1panel[i].getNumber());
@@ -148,9 +148,9 @@ public class FXMLController implements Initializable {
                     defender.put(defense2panel[i].getUnit(),defense2panel[i].getNumber());
                 }
                 *//*
-                attacker.put(Unit_Enum.Cruiser, 1000);
-                defender.put(Unit_Enum.Light_Laser, 10000);
-                //defender.put(Unit_Enum.Light_Laser, 8);
+                attacker.put(UnitEnum.Cruiser, 1000);
+                defender.put(UnitEnum.LightLaser, 10000);
+                //defender.put(UnitEnum.LightLaser, 8);
 
                 ThreadGroup threads = new ThreadGroup("Simulations");
                 List<Simulation> sims = new ArrayList<>();

@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import Enums.Research_Enum;
-import Enums.Unit_Enum;
+import Enums.UnitEnum;
 import Utilities.IO_Utilities;
 
 public class UnitPanel extends JPanel{
@@ -35,11 +35,11 @@ public class UnitPanel extends JPanel{
     private JTextField textfield;
     private Object object;
     
-    public UnitPanel(Unit_Enum unit) {  
+    public UnitPanel(UnitEnum unit) {  
         this.object = unit;
         images = getImage(unit);
         background2 = IO_Utilities.getImage("labels.gif");  
-        setToolTipText(Lang.GUI_Lang.get(unit.name()));
+        setToolTipText(Lang.GUI_Lang.getUnit(unit));
         initComonents();
     }
 
@@ -111,35 +111,35 @@ public class UnitPanel extends JPanel{
         });
     }
     
-    private  BufferedImage[] getImage(Unit_Enum unit){
+    private  BufferedImage[] getImage(UnitEnum unit){
         BufferedImage[][]ships = IO_Utilities.getImageMatrix(IO_Utilities.getImage("ships.png"), 3, 14);
         BufferedImage[][]defense = IO_Utilities.getImageMatrix(IO_Utilities.getImage("defensive_structures.png"), 3, 11);
         switch(unit){
-            case Small_Cargo: return ships[0];
-            case Large_Cargo: return ships[1];
-            case Light_Fighter: return ships[2];
-            case Heavy_Fighter: return ships[3];
+            case SmallCargo: return ships[0];
+            case LargeCargo: return ships[1];
+            case LightFighter: return ships[2];
+            case HeavyFighter: return ships[3];
             case Cruiser: return ships[4];
             case Battleship: return ships[5];
-            case Colony_Ship: return ships[6];
+            case ColonyShip: return ships[6];
             case Recycler: return ships[7];
-            case Espionage_Probe: return ships[8];
+            case EspionageProbe: return ships[8];
             case Bomber: return ships[9];
-            case Solar_Satellite: return ships[10];
+            case SolarSatellite: return ships[10];
             case Destroyer: return ships[11];
             case Deathstar: return ships[12];
             case Battlecruiser: return ships[13];
                 
-            case Rocket_Launcher: return defense[0];
-            case Light_Laser: return defense[1];
-            case Heavy_Laser: return defense[2];
-            case Gauss_Cannon: return defense[3];
-            case Ion_Cannon: return defense[4];
-            case Plasma_Turret: return defense[5];
-            case Small_Shield_Dome: return defense[6];
-            case Large_Shield_Dome: return defense[7];
-            case Anti_Ballistic_Missiles: return defense[9];
-            case Interplanetary_Missiles: return defense[10];
+            case RocketLauncher: return defense[0];
+            case LightLaser: return defense[1];
+            case HeavyLaser: return defense[2];
+            case GaussCannon: return defense[3];
+            case IonCannon: return defense[4];
+            case PlasmaTurret: return defense[5];
+            case SmallShieldDome: return defense[6];
+            case LargeShieldDome: return defense[7];
+            case AntiBallisticMissiles: return defense[9];
+            case InterplanetaryMissiles: return defense[10];
         }
         return null;
     }

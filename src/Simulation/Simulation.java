@@ -15,7 +15,7 @@ public abstract class Simulation {
     protected Statistics[] statistics;
             
     public Simulation() {
-        units = new int[2][Unit_Enum.values().length];
+        units = new int[2][UnitEnum.values().length];
         for(int i=0;i<units.length;i++){
             for(int j=0;j<units[i].length;j++){
                 units[i][j] = 0;
@@ -24,11 +24,11 @@ public abstract class Simulation {
         techs = new Battle_Technologies[2];
     }
     
-    public void setUnit(Side_Enum side,Unit_Enum unit,int value){
+    public void setUnit(Side_Enum side,UnitEnum unit,int value){
         units[side.ordinal()][unit.ordinal()] = value;
     }
     
-    public int getUnit(Side_Enum side,Unit_Enum unit){
+    public int getUnit(Side_Enum side,UnitEnum unit){
         return units[side.ordinal()][unit.ordinal()];
     }
     
@@ -61,7 +61,7 @@ public abstract class Simulation {
     protected Statistics simulate(int[][] units){        
         BattleUnit[] a,d;
         int sum_a=0,sum_d=0;
-        for(Unit_Enum unit:Unit_Enum.values()){
+        for(UnitEnum unit:UnitEnum.values()){
             sum_a += getUnit(Side_Enum.Agressor, unit);
             sum_d += getUnit(Side_Enum.Defender, unit);
         }
@@ -69,7 +69,7 @@ public abstract class Simulation {
         d = new BattleUnit[sum_d];
         sum_a=0;
         sum_d=0;
-        for(Unit_Enum unit:Unit_Enum.values()){
+        for(UnitEnum unit:UnitEnum.values()){
             for(int i=0;i<units[Side_Enum.Agressor.ordinal()][unit.ordinal()];i++){
                 a[sum_a] = new BattleUnit(unit, getTechnologies(Side_Enum.Agressor));
                 sum_a++;
