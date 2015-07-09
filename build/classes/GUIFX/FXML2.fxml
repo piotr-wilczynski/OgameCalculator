@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+/*
+ * Copyright (C) 2015 Piotr Wilczynski.
+ * All rights reserved. 
+ *
+ * Please refer any queries to Piotr Wilczynski <wilczynskipio@gmail.com>.
+ */
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.media.*?>

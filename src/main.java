@@ -5,14 +5,9 @@
  * Please refer any queries to Piotr Wilczynski <wilczynskipio@gmail.com>.
  */
 
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.util.Locale;
-import javax.xml.bind.JAXBException;
-
 public class main {
 
-    public static void main(String[] args) throws MalformedURLException, JAXBException, FileNotFoundException {
+    public static void main(String[] args){
         new GUI.GUI();
 
         /*
