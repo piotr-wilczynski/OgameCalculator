@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import Enums.Research_Enum;
+import Enums.ResearchEnum;
 import Enums.UnitEnum;
 import Utilities.IO_Utilities;
 
@@ -43,7 +43,7 @@ public class UnitPanel extends JPanel{
         initComonents();
     }
 
-    public UnitPanel(Research_Enum research) {
+    public UnitPanel(ResearchEnum research) {
         this.object = research;
         images = getImage(research);
         background2 = IO_Utilities.getImage("labels.gif");  
@@ -144,24 +144,24 @@ public class UnitPanel extends JPanel{
         return null;
     }
     
-    private BufferedImage[] getImage(Research_Enum research){
-        BufferedImage[][]researches = IO_Utilities.getImageMatrix(IO_Utilities.getImage("technologies.png"), 3, Research_Enum.values().length);
+    private BufferedImage[] getImage(ResearchEnum research){
+        BufferedImage[][]researches = IO_Utilities.getImageMatrix(IO_Utilities.getImage("technologies.png"), 3, ResearchEnum.values().length);
         switch(research){
-            case Espionage_Technology: return researches[0];
-            case Computer_Technology: return researches[1];
-            case Weapons_Technology: return researches[2];
-            case Shielding_Technology: return researches[3];
-            case Armour_Technology: return researches[4];
-            case Energy_Technology: return researches[5];
-            case Hyperspace_Technology: return researches[6];
-            case Combustion_Drive: return researches[7];
-            case Impulse_Drive: return researches[8];
-            case Hyperspace_Drive: return researches[9];
-            case Laser_Technology: return researches[10];
-            case Ion_Technology: return researches[11];
-            case Plasma_Technology: return researches[12];
-            case Intergalactic_Research_Network: return researches[13];
-            case Graviton_Technology: return researches[14];
+            case EspionageTechnology: return researches[0];
+            case ComputerTechnology: return researches[1];
+            case WeaponsTechnology: return researches[2];
+            case ShieldingTechnology: return researches[3];
+            case ArmourTechnology: return researches[4];
+            case EnergyTechnology: return researches[5];
+            case HyperspaceTechnology: return researches[6];
+            case CombustionDrive: return researches[7];
+            case ImpulseDrive: return researches[8];
+            case HyperspaceDrive: return researches[9];
+            case LaserTechnology: return researches[10];
+            case IonTechnology: return researches[11];
+            case PlasmaTechnology: return researches[12];
+            case IntergalacticResearchNetwork: return researches[13];
+            case GravitonTechnology: return researches[14];
             case Astrophysics: return researches[15];
         }       
         

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import Lang.GUI_Lang;
-import Enums.Research_Enum;
+import Enums.ResearchEnum;
 import Enums.Side_Enum;
 import Simulation.Battle_Technologies;
 import Utilities.IO_Utilities;
@@ -39,16 +39,16 @@ public class Technology extends ImagePanel {
         initComponents();
     }
 
-    public UnitPanel get(Research_Enum research, Side_Enum side) {
+    public UnitPanel get(ResearchEnum research, Side_Enum side) {
         if (side == Side_Enum.Agressor) {
             for (UnitPanel u : attacker) {
-                if (((Research_Enum) u.getObject()).equals(research)) {
+                if (((ResearchEnum) u.getObject()).equals(research)) {
                     return u;
                 }
             }
         } else if (side == Side_Enum.Defender) {
             for (UnitPanel u : defender) {
-                if (((Research_Enum) u.getObject()).equals(research)) {
+                if (((ResearchEnum) u.getObject()).equals(research)) {
                     return u;
                 }
             }
@@ -84,15 +84,15 @@ public class Technology extends ImagePanel {
 
         attacker = new UnitPanel[6];
         defender = new UnitPanel[3];
-        attacker[0] = new UnitPanel(Research_Enum.Weapons_Technology);
-        attacker[1] = new UnitPanel(Research_Enum.Shielding_Technology);
-        attacker[2] = new UnitPanel(Research_Enum.Armour_Technology);
-        attacker[3] = new UnitPanel(Research_Enum.Combustion_Drive);
-        attacker[4] = new UnitPanel(Research_Enum.Impulse_Drive);
-        attacker[5] = new UnitPanel(Research_Enum.Hyperspace_Drive);
-        defender[0] = new UnitPanel(Research_Enum.Weapons_Technology);
-        defender[1] = new UnitPanel(Research_Enum.Shielding_Technology);
-        defender[2] = new UnitPanel(Research_Enum.Armour_Technology);
+        attacker[0] = new UnitPanel(ResearchEnum.WeaponsTechnology);
+        attacker[1] = new UnitPanel(ResearchEnum.ShieldingTechnology);
+        attacker[2] = new UnitPanel(ResearchEnum.ArmourTechnology);
+        attacker[3] = new UnitPanel(ResearchEnum.CombustionDrive);
+        attacker[4] = new UnitPanel(ResearchEnum.ImpulseDrive);
+        attacker[5] = new UnitPanel(ResearchEnum.HyperspaceDrive);
+        defender[0] = new UnitPanel(ResearchEnum.WeaponsTechnology);
+        defender[1] = new UnitPanel(ResearchEnum.ShieldingTechnology);
+        defender[2] = new UnitPanel(ResearchEnum.ArmourTechnology);
         int labelsize = 120;
         GroupLayout l = new GroupLayout(panel);
         panel.setLayout(l);
@@ -155,19 +155,19 @@ public class Technology extends ImagePanel {
         switch (side) {
             case Agressor: {
 
-                int wt = get(Research_Enum.Weapons_Technology, side).getNumber();
-                int st = get(Research_Enum.Shielding_Technology, side).getNumber();
-                int at = get(Research_Enum.Armour_Technology, side).getNumber();
-                int cd = get(Research_Enum.Combustion_Drive, side).getNumber();
-                int id = get(Research_Enum.Impulse_Drive, side).getNumber();
-                int hd = get(Research_Enum.Hyperspace_Drive, side).getNumber();
+                int wt = get(ResearchEnum.WeaponsTechnology, side).getNumber();
+                int st = get(ResearchEnum.ShieldingTechnology, side).getNumber();
+                int at = get(ResearchEnum.ArmourTechnology, side).getNumber();
+                int cd = get(ResearchEnum.CombustionDrive, side).getNumber();
+                int id = get(ResearchEnum.ImpulseDrive, side).getNumber();
+                int hd = get(ResearchEnum.HyperspaceDrive, side).getNumber();
                 tech = new Battle_Technologies(wt, st, at, cd, id, hd);
             }
             break;
             case Defender: {
-                int wt = get(Research_Enum.Weapons_Technology, side).getNumber();
-                int st = get(Research_Enum.Shielding_Technology, side).getNumber();
-                int at = get(Research_Enum.Armour_Technology, side).getNumber();
+                int wt = get(ResearchEnum.WeaponsTechnology, side).getNumber();
+                int st = get(ResearchEnum.ShieldingTechnology, side).getNumber();
+                int at = get(ResearchEnum.ArmourTechnology, side).getNumber();
                 tech = new Battle_Technologies(wt, st, at);
             }
             break;

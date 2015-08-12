@@ -15,8 +15,8 @@ public class Statistics {
     private double[][] units;
     private double[] result;
     private int done;
-    
-    private Coordinates start,end;
+
+    private Coordinates start, end;
     private boolean circularUniverses;
     private int universeSpeed;
     private int[][] startUnits;
@@ -26,7 +26,6 @@ public class Statistics {
     private Battle_Technologies aggressorTechnologies;
     private long[] planetResources;
     private Player_Status_Enum playerStatus;
-    
 
     public Statistics() {
         units = new double[2][];
@@ -48,12 +47,12 @@ public class Statistics {
         start = new Coordinates(1, 1, 1);
         end = new Coordinates(1, 1, 1);
         circularUniverses = false;
-        universeSpeed = 1;        
+        universeSpeed = 1;
         derbisFleet = 0.3;
         derbisDefense = 0;
         fleetSpeedPercent = 1;
         aggressorTechnologies = new Battle_Technologies();
-        planetResources = new long[]{0,0,0};
+        planetResources = new long[]{0, 0, 0};
         playerStatus = Player_Status_Enum.Neutral;
     }
 
@@ -89,14 +88,16 @@ public class Statistics {
                 count++;
             }
         }
-        for (UnitEnum unit : UnitEnum.values()) {
-            units[Side_Enum.Agressor.ordinal()][unit.ordinal()] = units[Side_Enum.Agressor.ordinal()][unit.ordinal()] / count;
-            units[Side_Enum.Defender.ordinal()][unit.ordinal()] = units[Side_Enum.Defender.ordinal()][unit.ordinal()] / count;
+        if (count > 0) {
+            for (UnitEnum unit : UnitEnum.values()) {
+                units[Side_Enum.Agressor.ordinal()][unit.ordinal()] = units[Side_Enum.Agressor.ordinal()][unit.ordinal()] / count;
+                units[Side_Enum.Defender.ordinal()][unit.ordinal()] = units[Side_Enum.Defender.ordinal()][unit.ordinal()] / count;
+            }
+            for (Side_Enum side : Side_Enum.values()) {
+                result[side.ordinal()] = result[side.ordinal()] / count;
+            }
         }
 
-        for (Side_Enum side : Side_Enum.values()) {
-            result[side.ordinal()] = result[side.ordinal()] / count;
-        }
         done = count;
     }
 
@@ -143,9 +144,7 @@ public class Statistics {
     public void setPlayerStatus(Player_Status_Enum playerStatus) {
         this.playerStatus = playerStatus;
     }
-    
-    
-    
+
     @Override
     public String toString() {
         System.out.println("Agressor");
@@ -357,7 +356,7 @@ public class Statistics {
             }
         }
         long distance = getDistance();
-        int value = (int) Math.round((35000.0/fleetSpeedPercent* Math.pow((distance * 1000 / (min)), 0.5) + 10) / (universeSpeed));
+        int value = (int) Math.round((35000.0 / fleetSpeedPercent * Math.pow((distance * 1000 / (min)), 0.5) + 10) / (universeSpeed));
         return value;
     }
 

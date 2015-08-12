@@ -45,6 +45,10 @@ public class Simulation_SWING extends Simulation {
         return ThreadLocalRandom.current().nextInt(bound);
     }
     
+    public SwingWorker<Integer, Integer> getWorker(){
+        return worker;
+    }
+    
     public void simulate(int SimulationCount) {
         statistics = new Statistics[SimulationCount];
         worker = new SwingWorker<Integer, Integer>() {

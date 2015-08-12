@@ -9,28 +9,20 @@ package GUI;
 import Enums.LangEnum;
 import OgameApi.ServerData;
 import OgameApi.Universes;
-import OgameApi.Universes.Universe;
 import Utilities.IO_Utilities;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -39,7 +31,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.xml.bind.JAXBException;
 
 /**
@@ -47,7 +38,6 @@ import javax.xml.bind.JAXBException;
  * @author Piotr Wilczynski
  */
 public class TopBar extends JPanel {
-
     private BufferedImage background;
 
     public TopBar() {
@@ -67,6 +57,7 @@ public class TopBar extends JPanel {
         Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         this.setBorder(padding);
         servers = new JComboBox<>();
+        users = new JComboBox<>();
         //countries.setOpaque(false);
         countries = new JComboBox<>(labels);
         countries.addActionListener(new ActionListener() {
@@ -134,5 +125,5 @@ public class TopBar extends JPanel {
 
     private JComboBox<JLabel> countries;
     private JComboBox<String> servers;
-    private ComboBoxModel<String> boxModel;
+    private JComboBox<String> users;
 }

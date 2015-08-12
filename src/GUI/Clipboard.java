@@ -16,14 +16,14 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import Enums.Research_Enum;
+import Enums.ResearchEnum;
 import Enums.Resources_Enum;
 import Enums.UnitEnum;
 
 public class Clipboard extends Thread implements ClipboardOwner{
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private java.awt.datatransfer.Clipboard clip;
-    private Hashtable<Research_Enum,Integer> researches;
+    private Hashtable<ResearchEnum,Integer> researches;
     private Hashtable<Resources_Enum,Integer> resources;
     private Hashtable<UnitEnum,Integer> units;
     private long time;
@@ -52,7 +52,7 @@ public class Clipboard extends Thread implements ClipboardOwner{
         }  
     }  
 
-    public Hashtable<Research_Enum, Integer> getResearches() {
+    public Hashtable<ResearchEnum, Integer> getResearches() {
         return researches;
     }
 
@@ -65,7 +65,7 @@ public class Clipboard extends Thread implements ClipboardOwner{
     }
     @SuppressWarnings("fallthrough")
     private void function(String text){
-        Hashtable<Research_Enum,Integer> rese = new Hashtable<>();
+        Hashtable<ResearchEnum,Integer> rese = new Hashtable<>();
         Hashtable<Resources_Enum,Integer> reso = new Hashtable<>();
         Hashtable<UnitEnum,Integer> unit = new Hashtable<>();
         ArrayList<String> list = new ArrayList<>();
@@ -86,7 +86,7 @@ public class Clipboard extends Thread implements ClipboardOwner{
                 if(i-1>=0){
                     switch(level){
                         case researches:{
-                            for(Research_Enum res:Research_Enum.values()){
+                            for(ResearchEnum res:ResearchEnum.values()){
                                 if(list.get(i-1).matches(Lang.GUI_Lang.get(res.name()))){
                                     rese.put(res, number);
                                     break;

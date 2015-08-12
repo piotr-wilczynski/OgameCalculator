@@ -130,7 +130,7 @@ public class GUI extends JFrame {
                         d.setNumber("" + clipboard.getUnits().getOrDefault(unit, 0));
                     }
                 }
-                for (Research_Enum reserches : Research_Enum.values()) {
+                for (ResearchEnum reserches : ResearchEnum.values()) {
                     UnitPanel t = technology.get(reserches, Side_Enum.Defender);
                     if (t != null) {
                         t.setNumber("" + clipboard.getResearches().getOrDefault(reserches, 0));
@@ -224,7 +224,7 @@ public class GUI extends JFrame {
                 d.setEdtable(value);
             }
         }
-        for (Research_Enum res : Research_Enum.values()) {
+        for (ResearchEnum res : ResearchEnum.values()) {
             UnitPanel tp1 = technology.get(res, Side_Enum.Agressor);
             UnitPanel tp2 = technology.get(res, Side_Enum.Defender);
             if (tp1 != null) {

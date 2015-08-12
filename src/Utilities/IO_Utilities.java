@@ -16,7 +16,7 @@ public class IO_Utilities {
     public static BufferedImage getImage(String file){
         BufferedImage bi = null;
         try {
-            bi = ImageIO.read(IO_Utilities.class.getResource("/images/"+file));
+            bi = ImageIO.read(IO_Utilities.class.getResource("/Images/"+file));
         } catch (IOException ex) {
             
         }
