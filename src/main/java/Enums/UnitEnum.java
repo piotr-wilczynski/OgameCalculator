@@ -49,7 +49,7 @@ public enum UnitEnum {
     private final HashMap<UnitEnum, Integer> Rapidfire;
     private final int localizationId;
 
-    private UnitEnum(int Metal, int Crystal, int Deuterium, int Structural_Integrity, float Shield_Strength, float Attack_Strength, int Speed, int Cargo_Capacity, int Fuel_Usage,int localizationId) {
+    UnitEnum(int Metal, int Crystal, int Deuterium, int Structural_Integrity, float Shield_Strength, float Attack_Strength, int Speed, int Cargo_Capacity, int Fuel_Usage, int localizationId) {
         this.Metal = Metal;
         this.Crystal = Crystal;
         this.Deuterium = Deuterium;
@@ -63,7 +63,7 @@ public enum UnitEnum {
         this.localizationId = localizationId; 
     }
 
-    private UnitEnum(int Metal, int Crystal, int Deuterium, int Structural_Integrity, float Shield_Strength, float Attack_Strength, int Speed, int Cargo_Capacity, int Fuel_Usage, RapidFire[] rapidfire,int localizationId) {
+    UnitEnum(int Metal, int Crystal, int Deuterium, int Structural_Integrity, float Shield_Strength, float Attack_Strength, int Speed, int Cargo_Capacity, int Fuel_Usage, RapidFire[] rapidfire, int localizationId) {
         this.Metal = Metal;
         this.Crystal = Crystal;
         this.Deuterium = Deuterium;
@@ -78,6 +78,16 @@ public enum UnitEnum {
             Rapidfire.put(rf.unit, rf.rapidfire);
         }
         this.localizationId = localizationId; 
+    }
+
+    public static int getFleetNumber() {
+        int i = 0;
+        for (UnitEnum u : values()) {
+            if (u.isFleet()) {
+                i++;
+            }
+        }
+        return i;
     }
 
     public boolean isFleet() {
@@ -100,16 +110,6 @@ public enum UnitEnum {
             }
         }
         return false;
-    }
-
-    public static int getFleetNumber() {
-        int i = 0;
-        for (UnitEnum u : values()) {
-            if (u.isFleet()) {
-                i++;
-            }
-        }
-        return i;
     }
 
     public boolean isDefense() {
@@ -212,7 +212,6 @@ public enum UnitEnum {
                     return 20;
                 }
             }
-            ;
             default: {
                 return Fuel_Usage;
             }

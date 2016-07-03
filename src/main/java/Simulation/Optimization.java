@@ -21,17 +21,15 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Optimization extends SimpleSimulationImpl {
 
+    private final int sleepTime = 10;
+    float metalRate, crystalRate, deuteriumRate;
     //initProps
     private int availableProcessors;
     private PropertyChangeListener listener = null;
     private SwingWorker<Integer, Integer> worker;
     private boolean isDone;
     private ThreadGroup threads;
-    private final int sleepTime = 10;
-
     private int[] unitsEqualNumber;
-
-    float metalRate, crystalRate, deuteriumRate;
 
     public Optimization() {
         super();
@@ -43,12 +41,12 @@ public class Optimization extends SimpleSimulationImpl {
         deuteriumRate = 1;
     }
 
-    public void setProcessors(int processors) {
-        this.availableProcessors = processors;
-    }
-
     public int getProcessors() {
         return availableProcessors;
+    }
+
+    public void setProcessors(int processors) {
+        this.availableProcessors = processors;
     }
 
     public void setListener(PropertyChangeListener listener) {

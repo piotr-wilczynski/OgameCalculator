@@ -24,7 +24,7 @@ public enum ResearchEnum {
     ArmourTechnology(111);    
 
     private final int localizationId;
-    private ResearchEnum(int localizationId) {
+    ResearchEnum(int localizationId) {
         this.localizationId = localizationId;
     }
     

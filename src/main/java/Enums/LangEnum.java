@@ -23,7 +23,7 @@ public enum LangEnum {
 
     private final int flagId;
 
-    private LangEnum(int flagId) {
+    LangEnum(int flagId) {
         this.flagId = flagId;
     }
 

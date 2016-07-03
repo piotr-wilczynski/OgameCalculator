@@ -23,6 +23,9 @@ import java.util.Locale;
  */
 public class TopBar extends JPanel {
     private BufferedImage background;
+    private JComboBox<JLabel> countries;
+    private JComboBox<String> servers;
+    private JComboBox<String> users;
 
     public TopBar() {
         background = IO_Utilities.getImageMatrix(IO_Utilities.getImage("topBarBackground.png"), 2, 1)[0][0];
@@ -79,9 +82,9 @@ public class TopBar extends JPanel {
         countries.setRenderer(new ListCellRenderer<JLabel>() {
             @Override
             public Component getListCellRendererComponent(JList<? extends JLabel> list, JLabel value, int index, boolean isSelected, boolean cellHasFocus) {
-                JLabel p = (JLabel) value;
+                JLabel p = value;
                 p.setBackground(isSelected ? new Color(168, 221, 255) : Color.GREEN);
-                p.setOpaque(isSelected ? true : false);
+                p.setOpaque(isSelected);
                 return p;
             }
         });
@@ -91,15 +94,15 @@ public class TopBar extends JPanel {
         this.setLayout(l);
         l.setHorizontalGroup(l.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addGroup(l.createSequentialGroup()
-                        .addComponent(countries, l.PREFERRED_SIZE, 200, l.PREFERRED_SIZE)
-                        .addComponent(servers, l.PREFERRED_SIZE, 200, l.PREFERRED_SIZE)
+                        .addComponent(countries, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(servers, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
                 ));
         l.setVerticalGroup(
                 l.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addGroup(l.createSequentialGroup()
                         .addGroup(l.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(countries, l.PREFERRED_SIZE, l.DEFAULT_SIZE, l.PREFERRED_SIZE)
-                                .addComponent(servers, l.PREFERRED_SIZE, l.DEFAULT_SIZE, l.PREFERRED_SIZE)
+                                .addComponent(countries, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(servers, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         )
                 ));
     }
@@ -107,8 +110,4 @@ public class TopBar extends JPanel {
     public void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
     }
-
-    private JComboBox<JLabel> countries;
-    private JComboBox<String> servers;
-    private JComboBox<String> users;
 }

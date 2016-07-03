@@ -29,18 +29,14 @@ import utilities.FXIO;
  * @author Piotr
  */
 public class FXMLController implements Initializable {
-    
-    private Image[] FleetImage;
-    private Image[] DefenseImage;
-    
-    @FXML    
-    private AnchorPane MainPane; 
-    
+
+    public UnitPanelFX[] Combat_Ships_Attacker, Combat_Ships_Defender, Civil_Ships_Attacker, Civil_Ships_Defender, Defensive_Structures;
     @FXML
     Parent root;
-    
-    public UnitPanelFX[] Combat_Ships_Attacker,Combat_Ships_Defender,Civil_Ships_Attacker,Civil_Ships_Defender,Defensive_Structures;
-    
+    private Image[] FleetImage;
+    private Image[] DefenseImage;
+    @FXML
+    private AnchorPane MainPane;
     @FXML
     private ProgressIndicator progress;
     

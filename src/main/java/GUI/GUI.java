@@ -193,7 +193,7 @@ public class GUI extends JFrame {
                     if (PropertyName.matches("done")) {
                         publish_results(sim.getStatistics());
                     } else if (PropertyName.matches("state")) {
-                        if (((SwingWorker.StateValue) evt.getNewValue()).equals(SwingWorker.StateValue.DONE)) {
+                        if (evt.getNewValue().equals(SwingWorker.StateValue.DONE)) {
                             publish_results(sim.getStatistics());
                             setGUIEnable(processing);
                             processing = false;

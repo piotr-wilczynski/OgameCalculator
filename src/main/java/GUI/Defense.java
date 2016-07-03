@@ -107,7 +107,7 @@ public class Defense extends ImagePanel{
     
     public UnitPanel get(UnitEnum unit){
         for(UnitPanel u:defense){
-            if(((UnitEnum)u.getObject()).equals(unit))
+            if(u.getObject().equals(unit))
                 return u;
         }
         return null;

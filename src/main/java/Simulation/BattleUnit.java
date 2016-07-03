@@ -135,6 +135,15 @@ public class BattleUnit {
     }
 
     /**
+     * Setter for hull plating.
+     *
+     * @param hullPlating value of hull plating.
+     */
+    public void setHullPlating(float hullPlating) {
+        this.hullPlating = hullPlating;
+    }
+
+    /**
      * Getter for shield strength.
      *
      * @return shield strength of unit.
@@ -144,12 +153,30 @@ public class BattleUnit {
     }
 
     /**
+     * Setter for shield strength.
+     *
+     * @param shieldStrength value of shield strength.
+     */
+    public void setShieldStrength(float shieldStrength) {
+        this.shieldStrength = shieldStrength;
+    }
+
+    /**
      * Getter for attack strength.
      *
      * @return attack strength of unit.
      */
     public float getAttackStrength() {
         return attackStrength;
+    }
+
+    /**
+     * Setter for attack strength.
+     *
+     * @param attackStrength value of attack strength.
+     */
+    public void setAttackStrength(float attackStrength) {
+        this.attackStrength = attackStrength;
     }
 
     /**
@@ -163,43 +190,12 @@ public class BattleUnit {
     }
 
     /**
-     * Setter for hull plating.
-     *
-     * @param hullPlating value of hull plating.
-     */
-    public void setHullPlating(float hullPlating) {
-        this.hullPlating = hullPlating;
-    }
-
-    /**
-     * Setter for shield strength.
-     *
-     * @param shieldStrength value of shield strength.
-     */
-    public void setShieldStrength(float shieldStrength) {
-        this.shieldStrength = shieldStrength;
-    }
-
-    /**
-     * Setter for attack strength.
-     *
-     * @param attackStrength value of attack strength.
-     */
-    public void setAttackStrength(float attackStrength) {
-        this.attackStrength = attackStrength;
-    }
-
-    /**
      * This method return state of the unit.
      *
      * @return true if unit is destroyed.
      */
     public boolean isDestroyed() {
-        if (hullPlating <= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return hullPlating <= 0;
     }
 
     /**
@@ -229,11 +225,7 @@ public class BattleUnit {
      */
     private boolean probability(double chance) {
         double r = random.nextDouble();
-        if (r * 100 <= (chance)) {
-            return true;
-        } else {
-            return false;
-        }
+        return r * 100 <= (chance);
     }
 
 }

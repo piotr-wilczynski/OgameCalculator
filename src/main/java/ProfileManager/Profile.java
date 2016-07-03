@@ -39,16 +39,21 @@ public class Profile implements Serializable{
             localization = api.OgameApi.getInstance().getLocalization(profiles[0].getLanguage().getServerCountryCode(),profiles[0].getServer_ID(),false);
     }    
 
+    public static Profile getInstance() {
+        return profile;
+    }
+
     public Locale getLanguage() {
         return new Locale(lang);
-    } 
+    }
+
     public void setLanguage(Locale lang) {
         this.lang = lang.getLanguage();
     }
 
     public Localization getLocalization() {
         return localization;
-    }    
+    }
 
     public String getLang() {
         return lang;
@@ -72,10 +77,6 @@ public class Profile implements Serializable{
 
     public void setMainProfile(int mainProfile) {
         this.currnetProfile = mainProfile;
-    }
-
-    public static Profile getInstance() {
-        return profile;
     }
     
     

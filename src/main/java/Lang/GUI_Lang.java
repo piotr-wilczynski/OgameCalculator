@@ -16,15 +16,13 @@ import java.util.List;
 public class GUI_Lang {
 
     private static final GUI_Lang gui = new GUI_Lang();
+    private static Hashtable<String, String> texts;
     public final String shipyard_of_argessor;
     public final String shipyard_of_defender;
     public final String defense_of_defender;
     public final String research;
-    ;
     public final String agressor;
-    ;
     public final String defender;
-    private static Hashtable<String, String> texts;
 
     public GUI_Lang() {
         texts = new Hashtable<>();

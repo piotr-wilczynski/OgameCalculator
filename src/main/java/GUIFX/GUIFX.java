@@ -18,7 +18,11 @@ import javafx.stage.Stage;
  * @author Piotr
  */
 public class GUIFX extends Application {
-    
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXML2.fxml"));
@@ -26,9 +30,6 @@ public class GUIFX extends Application {
         stage.setScene(scene);
         //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-    }
-    public static void main(String[] args) {
-        launch(args);
     }
     
 

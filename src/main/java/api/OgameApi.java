@@ -28,6 +28,10 @@ public class OgameApi {
 
     private Integer counter;
 
+    public static OgameApi getInstance() {
+        return ogameApi;
+    }
+
     public Universes getUniverses(String lang) {
         ThreadGroup tg = new ThreadGroup("Universes Search");
         universes = null;
@@ -145,10 +149,6 @@ public class OgameApi {
 
     public Localization getLocalization(ServerData serverData, boolean Update) throws MalformedURLException, JAXBException, FileNotFoundException {
         return localization = getLocalization("http://" + serverData.getDomain(), Update);
-    }
-
-    public static OgameApi getInstance() {
-        return ogameApi;
     }
 
     private <T> T readData(String URL, Class<T> classType, boolean Update) throws MalformedURLException, JAXBException, FileNotFoundException {

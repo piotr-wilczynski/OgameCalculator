@@ -7,7 +7,7 @@ import statistics.Statistics;
  */
 public interface Simulation {
 
-	public static final int MAX_NUMBER_OF_ROUNDS = 6;
+	int MAX_NUMBER_OF_ROUNDS = 6;
 
 	Statistics battle();
 

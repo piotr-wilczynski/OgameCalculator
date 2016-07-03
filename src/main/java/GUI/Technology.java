@@ -27,12 +27,11 @@ import utilities.IO_Utilities;
  */
 public class Technology extends ImagePanel {
     private static final long serialVersionUID = 8230957842425927537L;
-
-    private JLabel title;
-    private JLabel label_agressor, label_defender;
     public static int Attacker_Side = 0;
     public static int Defender_Side = 1;
     UnitPanel[] attacker, defender;
+    private JLabel title;
+    private JLabel label_agressor, label_defender;
 
     public Technology(String text) {
         super(IO_Utilities.getImage("Research.jpg"));
@@ -43,13 +42,13 @@ public class Technology extends ImagePanel {
     public UnitPanel get(ResearchEnum research, SideEnum side) {
         if (side == SideEnum.Agressor) {
             for (UnitPanel u : attacker) {
-                if (((ResearchEnum) u.getObject()).equals(research)) {
+                if (u.getObject().equals(research)) {
                     return u;
                 }
             }
         } else if (side == SideEnum.Defender) {
             for (UnitPanel u : defender) {
-                if (((ResearchEnum) u.getObject()).equals(research)) {
+                if (u.getObject().equals(research)) {
                     return u;
                 }
             }
