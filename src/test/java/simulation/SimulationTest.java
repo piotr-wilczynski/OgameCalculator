@@ -15,7 +15,7 @@ public class SimulationTest {
 
 	@org.junit.Before
 	public void setUp() throws Exception {
-		simulation = new SimulationSwing2();
+		simulation = new SimulationSwing();
 		mapSimulation = new MapSimulationImpl();
 		simulation.setUnitNumber(SideEnum.Agressor, UnitEnum.Cruiser, 2600);
 		mapSimulation.setUnitNumber(SideEnum.Agressor, UnitEnum.Cruiser, 2600);

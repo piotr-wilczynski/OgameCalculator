@@ -16,14 +16,14 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * @author Piotr
  */
-public class SimulationSwing2 extends SimpleSimulationImpl {
+public class SimulationSwing extends SimpleSimulationImpl {
 
 	private int processors;
 	private SwingWorker<Integer, Integer> worker;
 	private Integer done;
 	private PropertyChangeListener listener = null;
 
-	public SimulationSwing2() {
+	public SimulationSwing() {
 		super();
 		processors = Runtime.getRuntime().availableProcessors();
 	}
