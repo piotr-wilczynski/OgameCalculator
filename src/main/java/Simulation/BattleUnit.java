@@ -94,7 +94,7 @@ public class BattleUnit {
      * @see BattleUnit
      * @see BattleTechnologies
      */
-    public boolean Fight(BattleUnit unit, BattleTechnologies tech) {
+    public boolean fight(BattleUnit unit, BattleTechnologies tech) {
         //If the Weaponry of the shooting unit is less than 1% of the Shielding of the target unit, the shot is bounced, and the target unit does not lose anything (i.e. shot is wasted).
         if (attackStrength < unit.getShieldStrength() / 100) {
         } else if (attackStrength < unit.getShieldStrength()) {
@@ -106,17 +106,17 @@ public class BattleUnit {
             }
             unit.setHullPlating(hull);
             unit.setShieldStrength(0);
-            float initial_hull = unit.getUnit().getHullPlating(tech);
-            if (unit.getHullPlating() < 0.7f * initial_hull && hull > 0) {
+            float initialHull = unit.getUnit().getHullPlating(tech);
+            if (unit.getHullPlating() < 0.7f * initialHull && hull > 0) {
                 //if(rand() % 100 >= 100.f * obj->Life / MaxLifes[DefferID][ZielTeam][obj->Type])
-                if (random.nextInt(100) >= 100 * (unit.getHullPlating() / initial_hull)) {
+                if (random.nextInt(100) >= 100 * (unit.getHullPlating() / initialHull)) {
                     unit.setHullPlating(0);
                 }
             }
         }
-        int rapidfire;
-        if ((rapidfire = this.unit.getRapidfire(unit.getUnit())) > 0) {
-            double probabilityToShotAgain = (100 - (100.0 / rapidfire));
+        int rapidFire;
+        if ((rapidFire = this.unit.getRapidfire(unit.getUnit())) > 0) {
+            double probabilityToShotAgain = 100 - (100.0 / rapidFire);
             if (probability(probabilityToShotAgain)) {
                 return true;
             }

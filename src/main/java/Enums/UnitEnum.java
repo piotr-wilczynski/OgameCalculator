@@ -135,11 +135,11 @@ public enum UnitEnum {
     }
 
     public int getStructuralIntegrity(BattleTechnologies tech) {
-        return Structural_Integrity + ((Structural_Integrity * tech.getArmour_Technology()) / 10);
+        return Structural_Integrity + ((Structural_Integrity * tech.getArmourTechnology()) / 10);
     }
 
     public float getHullPlating(BattleTechnologies tech) {
-        return 0.1f * (Structural_Integrity + ((Structural_Integrity * tech.getArmour_Technology()) / 10));
+        return 0.1f * (Structural_Integrity + ((Structural_Integrity * tech.getArmourTechnology()) / 10));
     }
 
     public float getShieldStrength() {
@@ -147,7 +147,7 @@ public enum UnitEnum {
     }
 
     public float getShieldStrength(BattleTechnologies tech) {
-        return Shield_Strength + ((Shield_Strength * tech.getShielding_Technology()) / 10);
+        return Shield_Strength + ((Shield_Strength * tech.getShieldingTechnology()) / 10);
     }
 
     public float getAttackStrength() {
@@ -155,7 +155,7 @@ public enum UnitEnum {
     }
 
     public float getAttackStrength(BattleTechnologies tech) {
-        return Attack_Strength + ((Attack_Strength * tech.getWeapons_Technology()) / 10);
+        return Attack_Strength + ((Attack_Strength * tech.getWeaponsTechnology()) / 10);
     }
 
     public float getSpeed() {
@@ -168,31 +168,31 @@ public enum UnitEnum {
             case LargeCargo:
             case Recycler:
             case EspionageProbe: {
-                return Speed + (tech.getCombustion_Drive() * Speed / 10);
+                return Speed + (tech.getCombustionDrive() * Speed / 10);
             }
             case HeavyFighter:
             case Cruiser:
             case ColonyShip: {
-                return Speed + (tech.getImpulse_Drive() * Speed * 2 / 10);
+                return Speed + (tech.getImpulseDrive() * Speed * 2 / 10);
             }
             case Battleship:
             case Battlecruiser:
             case Destroyer:
             case Deathstar: {
-                return Speed + (tech.getHyperspace_Drive() * Speed * 3 / 10);
+                return Speed + (tech.getHyperspaceDrive() * Speed * 3 / 10);
             }
             case SmallCargo: {
-                if (tech.getImpulse_Drive() < 5) {
-                    return Speed + (tech.getCombustion_Drive() * Speed / 10);
+                if (tech.getImpulseDrive() < 5) {
+                    return Speed + (tech.getCombustionDrive() * Speed / 10);
                 } else {
-                    return 10000 + (tech.getImpulse_Drive() * 10000 * 2 / 10);
+                    return 10000 + (tech.getImpulseDrive() * 10000 * 2 / 10);
                 }
             }
             case Bomber: {
-                if (tech.getHyperspace_Drive() < 8) {
-                    return Speed + (tech.getImpulse_Drive() * Speed * 2 / 10);
+                if (tech.getHyperspaceDrive() < 8) {
+                    return Speed + (tech.getImpulseDrive() * Speed * 2 / 10);
                 } else {
-                    return 5000 + (tech.getHyperspace_Drive() * 5000 * 3 / 10);
+                    return 5000 + (tech.getHyperspaceDrive() * 5000 * 3 / 10);
                 }
             }
 
@@ -208,7 +208,7 @@ public enum UnitEnum {
     public int getFuelUsage(BattleTechnologies technologies) {
         switch (this) {
             case SmallCargo: {
-                if (technologies.getImpulse_Drive() >= 5) {
+                if (technologies.getImpulseDrive() >= 5) {
                     return 20;
                 }
             }
