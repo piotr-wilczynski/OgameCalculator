@@ -74,7 +74,7 @@ public abstract class SimpleSimulationImpl extends SimpleUnitsImpl implements Si
 	private void attackAll(BattleUnit[] attacker, BattleUnit[] defender, BattleTechnologies defenderTech) {
 		for (BattleUnit unit : attacker) {
 			int r = random(defender.length);
-			while (unit.Fight(defender[r], defenderTech)) {
+			while (unit.fight(defender[r], defenderTech)) {
 				r = random(defender.length);
 			}
 		}

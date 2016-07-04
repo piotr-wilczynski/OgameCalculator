@@ -85,7 +85,7 @@ public class MapSimulationImpl extends MapUnitsImpl implements Simulation {
 			BattleUnit unitToAttack;
 			do {
 				unitToAttack = defender.get(random(defender.size()));
-			} while (battleUnit.Fight(unitToAttack, defenderTech));
+			} while (battleUnit.fight(unitToAttack, defenderTech));
 		});
 	}
 
