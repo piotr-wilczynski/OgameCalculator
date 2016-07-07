@@ -12,7 +12,7 @@ import simulation.BattleTechnologies;
 import simulation.SimulationSwing;
 import statistics.Coordinates;
 import statistics.Statistics;
-import utilities.IO_Utilities;
+import utilities.IOUtilities;
 import utilities.Strings;
 
 import javax.swing.*;
@@ -48,7 +48,7 @@ public class GUI extends JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        JPanel p = new ImagePanel(IO_Utilities.getImage("background.png"));
+        JPanel p = new ImagePanel(IOUtilities.getImage("background.png"));
         p.setOpaque(true);
         getContentPane().add(p);
         this.setSize(p.getMaximumSize());
@@ -144,7 +144,7 @@ public class GUI extends JFrame {
                 result.getPlanet().setDeuterium(clipboard.getResources().getOrDefault(Resources_Enum.Deuterium, 0));
             }
         });
-        setIconImage(utilities.IO_Utilities.getImage("icon.png"));
+        setIconImage(IOUtilities.getImage("icon.png"));
         new Thread(clipboard).start();
     }
 
@@ -218,23 +218,23 @@ public class GUI extends JFrame {
             UnitPanel dp = defender_shipyard.get(unit);
             UnitPanel d = defense.get(unit);
             if (ap != null) {
-                ap.setEdtable(value);
+                ap.setEditable(value);
             }
             if (dp != null) {
-                dp.setEdtable(value);
+                dp.setEditable(value);
             }
             if (d != null) {
-                d.setEdtable(value);
+                d.setEditable(value);
             }
         }
         for (ResearchEnum res : ResearchEnum.values()) {
             UnitPanel tp1 = technology.get(res, SideEnum.Agressor);
             UnitPanel tp2 = technology.get(res, SideEnum.Defender);
             if (tp1 != null) {
-                tp1.setEdtable(value);
+                tp1.setEditable(value);
             }
             if (tp2 != null) {
-                tp2.setEdtable(value);
+                tp2.setEditable(value);
             }
 
         }

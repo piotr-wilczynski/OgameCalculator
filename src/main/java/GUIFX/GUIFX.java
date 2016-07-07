@@ -7,7 +7,6 @@
 package GUIFX;
 
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +24,7 @@ public class GUIFX extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXML2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML2.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         //stage.initStyle(StageStyle.UNDECORATED);

@@ -6,25 +6,15 @@
  */
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import enums.ResearchEnum;
 import enums.UnitEnum;
-import utilities.IO_Utilities;
+import utilities.IOUtilities;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 public class UnitPanel extends JPanel{
     private static final long serialVersionUID = 7351637395493681985L;
@@ -38,24 +28,24 @@ public class UnitPanel extends JPanel{
     public UnitPanel(UnitEnum unit) {  
         this.object = unit;
         images = getImage(unit);
-        background2 = IO_Utilities.getImage("labels.gif");  
+        background2 = IOUtilities.getImage("labels.gif");
         setToolTipText(lang.GUI_Lang.getUnit(unit));
-        initComonents();
+        initComponents();
     }
 
     public UnitPanel(ResearchEnum research) {
         this.object = research;
         images = getImage(research);
-        background2 = IO_Utilities.getImage("labels.gif");  
-        initComonents();
+        background2 = IOUtilities.getImage("labels.gif");
+        initComponents();
     }
     
     public void addActionListener(ActionListener action){
         textfield.addActionListener(action);
     }
-    
-    
-    private void initComonents(){
+
+
+    private void initComponents() {
         background = images[0];             
         setOpaque(false);
         label = new JLabel();
@@ -90,9 +80,6 @@ public class UnitPanel extends JPanel{
                         textfield.setText(text);
                 }
             }
-            
-            
-            
         });        
         
         setMaximumSize(new Dimension(background.getWidth(), background.getHeight()));
@@ -112,8 +99,8 @@ public class UnitPanel extends JPanel{
     }
     
     private  BufferedImage[] getImage(UnitEnum unit){
-        BufferedImage[][]ships = IO_Utilities.getImageMatrix(IO_Utilities.getImage("ships.png"), 3, 14);
-        BufferedImage[][]defense = IO_Utilities.getImageMatrix(IO_Utilities.getImage("defensive_structures.png"), 3, 11);
+        BufferedImage[][] ships = IOUtilities.getImageMatrix(IOUtilities.getImage("ships.png"), 3, 14);
+        BufferedImage[][] defense = IOUtilities.getImageMatrix(IOUtilities.getImage("defensive_structures.png"), 3, 11);
         switch(unit){
             case SmallCargo: return ships[0];
             case LargeCargo: return ships[1];
@@ -145,7 +132,7 @@ public class UnitPanel extends JPanel{
     }
     
     private BufferedImage[] getImage(ResearchEnum research){
-        BufferedImage[][]researches = IO_Utilities.getImageMatrix(IO_Utilities.getImage("technologies.png"), 3, ResearchEnum.values().length);
+        BufferedImage[][] researches = IOUtilities.getImageMatrix(IOUtilities.getImage("technologies.png"), 3, ResearchEnum.values().length);
         switch(research){
             case EspionageTechnology: return researches[0];
             case ComputerTechnology: return researches[1];
@@ -193,9 +180,9 @@ public class UnitPanel extends JPanel{
         }
         super.setEnabled(enabled);
         updateUI();
-    }    
-    
-    public void setEdtable(boolean enabled){
+    }
+
+    public void setEditable(boolean enabled) {
         if(enabled){
             background = images[0];
             textfield.setEditable(enabled);
@@ -211,11 +198,11 @@ public class UnitPanel extends JPanel{
     }
 
     public int getNumber() {
-        int i = 0;
+        int i;
         try{
             i = Integer.parseInt(textfield.getText());
         }catch(NumberFormatException ex){
-            textfield.setText(""+0);
+            textfield.setText(Integer.toString(0));
             return 0;
         }
         return i;

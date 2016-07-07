@@ -6,23 +6,20 @@
  */
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import enums.UnitEnum;
-import utilities.IO_Utilities;
+import utilities.IOUtilities;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class Defense extends ImagePanel{
     private static final long serialVersionUID = -4126305380843207028L;
     private UnitPanel[] defense;
     private JLabel label;
     public Defense(String text) {
-        super(IO_Utilities.getImage("Defense.jpg")); 
+        super(IOUtilities.getImage("Defense.jpg"));
         label = new JLabel(text);       
         initComponents();
     }

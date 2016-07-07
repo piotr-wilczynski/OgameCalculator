@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-/*
- * Copyright (C) 2015 Piotr Wilczynski.
- * All rights reserved. 
- *
- * Please refer any queries to Piotr Wilczynski <wilczynskipio@gmail.com>.
- */
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.media.*?>
 <?import javafx.scene.web.*?>
@@ -17,7 +10,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="main-panel" fx:id="MainPane" prefHeight="800.0" prefWidth="1404.0" stylesheets="@FXML.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIFX.FXMLController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="main-panel" fx:id="MainPane" prefHeight="800.0" prefWidth="1404.0" stylesheets="@FXML.css" xmlns="http://javafx.com/javafx/8"
+            fx:controller="GUIFX.FXMLController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="1216.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>

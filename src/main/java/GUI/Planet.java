@@ -8,6 +8,7 @@ package gui;
 
 import enums.Resources_Enum;
 import statistics.Coordinates;
+import utilities.IOUtilities;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -142,27 +143,21 @@ public class Planet extends JDialog{
                 .addComponent(cancel)
                 .addComponent(ok)));
         
-        setIconImage(utilities.IO_Utilities.getImage("icon.png"));
+        setIconImage(IOUtilities.getImage("icon.png"));
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         pack();
     }
     
-    public void setMetal(long Metal){
-        metal.setText(""+Metal);
-    }
-    public void setCrystal(long Crystal){
-        crystal.setText(""+Crystal);
-    }
-    public void setDeuterium(long Deuterium){
-        deuterium.setText(""+Deuterium);
-    }
-
     public long getMetal() {
         try{
             return Long.parseLong(metal.getText());
         }catch(Exception e){
             return 0;
         }
+    }
+
+    public void setMetal(long Metal){
+        metal.setText(""+Metal);
     }
 
     public long getCrystal() {
@@ -173,12 +168,20 @@ public class Planet extends JDialog{
         }
     }
 
+    public void setCrystal(long Crystal){
+        crystal.setText(""+Crystal);
+    }
+
     public long getDeuterium() {
         try{
             return Long.parseLong(deuterium.getText());
         }catch(Exception e){
             return 0;
         }
+    }
+
+    public void setDeuterium(long Deuterium){
+        deuterium.setText(""+Deuterium);
     }
     
     public long[] getResources(){

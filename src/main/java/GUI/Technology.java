@@ -6,20 +6,17 @@
  */
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import javax.swing.GroupLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
+import enums.ResearchEnum;
 import enums.SideEnum;
 import lang.GUI_Lang;
-import enums.ResearchEnum;
 import simulation.BattleTechnologies;
-import utilities.IO_Utilities;
+import utilities.IOUtilities;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -27,14 +24,14 @@ import utilities.IO_Utilities;
  */
 public class Technology extends ImagePanel {
     private static final long serialVersionUID = 8230957842425927537L;
-    public static int Attacker_Side = 0;
-    public static int Defender_Side = 1;
+    public static int attackerSide = 0;
+    public static int defenderSide = 1;
     UnitPanel[] attacker, defender;
     private JLabel title;
-    private JLabel label_agressor, label_defender;
+    private JLabel labelAgressor, labelDefender;
 
     public Technology(String text) {
-        super(IO_Utilities.getImage("Research.jpg"));
+        super(IOUtilities.getImage("Research.jpg"));
         title = new JLabel(text);
         initComponents();
     }
@@ -61,21 +58,21 @@ public class Technology extends ImagePanel {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
 
-        label_agressor = new JLabel(GUI_Lang.getInstance().agressor);
-        label_agressor.setOpaque(true);
-        label_agressor.setForeground(new Color(255, 193, 7));
-        Font f = label_agressor.getFont();
-        label_agressor.setBorder(new LineBorder(Color.black, 2, true));
-        label_agressor.setFont(new Font(f.getName(), Font.BOLD, 26));
-        label_agressor.setBackground(new Color(10, 10, 10, 150));
+        labelAgressor = new JLabel(GUI_Lang.getInstance().agressor);
+        labelAgressor.setOpaque(true);
+        labelAgressor.setForeground(new Color(255, 193, 7));
+        Font f = labelAgressor.getFont();
+        labelAgressor.setBorder(new LineBorder(Color.black, 2, true));
+        labelAgressor.setFont(new Font(f.getName(), Font.BOLD, 26));
+        labelAgressor.setBackground(new Color(10, 10, 10, 150));
 
-        label_defender = new JLabel(GUI_Lang.getInstance().defender);
-        label_defender.setForeground(new Color(255, 193, 7));
-        f = label_defender.getFont();
-        label_defender.setOpaque(true);
-        label_defender.setBorder(new LineBorder(Color.black, 2, true));
-        label_defender.setFont(new Font(f.getName(), Font.BOLD, 26));
-        label_defender.setBackground(new Color(10, 10, 10, 150));
+        labelDefender = new JLabel(GUI_Lang.getInstance().defender);
+        labelDefender.setForeground(new Color(255, 193, 7));
+        f = labelDefender.getFont();
+        labelDefender.setOpaque(true);
+        labelDefender.setBorder(new LineBorder(Color.black, 2, true));
+        labelDefender.setFont(new Font(f.getName(), Font.BOLD, 26));
+        labelDefender.setBackground(new Color(10, 10, 10, 150));
 
         title.setForeground(Color.WHITE);
         f = title.getFont();
@@ -99,7 +96,7 @@ public class Technology extends ImagePanel {
         l.setAutoCreateGaps(true);
         l.setHorizontalGroup(l.createParallelGroup()
                 .addGroup(l.createSequentialGroup()
-                        .addComponent(label_agressor, labelsize, labelsize, labelsize)
+                        .addComponent(labelAgressor, labelsize, labelsize, labelsize)
                         .addComponent(attacker[0])
                         .addComponent(attacker[1])
                         .addComponent(attacker[2])
@@ -108,13 +105,13 @@ public class Technology extends ImagePanel {
                         .addComponent(attacker[4])
                         .addComponent(attacker[5]))
                 .addGroup(l.createSequentialGroup()
-                        .addComponent(label_defender, labelsize, labelsize, labelsize)
+                        .addComponent(labelDefender, labelsize, labelsize, labelsize)
                         .addComponent(defender[0])
                         .addComponent(defender[1])
                         .addComponent(defender[2])));
         l.setVerticalGroup(l.createSequentialGroup()
                 .addGroup(l.createParallelGroup()
-                        .addComponent(label_agressor, GroupLayout.Alignment.CENTER)
+                        .addComponent(labelAgressor, GroupLayout.Alignment.CENTER)
                         .addComponent(attacker[0])
                         .addComponent(attacker[1])
                         .addComponent(attacker[2])
@@ -122,7 +119,7 @@ public class Technology extends ImagePanel {
                         .addComponent(attacker[4])
                         .addComponent(attacker[5]))
                 .addGroup(l.createParallelGroup()
-                        .addComponent(label_defender, GroupLayout.Alignment.CENTER)
+                        .addComponent(labelDefender, GroupLayout.Alignment.CENTER)
                         .addComponent(defender[0])
                         .addComponent(defender[1])
                         .addComponent(defender[2])

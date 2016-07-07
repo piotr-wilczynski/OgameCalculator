@@ -118,7 +118,7 @@ public class GUI_Lang {
         texts.put("change_planet", "Zmień");
 
         /*try {
-         IO_Utilities.save_ini("polish", texts);
+         IOUtilities.save_ini("polish", texts);
          } catch (IOException ex) {
          ex.printStackTrace();
          }

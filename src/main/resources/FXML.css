@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 #main-panel {
-    -fx-background-image: url('../Images/background.png');
+    -fx-background-image: url('/images/background.png');
     -fx-background-size: 1404, 1098;
     -fx-background-repeat: no-repeat;
     //-fx-background-color:greenyellow;
@@ -19,13 +19,13 @@ and open the template in the editor.
 }
 
 #shipyard {
-    -fx-background-image: url('../Images/Shipyard.jpg');
+    -fx-background-image: url('/images/Shipyard.jpg');
     -fx-background-size: 654, 250;
     -fx-background-repeat: no-repeat;
     -fx-background-color:greenyellow;    
 }
 #defense {
-    -fx-background-image: url('../Images/Defense.jpg');
+    -fx-background-image: url('/images/Defense.jpg');
     -fx-background-size: 654, 250;
     -fx-background-repeat: no-repeat;
     -fx-background-color:greenyellow;

@@ -7,7 +7,7 @@
 package gui;
 
 import enums.LangEnum;
-import utilities.IO_Utilities;
+import utilities.IOUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -28,14 +28,14 @@ public class TopBar extends JPanel {
     private JComboBox<String> users;
 
     public TopBar() {
-        background = IO_Utilities.getImageMatrix(IO_Utilities.getImage("topBarBackground.png"), 2, 1)[0][0];
+        background = IOUtilities.getImageMatrix(IOUtilities.getImage("topBarBackground.png"), 2, 1)[0][0];
         initComponents();
     }
 
     private void initComponents() {
         JLabel[] labels = new JLabel[LangEnum.values().length];
 
-        BufferedImage[][] image = IO_Utilities.getImageMatrix(IO_Utilities.getImage("flags.png"), 63, 1);
+        BufferedImage[][] image = IOUtilities.getImageMatrix(IOUtilities.getImage("flags.png"), 63, 1);
         for (int i = 0; i < labels.length; i++) {
             Locale locale = LangEnum.values()[i].toLocale();
             labels[i] = new JLabel(locale.getDisplayCountry(locale), new ImageIcon(image[0][LangEnum.values()[i].getFlagId()]), JLabel.LEFT);
